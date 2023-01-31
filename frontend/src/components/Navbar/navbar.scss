@@ -1,0 +1,112 @@
+nav {
+  height: 15vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .icon-menu-btn {
+    display: none;
+  }
+  .balance-container {
+    box-sizing: border-box;
+    padding: 1.3rem;
+    width: 22%;
+    display: flex;
+    align-items: center;
+    height: 70%;
+    margin-left: 3vw;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    font-size: 1.2rem;
+    span {
+      font-weight: 800;
+    }
+    &.light {
+      background-color: white;
+      color: var(--text-dark-color);
+    }
+    &.dark {
+      color: var(--text-light-color);
+      background-color: var(--bg-dark-secondary);
+    }
+
+    @media screen and (max-width: 900px) {
+      //   margin-left: 5vw;
+      width: 31%;
+    }
+    @media screen and (max-width: 450px) {
+      //   margin-left: 5vw;
+      width: 70%;
+      display: flex;
+    }
+  }
+
+  &.light {
+    background-color: var(--bg-light-primary);
+  }
+  &.dark {
+    background-color: var(--bg-dark-primary);
+  }
+
+  .profile-container {
+    box-sizing: border-box;
+    padding: 1rem 1.3rem;
+    width: 25%;
+    display: flex;
+    height: 70%;
+    align-items: center;
+    justify-content: center;
+    margin-right: 3vw;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    font-size: 1.2rem;
+
+    span {
+      font-weight: 800;
+    }
+
+    img {
+      height: 30px;
+      width: 30px;
+      border-radius: 50%;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      -ms-border-radius: 50%;
+      -o-border-radius: 50%;
+      margin-left: 15px;
+    }
+    &.light {
+      background-color: white;
+      color: var(--text-dark-color);
+    }
+    &.dark {
+      color: var(--text-light-color);
+      background-color: var(--bg-dark-secondary);
+    }
+
+    @media screen and (max-width: 900px) {
+      width: 36%;
+    }
+    @media screen and (max-width: 450px) {
+      width: 50%;
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 900px) {
+    display: flex;
+    justify-content: space-evenly;
+    .icon-menu-btn {
+      display: block;
+      margin-left: 3vw;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+  }
+}

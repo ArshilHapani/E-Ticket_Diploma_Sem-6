@@ -1,0 +1,18 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-light-primary: #f8fafc;
+  --bg-light-secondary: #f1f5f9;
+
+  --bg-dark-primary: #20232a;
+  --bg-dark-secondary: #33373e;
+
+  --text-light-color: #f2f2f2;
+  --text-dark-color: #0d1b2a;
+}
+.main-parent {
+  display: flex;
+}

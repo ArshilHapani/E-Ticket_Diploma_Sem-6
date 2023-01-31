@@ -1,0 +1,6 @@
+dark_primary_bg : #0f172a
+dark_secondary_bg : #1e293b
+
+
+light_primary_bg: #f8fafc
+light_secondary_bg: #f1f5f9

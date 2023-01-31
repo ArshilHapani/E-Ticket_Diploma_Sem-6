@@ -1,0 +1,134 @@
+.sidebar-container {
+  height: 100vh;
+  width: 20vw;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  filter: drop-shadow(0 20px 13px rgb(0 0 0 / 0.03))
+    drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));
+  .logo-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 2rem 1.7rem;
+    .logo-icon {
+      height: 30px;
+      width: 40px;
+    }
+    span {
+      font-size: 1.5rem;
+      margin-left: 5px;
+    }
+    &.light {
+      text-decoration: none;
+      color: var(--text-dark-color);
+    }
+    &.dark {
+      text-decoration: none;
+      color: var(--text-light-color);
+    }
+  }
+
+  .sidebar-items {
+    display: flex;
+    text-decoration: none;
+    margin: 1rem 2rem;
+    i {
+      font-size: 1.2rem;
+      font-weight: 300;
+    }
+    p {
+      font-size: 1.1rem;
+      margin-left: 15px;
+    }
+    &.light {
+      color: var(--text-dark-color);
+    }
+    &.dark {
+      color: var(--text-light-color);
+    }
+  }
+  @media screen and (max-width: 900px) {
+    display: none;
+  }
+
+  &.light {
+    background-color: var(--bg-light-primary);
+  }
+  &.dark {
+    background-color: var(--bg-dark-secondary);
+  }
+}
+
+// For Medium screen view
+.sidebar-menu {
+  @media screen and (max-width: 900px) {
+    width: 40vw;
+  }
+  @media screen and (max-width: 450px) {
+    width: 60vw;
+  }
+  animation: fadeInLeft 0.3s forwards;
+  opacity: 0;
+  position: absolute;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  filter: drop-shadow(0 20px 13px rgb(0 0 0 / 0.03))
+    drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));
+  .logo-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 2rem 1.7rem;
+    .logo-icon {
+      height: 30px;
+      width: 40px;
+    }
+    .close-icon {
+      position: absolute;
+      top: 4vh;
+      right: 3vw;
+    }
+    span {
+      font-size: 1.5rem;
+      margin-left: 5px;
+    }
+    &.light {
+      text-decoration: none;
+      color: var(--text-dark-color);
+    }
+    &.dark {
+      text-decoration: none;
+      color: var(--text-light-color);
+    }
+  }
+
+  .sidebar-items {
+    display: flex;
+    text-decoration: none;
+    margin: 1rem 2rem;
+    i {
+      font-size: 1.2rem;
+      font-weight: 300;
+    }
+    p {
+      font-size: 1.1rem;
+      margin-left: 15px;
+    }
+    &.light {
+      color: var(--text-dark-color);
+    }
+    &.dark {
+      color: var(--text-light-color);
+    }
+  }
+
+  &.light {
+    background-color: var(--bg-light-primary);
+  }
+  &.dark {
+    background-color: var(--bg-dark-secondary);
+  }
+}
