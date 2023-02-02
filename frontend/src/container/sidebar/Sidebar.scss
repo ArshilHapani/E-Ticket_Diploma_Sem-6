@@ -1,11 +1,17 @@
 .sidebar-container {
+  z-index: 99999 !important;
   height: 100vh;
   width: 20vw;
   display: flex;
   flex-direction: column;
   overflow: auto;
+  transition: all 0.15s ease-in-out;
+  &:hover {
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
+  }
   filter: drop-shadow(0 20px 13px rgb(0 0 0 / 0.03))
     drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));
+
   .logo-container {
     display: flex;
     justify-content: flex-start;
@@ -32,7 +38,11 @@
   .sidebar-items {
     display: flex;
     text-decoration: none;
-    margin: 1rem 2rem;
+    padding: 1rem 2rem;
+    border-radius: 7px;
+    transition: all 0.2s ease-in-out;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
     i {
       font-size: 1.2rem;
       font-weight: 300;
@@ -46,6 +56,9 @@
     }
     &.dark {
       color: var(--text-light-color);
+    }
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
     }
   }
   @media screen and (max-width: 900px) {

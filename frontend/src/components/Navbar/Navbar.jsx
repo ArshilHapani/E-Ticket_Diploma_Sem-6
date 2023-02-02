@@ -3,6 +3,7 @@ import "./navbar.scss";
 import avatar from "../../assets/avatar.jpg";
 import { AiOutlineMenu } from "react-icons/ai";
 import { useStateContext } from "../../context/stateContext";
+import { Avatar, colors, Tooltip, Zoom } from "@mui/material";
 const Navbar = () => {
   const { setSidebarMenu } = useStateContext();
   return (
@@ -16,14 +17,35 @@ const Navbar = () => {
         >
           <AiOutlineMenu />
         </div>
-        <div className="balance-container light">
-          <div>
-            Current balance - <span>500 &#8377;</span>
+        <Tooltip
+          title="your balance"
+          placement="bottom"
+          arrow
+          TransitionComponent={Zoom}
+        >
+          <div className="balance-container light">
+            <div>
+              Current balance - <span>500 &#8377;</span>
+            </div>
           </div>
-        </div>
+        </Tooltip>
         <div className="profile-container light">
-          Hello &nbsp;<span> Arshil Hapani</span>
-          <img src={avatar} alt="user-profile" />
+          <Tooltip
+            title="Profile"
+            arrow
+            TransitionComponent={Zoom}
+            placement="left"
+          >
+            <Avatar
+              src={avatar}
+              sx={{
+                bgcolor: colors.red[600],
+                width: 60,
+                height: 60,
+              }}
+              className="img-avatar"
+            ></Avatar>
+          </Tooltip>
         </div>
       </nav>
     </>

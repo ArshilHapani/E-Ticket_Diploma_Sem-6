@@ -1,0 +1,15 @@
+.layout-container {
+  height: 97%;
+  width: 97%;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  // filter: drop-shadow(0 20px 13px rgb(0 0 0 / 0.03))
+  //   drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));
+  &.light {
+    background-color: var(--bg-light-primary);
+  }
+  &.dark {
+    background-color: var(--bg-dark-secondary);
+  }
+}

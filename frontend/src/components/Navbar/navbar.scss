@@ -4,13 +4,14 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  cursor: default;
   .icon-menu-btn {
     display: none;
   }
   .balance-container {
     box-sizing: border-box;
     padding: 1.3rem;
-    width: 22%;
+    width: 25%;
     display: flex;
     align-items: center;
     height: 70%;
@@ -21,6 +22,10 @@ nav {
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
     font-size: 1.2rem;
+    transition: all 0.15s ease-in-out;
+    &:hover {
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+    }
     span {
       font-weight: 800;
     }
@@ -39,7 +44,7 @@ nav {
     }
     @media screen and (max-width: 450px) {
       //   margin-left: 5vw;
-      width: 70%;
+      width: auto;
       display: flex;
     }
   }
@@ -53,49 +58,30 @@ nav {
 
   .profile-container {
     box-sizing: border-box;
-    padding: 1rem 1.3rem;
-    width: 25%;
+    width: fit-content;
     display: flex;
     height: 70%;
     align-items: center;
     justify-content: center;
-    margin-right: 3vw;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
+    margin-right: 1vw;
+    margin-left: 2vw;
+    border-radius: 50%;
     font-size: 1.2rem;
+    transition: all 0.15s ease-in-out;
+    cursor: pointer;
+    .img-avatar:hover {
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+    }
 
     span {
       font-weight: 800;
-    }
-
-    img {
-      height: 30px;
-      width: 30px;
-      border-radius: 50%;
-      -webkit-border-radius: 50%;
-      -moz-border-radius: 50%;
-      -ms-border-radius: 50%;
-      -o-border-radius: 50%;
-      margin-left: 15px;
-    }
-    &.light {
-      background-color: white;
-      color: var(--text-dark-color);
-    }
-    &.dark {
-      color: var(--text-light-color);
-      background-color: var(--bg-dark-secondary);
     }
 
     @media screen and (max-width: 900px) {
       width: 36%;
     }
     @media screen and (max-width: 450px) {
-      width: 50%;
-      display: none;
+      width: fit-content;
     }
   }
 
@@ -104,7 +90,6 @@ nav {
     justify-content: space-evenly;
     .icon-menu-btn {
       display: block;
-      margin-left: 3vw;
       font-size: 1.5rem;
       cursor: pointer;
     }

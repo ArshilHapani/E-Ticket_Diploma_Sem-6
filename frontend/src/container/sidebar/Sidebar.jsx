@@ -5,6 +5,8 @@ import "./Sidebar.scss";
 import { IoBusOutline } from "react-icons/io5";
 import { useStateContext } from "../../context/stateContext";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { motion } from "framer-motion";
+
 const Sidebar = () => {
   const { sidebarMenu, setSidebarMenu } = useStateContext();
   return (
@@ -26,7 +28,7 @@ const Sidebar = () => {
         ))}
       </div>
       {sidebarMenu && (
-        <div className="sidebar-menu light">
+        <motion.div className="sidebar-menu light" style={{ zIndex: 99999 }}>
           <Link to="/" className="logo-container light">
             <IoBusOutline className="logo-icon" />
             <span>E-Ticket</span>
@@ -44,7 +46,7 @@ const Sidebar = () => {
               <p>{item.title}</p>
             </NavLink>
           ))}
-        </div>
+        </motion.div>
       )}
     </>
   );

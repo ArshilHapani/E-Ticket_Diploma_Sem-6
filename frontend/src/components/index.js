@@ -1,3 +1,3 @@
 import Navbar from "./Navbar/Navbar";
-
-export { Navbar };
+import GenerateTicketButton from "./generateTicketBtnContainer/GenerateTicketButton";
+export { Navbar, GenerateTicketButton };
