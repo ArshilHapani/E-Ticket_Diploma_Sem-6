@@ -17,6 +17,7 @@
     justify-content: flex-start;
     align-items: center;
     margin: 2rem 1.7rem;
+    letter-spacing: 1.23px;
     .logo-icon {
       height: 30px;
       width: 40px;
@@ -37,6 +38,7 @@
 
   .sidebar-items {
     display: flex;
+    letter-spacing: 1px;
     text-decoration: none;
     padding: 1rem 2rem;
     border-radius: 7px;
@@ -57,7 +59,8 @@
     &.dark {
       color: var(--text-light-color);
     }
-    &:hover {
+    &:hover,
+    &.active {
       background-color: rgba(0, 0, 0, 0.1);
     }
   }

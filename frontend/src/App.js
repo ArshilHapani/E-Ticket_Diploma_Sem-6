@@ -1,11 +1,15 @@
 import { Home, Sidebar } from "./container";
 import "animate.css";
+import { Route, Routes } from "react-router-dom";
+import { History, Map, PHistory, Profile, Theme } from "./components";
 function App() {
   return (
     <>
       <div className="main-parent">
         <Sidebar />
-        <Home />
+        <Routes>
+          <Route exact path="*" element={<Home />} />
+        </Routes>
       </div>
     </>
   );

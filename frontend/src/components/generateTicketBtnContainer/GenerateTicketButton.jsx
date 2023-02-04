@@ -4,17 +4,19 @@ import { Box, Button, Card } from "@mui/material";
 import { FaExchangeAlt } from "react-icons/fa";
 import { useStateContext } from "../../context/stateContext";
 const GenerateTicketButton = () => {
-  const { homeTicketDetails } = useStateContext();
+  const { homeTicketDetails, theme, setTheme } = useStateContext();
   return (
     <>
       <Box
-        className="generate-ticket-btn-container light"
-        whileInView={{ x: [-10, 0] }}
-        transition={{ duration: 0.2, ease: "easeOut" }}
+        className={`generate-ticket-btn-container ${
+          theme === "light" ? "light" : "dark"
+        }`}
       >
         <Card
           variant="outlined"
-          className="current-active-ticket-container light"
+          className={`current-active-ticket-container ${
+            theme === "light" ? "light" : "dark"
+          }`}
         >
           <h3>
             Currently activated ticket
@@ -47,6 +49,9 @@ const GenerateTicketButton = () => {
           variant="contained"
           className="mui__btn-buy-ticket"
           color="error"
+          onClick={() =>
+            setTheme((prev) => (prev === "light" ? "dark" : "light"))
+          }
         >
           Buy ticket
         </Button>

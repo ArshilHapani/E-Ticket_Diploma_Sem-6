@@ -5,10 +5,10 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { useStateContext } from "../../context/stateContext";
 import { Avatar, colors, Tooltip, Zoom } from "@mui/material";
 const Navbar = () => {
-  const { setSidebarMenu } = useStateContext();
+  const { setSidebarMenu, theme } = useStateContext();
   return (
     <>
-      <nav className="light">
+      <nav className={`${theme === "light" ? "light" : "dark"}`}>
         <div
           className="icon-menu-btn"
           onClick={() =>
@@ -23,13 +23,21 @@ const Navbar = () => {
           arrow
           TransitionComponent={Zoom}
         >
-          <div className="balance-container light">
+          <div
+            className={`balance-container ${
+              theme === "light" ? "light" : "dark"
+            }`}
+          >
             <div>
               Current balance - <span>500 &#8377;</span>
             </div>
           </div>
         </Tooltip>
-        <div className="profile-container light">
+        <div
+          className={`profile-container ${
+            theme === "light" ? "light" : "dark"
+          }`}
+        >
           <Tooltip
             title="Profile"
             arrow
