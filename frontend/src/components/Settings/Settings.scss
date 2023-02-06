@@ -1,0 +1,23 @@
+.settings__container {
+  height: 80%;
+  border-radius: 8px;
+  width: 97%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1.3rem;
+  box-sizing: border-box;
+
+  &.light {
+    background-color: var(--bg-light-primary);
+    color: var(--text-light-dark);
+  }
+  &.dark {
+    background-color: var(--bg-dark-secondary);
+    color: var(--text-light-color);
+  }
+  @media screen and (max-width: 900px) {
+    width: 98%;
+  }
+}

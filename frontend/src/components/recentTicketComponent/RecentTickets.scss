@@ -1,5 +1,8 @@
 .recent-ticket-container {
-  height: 55%;
+  &:hover {
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+  }
+  height: fi;
   width: 95%;
   margin-top: 1.5%;
   overflow-y: auto;
@@ -11,7 +14,7 @@
   padding: 1rem 0.7rem;
   box-sizing: border-box;
   .recent-ticket-details {
-    padding: 1.1rem 0.6rem;
+    padding: 1rem 0.6rem;
     border-radius: 10px;
     margin: 1%;
     letter-spacing: 0.1rem;

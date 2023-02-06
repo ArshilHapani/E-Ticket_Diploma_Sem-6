@@ -5,7 +5,7 @@ import History from "./history/History";
 import Map from "./maps/Map";
 import PHistory from "./p-history/PHistory";
 import Profile from "./profile/Profile";
-import Theme from "./Themes/Theme";
+import Settings from "./Settings/Settings";
 
 export {
   RecentTickets,
@@ -15,5 +15,5 @@ export {
   Map,
   PHistory,
   Profile,
-  Theme,
+  Settings,
 };

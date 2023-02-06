@@ -43,6 +43,7 @@ const Sidebar = () => {
           <Link
             to="/"
             className={`logo-container ${theme === "light" ? "light" : "dark"}`}
+            onClick={() => setSidebarMenu(false)}
           >
             <IoBusOutline className="logo-icon" />
             <span>E-Ticket</span>

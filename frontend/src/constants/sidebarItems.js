@@ -1,5 +1,5 @@
-import { AiOutlineHistory } from "react-icons/ai";
-import { MdHistoryEdu, MdInvertColors } from "react-icons/md";
+import { AiOutlineHistory, AiOutlineSetting } from "react-icons/ai";
+import { MdHistoryEdu } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import { BsMap } from "react-icons/bs";
 export const sidebarItems = [
@@ -19,13 +19,13 @@ export const sidebarItems = [
     icon: <CgProfile />,
   },
   {
-    title: "Themes",
-    path: "themes",
-    icon: <MdInvertColors />,
-  },
-  {
     title: "Guide map",
     path: "map",
     icon: <BsMap />,
+  },
+  {
+    title: "Setting",
+    path: "setting",
+    icon: <AiOutlineSetting />,
   },
 ];

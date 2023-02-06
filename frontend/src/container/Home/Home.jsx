@@ -6,7 +6,7 @@ import {
   Navbar,
   PHistory,
   Profile,
-  Theme,
+  Settings,
 } from "../../components";
 import "./Home.scss";
 import Layout from "./layout/Layout";
@@ -27,7 +27,7 @@ const Home = () => {
           <Route exact path="/history" element={<History />} />
           <Route exact path="/p_history" element={<PHistory />} />
           <Route exact path="/profile" element={<Profile />} />
-          <Route exact path="/themes" element={<Theme />} />
+          <Route exact path="/setting" element={<Settings />} />
           <Route exact path="/map" element={<Map />} />
         </Routes>
       </div>

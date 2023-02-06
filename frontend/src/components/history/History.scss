@@ -1,0 +1,53 @@
+.ticket-history-container {
+  height: 80%;
+  border-radius: 8px;
+  width: 97%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .recent-ticket-details {
+    padding: 1rem 0.6rem;
+    border-radius: 10px;
+    margin: 1%;
+    letter-spacing: 0.1rem;
+    width: 96%;
+    display: flex;
+    flex-direction: column;
+    word-wrap: wrap;
+    span {
+      font-weight: 800;
+      color: #8d99ae;
+    }
+    &.light {
+      background-color: var(--bg-light-secondary);
+      color: var(--text-dark-color);
+    }
+    &.dark {
+      color: var(--text-light-color);
+      background-color: var(--bg-dark-primary);
+    }
+
+    @media screen and (max-width: 900px) {
+      width: 90%;
+      height: 30%;
+    }
+
+    &:hover {
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  &.light {
+    background-color: var(--bg-light-primary);
+    color: var(--text-light-dark);
+  }
+  &.dark {
+    background-color: var(--bg-dark-secondary);
+    color: var(--text-light-color);
+  }
+  @media screen and (max-width: 900px) {
+    width: 98%;
+  }
+}

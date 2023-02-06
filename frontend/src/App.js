@@ -1,7 +1,6 @@
 import { Home, Sidebar } from "./container";
 import "animate.css";
 import { Route, Routes } from "react-router-dom";
-import { History, Map, PHistory, Profile, Theme } from "./components";
 function App() {
   return (
     <>

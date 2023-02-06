@@ -1,0 +1,107 @@
+nav {
+  height: 15%;
+  width: 97%;
+  margin: 0.6rem 0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: default;
+}
+nav .icon-menu-btn {
+  display: none;
+}
+nav .balance-container {
+  box-sizing: border-box;
+  padding: 1.3rem;
+  width: 25%;
+  display: flex;
+  align-items: center;
+  height: 70%;
+  margin-left: 3vw;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  font-size: 1.2rem;
+  transition: all 0.15s ease-in-out;
+}
+nav .balance-container:hover {
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+}
+nav .balance-container span {
+  font-weight: 800;
+}
+nav .balance-container.light {
+  background-color: white;
+  color: var(--text-dark-color);
+}
+nav .balance-container.dark {
+  color: var(--text-light-color);
+  background-color: var(--bg-dark-primary);
+}
+@media screen and (max-width: 900px) {
+  nav .balance-container {
+    width: 31%;
+  }
+}
+@media screen and (max-width: 450px) {
+  nav .balance-container {
+    width: auto;
+    display: flex;
+  }
+}
+nav.light {
+  background-color: var(--bg-light-primary);
+  color: var(--text-light-dark);
+}
+nav.dark {
+  background-color: var(--bg-dark-secondary);
+  color: var(--text-light-color);
+}
+nav .profile-container {
+  box-sizing: border-box;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  display: flex;
+  height: 70%;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1vw;
+  margin-left: 2vw;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+}
+nav .profile-container .img-avatar:hover {
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+}
+nav .profile-container span {
+  font-weight: 800;
+}
+@media screen and (max-width: 900px) {
+  nav .profile-container {
+    width: 36%;
+  }
+}
+@media screen and (max-width: 450px) {
+  nav .profile-container {
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+  }
+}
+@media screen and (max-width: 900px) {
+  nav {
+    display: flex;
+    justify-content: space-evenly;
+  }
+  nav .icon-menu-btn {
+    display: block;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+}/*# sourceMappingURL=navbar.css.map */

@@ -1,0 +1,58 @@
+.recent-ticket-container {
+  height: fi;
+  width: 95%;
+  margin-top: 1.5%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 0.7rem;
+  box-sizing: border-box;
+}
+.recent-ticket-container:hover {
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+}
+.recent-ticket-container .recent-ticket-details {
+  padding: 1rem 0.6rem;
+  border-radius: 10px;
+  margin: 1%;
+  letter-spacing: 0.1rem;
+  width: 98%;
+  display: flex;
+  flex-direction: column;
+  word-wrap: wrap;
+}
+.recent-ticket-container .recent-ticket-details span {
+  font-weight: 800;
+  color: #8d99ae;
+}
+.recent-ticket-container .recent-ticket-details.light {
+  background-color: var(--bg-light-primary);
+  color: var(--text-dark-color);
+}
+.recent-ticket-container .recent-ticket-details.dark {
+  color: var(--text-light-color);
+  background-color: var(--bg-dark-secondary);
+}
+.recent-ticket-container.light {
+  background-color: var(--bg-light-secondary);
+  color: var(--text-dark-color);
+}
+.recent-ticket-container.dark {
+  color: var(--text-light-color);
+  background-color: var(--bg-dark-primary);
+}
+@media screen and (max-width: 900px) {
+  .recent-ticket-container {
+    width: 98%;
+    height: 30%;
+  }
+}
+@media screen and (max-width: 450px) {
+  .recent-ticket-container {
+    width: 98%;
+    height: 50%;
+  }
+}/*# sourceMappingURL=RecentTickets.css.map */

@@ -5,7 +5,13 @@ const stateContext = createContext();
 export const ContextProvider = ({ children }) => {
   const [sidebarMenu, setSidebarMenu] = useState(false);
   const [homeTicketDetails, setHomeTicketDetails] = useState(true);
-  const [theme, setTheme] = useState("dark");
+
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme") !== null || undefined
+      ? localStorage.getItem("theme")
+      : "light"
+  );
+  localStorage.setItem("theme", theme);
   return (
     <stateContext.Provider
       value={{

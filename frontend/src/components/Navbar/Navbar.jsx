@@ -1,6 +1,6 @@
 import React from "react";
 import "./navbar.scss";
-import avatar from "../../assets/avatar.jpg";
+import avatar from "../../assets/download.jpeg";
 import { AiOutlineMenu } from "react-icons/ai";
 import { useStateContext } from "../../context/stateContext";
 import { Avatar, colors, Tooltip, Zoom } from "@mui/material";
@@ -52,6 +52,7 @@ const Navbar = () => {
                 height: 60,
               }}
               className="img-avatar"
+              alt="profile-picture"
             ></Avatar>
           </Tooltip>
         </div>
