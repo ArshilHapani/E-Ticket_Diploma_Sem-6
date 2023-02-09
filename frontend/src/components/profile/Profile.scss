@@ -1,0 +1,68 @@
+.user-profile-container {
+  height: 80%;
+  width: 97%;
+  overflow: hidden;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .profile-header-section {
+    width: 90%;
+    margin-top: 2em;
+    border-radius: 8px;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+
+    .profile-credentials-container {
+      display: flex;
+      flex-direction: column;
+      .profile-user-name {
+        margin-left: 2vw;
+        font-size: 3rem;
+      }
+      .profile-user-email {
+        margin-left: 2vw;
+        font-size: 1.2rem;
+        color: #8d99ae;
+      }
+      .profile-user-name-unique {
+        margin-left: 2vw;
+        font-size: 1.2rem;
+        color: #939497;
+      }
+      .profile-title {
+        margin-left: 2vw;
+        font-size: 1.2rem;
+      }
+    }
+    &.light {
+      background-color: var(--bg-light-secondary);
+      color: var(--text-dark-color);
+    }
+    &.dark {
+      color: var(--text-light-color);
+      background-color: var(--bg-dark-primary);
+    }
+    &:hover {
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  &.light {
+    background-color: var(--bg-light-primary);
+    color: var(--text-dark-color);
+  }
+  &.dark {
+    color: var(--text-light-color);
+    background-color: var(--bg-dark-secondary);
+  }
+  @media screen and (max-width: 900px) {
+    width: 98%;
+    height: 30%;
+  }
+  @media screen and (max-width: 450px) {
+    width: 98%;
+    height: 50%;
+  }
+}

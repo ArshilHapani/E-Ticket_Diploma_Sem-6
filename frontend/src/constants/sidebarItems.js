@@ -1,8 +1,17 @@
-import { AiOutlineHistory, AiOutlineSetting } from "react-icons/ai";
+import {
+  AiOutlineHistory,
+  AiOutlineHome,
+  AiOutlineSetting,
+} from "react-icons/ai";
 import { MdHistoryEdu } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import { BsMap } from "react-icons/bs";
 export const sidebarItems = [
+  {
+    title: "Home",
+    path: "/",
+    icon: <AiOutlineHome />,
+  },
   {
     title: "History",
     path: "history",
@@ -15,7 +24,7 @@ export const sidebarItems = [
   },
   {
     title: "Profile",
-    path: "profile",
+    path: "profile/12345",
     icon: <CgProfile />,
   },
   {

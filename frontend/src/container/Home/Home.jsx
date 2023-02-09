@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
 import {
   History,
   Map,
@@ -15,10 +14,7 @@ import { Route, Routes } from "react-router-dom";
 const Home = () => {
   const { theme } = useStateContext();
   return (
-    <motion.div
-      className="home-main-container"
-      transition={{ duration: 0.85, ease: "easeOut" }}
-    >
+    <div className="home-main-container">
       <div className={`layout-wrapper ${theme === "light" ? "light" : "dark"}`}>
         <Navbar />
 
@@ -26,12 +22,12 @@ const Home = () => {
           <Route exact path="/" element={<Layout />} />
           <Route exact path="/history" element={<History />} />
           <Route exact path="/p_history" element={<PHistory />} />
-          <Route exact path="/profile" element={<Profile />} />
+          <Route exact path="/profile/:id" element={<Profile />} />
           <Route exact path="/setting" element={<Settings />} />
           <Route exact path="/map" element={<Map />} />
         </Routes>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

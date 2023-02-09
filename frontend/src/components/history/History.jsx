@@ -17,7 +17,7 @@ const History = () => {
           margin: 1,
         }}
       >
-        Recent Tickets
+        Ticket History
       </Typography>
       {/* <Typography>Looks like you don't have ticket records..</Typography> */}
       <div

@@ -49,16 +49,6 @@
       margin-bottom: 1rem;
     }
   }
-  .opened-model {
-    &.light {
-      background-color: var(--bg-light-secondary);
-      color: var(--text-dark-color);
-    }
-    &.dark {
-      color: var(--text-light-color);
-      background-color: var(--bg-dark-secondary);
-    }
-  }
   .current-active-ticket-container {
     cursor: pointer;
     height: 55%;

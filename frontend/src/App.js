@@ -1,5 +1,4 @@
 import { Home, Sidebar } from "./container";
-import "animate.css";
 import { Route, Routes } from "react-router-dom";
 function App() {
   return (

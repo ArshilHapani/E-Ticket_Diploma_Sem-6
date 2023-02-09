@@ -84,13 +84,12 @@
   @media screen and (max-width: 450px) {
     width: 60vw;
   }
-  animation: fadeInLeft 0.3s forwards;
-  opacity: 0;
   position: absolute;
   height: 100vh;
   display: flex;
   flex-direction: column;
   overflow: auto;
+
   filter: drop-shadow(0 20px 13px rgb(0 0 0 / 0.03))
     drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));
   .logo-container {
@@ -147,4 +146,16 @@
   &.dark {
     background-color: var(--bg-dark-secondary);
   }
+}
+.active-on {
+  transform: translateX(0vw);
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+.active-lose {
+  transform: translateX(-100vw);
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
 }

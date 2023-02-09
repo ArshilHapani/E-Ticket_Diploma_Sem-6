@@ -6,84 +6,19 @@ import {
   Button,
   Card,
   Modal,
+  Paper,
   TextField,
   Typography,
 } from "@mui/material";
 import { FaExchangeAlt } from "react-icons/fa";
 import { useStateContext } from "../../context/stateContext";
+import useMuiStyles from "../../hooks/useMuiStyles";
+import { top100Films } from "../../constants/dummy";
 
 const GenerateTicketButton = () => {
   const [model, setModel] = useState(false);
-  const [staions, setStaions] = useState(null);
   const { homeTicketDetails, theme } = useStateContext();
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: {
-      xs: 240,
-      sm: 270,
-      md: 370,
-      lg: 420,
-    },
-    bgcolor: "background.paper",
-    color: "background.black",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-    borderRadius: "8px",
-    textFieldStyle: {
-      color: "#fff !important",
-    },
-  };
-  const top100Films = [
-    { label: "The Shawshank Redemption", year: 1994 },
-    { label: "The Godfather", year: 1972 },
-    { label: "The Godfather: Part II", year: 1974 },
-    { label: "The Dark Knight", year: 2008 },
-    { label: "12 Angry Men", year: 1957 },
-    { label: "Schindler's List", year: 1993 },
-    { label: "Pulp Fiction", year: 1994 },
-    {
-      label: "The Lord of the Rings: The Return of the King",
-      year: 2003,
-    },
-    { label: "The Good, the Bad and the Ugly", year: 1966 },
-    { label: "Fight Club", year: 1999 },
-    {
-      label: "The Lord of the Rings: The Fellowship of the Ring",
-      year: 2001,
-    },
-    {
-      label: "Star Wars: Episode V - The Empire Strikes Back",
-      year: 1980,
-    },
-    { label: "Forrest Gump", year: 1994 },
-    { label: "Inception", year: 2010 },
-    {
-      label: "The Lord of the Rings: The Two Towers",
-      year: 2002,
-    },
-    { label: "One Flew Over the Cuckoo's Nest", year: 1975 },
-    { label: "Goodfellas", year: 1990 },
-    { label: "The Matrix", year: 1999 },
-    { label: "Seven Samurai", year: 1954 },
-    {
-      label: "Star Wars: Episode IV - A New Hope",
-      year: 1977,
-    },
-    { label: "City of God", year: 2002 },
-    { label: "Se7en", year: 1995 },
-    { label: "The Silence of the Lambs", year: 1991 },
-    { label: "It's a Wonderful Life", year: 1946 },
-    { label: "Life Is Beautiful", year: 1997 },
-    { label: "The Usual Suspects", year: 1995 },
-    { label: "Léon: The Professional", year: 1994 },
-    { label: "Spirited Away", year: 2001 },
-    { label: "Saving Private Ryan", year: 1998 },
-  ];
-
+  const { modelStyle, modelTextField, modelAutocomplete } = useMuiStyles();
   return (
     <>
       <Box
@@ -136,31 +71,88 @@ const GenerateTicketButton = () => {
         {/* For overlay model */}
         <Modal
           open={model}
-          onClose={() => setModel(false)}
+          // onClose={() => setModel(false)}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box
-            sx={style}
-            className={`opened-model ${theme === "light" ? "light" : "dark"}`}
-          >
+          <Box sx={modelStyle}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Select your stations
             </Typography>
             <Autocomplete
+              // TODO to make asynchronous request on api call (Prefer mui documentation)
+              disablePortal
               id="auto-highlight"
               autoHighlight
+              sx={modelAutocomplete}
               options={top100Films}
-              sx={style.textFieldStyle}
+              PaperComponent={({ children }) => (
+                <Paper
+                  style={{
+                    background: theme === "light" ? "#f1f5f9" : "#33373e",
+                    color: theme === "light" ? "#0d1b2a" : "#f1f5f9 ",
+                  }}
+                >
+                  {children}
+                </Paper>
+              )}
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  sx={style.textFieldStyle}
-                  label="autoHighlight"
+                  label="Current"
                   variant="standard"
+                  sx={modelTextField}
+                  className="model-autocomplete-textfield"
                 />
               )}
             />
+            <Autocomplete
+              disablePortal
+              id="auto-highlight"
+              sx={modelAutocomplete}
+              autoHighlight
+              options={top100Films}
+              PaperComponent={({ children }) => (
+                <Paper
+                  style={{
+                    background: theme === "light" ? "#f1f5f9" : "#33373e",
+                    color: theme === "light" ? "#0d1b2a" : "#f1f5f9 ",
+                    "&::webkit-scrollbar": "2px",
+                    "&::webkit-scrollbar-track":
+                      theme === "light" ? "#e5e5e5" : "#0d1b2a",
+                    "&::webkit-scrollbar-thumb":
+                      theme === "light" ? "#0d1b2a" : "#e5e5e5",
+                  }}
+                >
+                  {children}
+                </Paper>
+              )}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Destination"
+                  variant="standard"
+                  sx={modelTextField}
+                  className="model-autocomplete-textfield"
+                />
+              )}
+            />
+            <Box sx={modelAutocomplete.generateTicketButtonContainer}>
+              <Button
+                variant="contained"
+                sx={modelAutocomplete.generateTicketButton}
+              >
+                Generate Ticket
+              </Button>
+              <Button
+                variant="contained"
+                color="error"
+                sx={modelAutocomplete.generateTicketButton.cancelButton}
+                onClick={() => setModel(false)}
+              >
+                Cancel
+              </Button>
+            </Box>
           </Box>
         </Modal>
       </Box>

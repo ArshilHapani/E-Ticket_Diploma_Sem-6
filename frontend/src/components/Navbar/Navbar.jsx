@@ -4,6 +4,7 @@ import avatar from "../../assets/download.jpeg";
 import { AiOutlineMenu } from "react-icons/ai";
 import { useStateContext } from "../../context/stateContext";
 import { Avatar, colors, Tooltip, Zoom } from "@mui/material";
+import { Link } from "react-router-dom";
 const Navbar = () => {
   const { setSidebarMenu, theme } = useStateContext();
   return (
@@ -11,9 +12,7 @@ const Navbar = () => {
       <nav className={`${theme === "light" ? "light" : "dark"}`}>
         <div
           className="icon-menu-btn"
-          onClick={() =>
-            setSidebarMenu((prevVal) => (prevVal === true ? false : true))
-          }
+          onClick={() => setSidebarMenu((prevVal) => !prevVal)}
         >
           <AiOutlineMenu />
         </div>
@@ -44,16 +43,18 @@ const Navbar = () => {
             TransitionComponent={Zoom}
             placement="left"
           >
-            <Avatar
-              src={avatar}
-              sx={{
-                bgcolor: colors.red[600],
-                width: 60,
-                height: 60,
-              }}
-              className="img-avatar"
-              alt="profile-picture"
-            ></Avatar>
+            <Link to={"/profile/12345"}>
+              <Avatar
+                src={avatar}
+                sx={{
+                  bgcolor: colors.red[600],
+                  width: 60,
+                  height: 60,
+                }}
+                className="img-avatar"
+                alt="profile-picture"
+              ></Avatar>
+            </Link>
           </Tooltip>
         </div>
       </nav>
