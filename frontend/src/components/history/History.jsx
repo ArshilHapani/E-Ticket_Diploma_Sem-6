@@ -3,6 +3,7 @@ import "./History.scss";
 import { useStateContext } from "../../context/stateContext";
 import { Box, Typography } from "@mui/material";
 const History = () => {
+  document.title = "E-Ticket | Ticket History";
   const { theme } = useStateContext();
   return (
     <Box

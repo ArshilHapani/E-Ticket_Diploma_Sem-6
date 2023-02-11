@@ -6,6 +6,7 @@ import Map from "./maps/Map";
 import PHistory from "./p-history/PHistory";
 import Profile from "./profile/Profile";
 import Settings from "./Settings/Settings";
+import SnackbarAlert from "./snackar/Snackbar";
 
 export {
   RecentTickets,
@@ -16,4 +17,5 @@ export {
   PHistory,
   Profile,
   Settings,
+  SnackbarAlert,
 };

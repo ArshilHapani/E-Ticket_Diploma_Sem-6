@@ -2,23 +2,43 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Offline</title>
-    <style>
-      body {
-        display: flex;
-        height: 100vh;
-        align-items: center;
-        justify-content: center;
-        background-color: #d2d2d2;
+    <title>E-Ticket | Offline</title>
+    <style type="text/css">
+      html {
+        height: 100%;
       }
-      div {
-        font-size: 2rem;
+      body {
+        height: 100%;
+        margin: 0;
+        background: #0a1f44;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+      }
+
+      .city {
+        align-items: center;
+        width: 80%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        padding: 40px 8%;
+        border-radius: 20px;
+        background: #fff;
+      }
+
+      .city-name {
+        font-size: 2em;
       }
     </style>
   </head>
   <body>
-    <div>You are offline</div>
+    <div class="city">
+      <h2 class="city-name">
+        <span>Please go online to use our services</span>
+      </h2>
+    </div>
   </body>
 </html>

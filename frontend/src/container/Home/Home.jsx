@@ -12,6 +12,7 @@ import Layout from "./layout/Layout";
 import { useStateContext } from "../../context/stateContext";
 import { Route, Routes } from "react-router-dom";
 const Home = () => {
+  document.title = "E-Ticket | Home";
   const { theme } = useStateContext();
   return (
     <div className="home-main-container">

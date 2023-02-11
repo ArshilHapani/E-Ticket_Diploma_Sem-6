@@ -42,6 +42,10 @@ export default function useMuiStyles() {
     generateTicketButton: {
       marginTop: "1.2rem",
       marginRight: "0.6rem",
+      "&:disabled": {
+        backgroundColor: "#283543",
+        color: "#a9b8c8   ",
+      },
       cancelButton: {
         marginTop: "1.2rem",
         marginRight: "0.6rem",
@@ -80,7 +84,71 @@ export default function useMuiStyles() {
     "& + .MuiAutocomplete-popper": {
       backgroundColor: "#363636",
     },
+    "&:hover": {
+      borderBottomColor: theme === "light" ? "#e5e5e5" : "#0d1b2a",
+    },
   };
 
-  return { modelStyle, modelTextField, modelAutocomplete };
+  // For profile textfields
+  const profile_edit_textfield = {
+    "& .MuiFormLabel-root": {
+      color: theme === "light" ? "#0d1b2a" : "background.paper",
+    },
+    "& .MuiFormLabel-root.Mui-focused": {
+      color: theme === "light" ? "#0d1b2a" : "#e5e5e5",
+    },
+    "& .MuiInputBase-root": {
+      color: theme === "light" ? "#0d1b2a" : "#e5e5e5",
+    },
+    "& label.Mui-focused": {
+      color: theme === "light" ? "#0d1b2a" : "background.paper",
+    },
+    "& .MuiInput-underline:after": {
+      borderBottomColor: "secondary",
+    },
+    "& .MuiInput-underline:before": {
+      borderBottomColor: theme === "light" ? "#0d1b2a" : "background.paper",
+    },
+    "& .MuiInput-underline:hover:before": {
+      borderBottomColor: theme === "light" ? "#0d1b2a" : "background.paper",
+    },
+    "&:hover": {
+      borderBottomColor: theme === "light" ? "#0d1b2a" : "#e5e5e5",
+    },
+    width: "100%",
+    margin: "0.4rem 0",
+  };
+  // profile divider styles
+  const profile_divider_styles = {
+    width: {
+      sm: "80%",
+      xs: "80%",
+      md: "100%",
+      xl: "100%",
+    },
+    margin: "10px 0",
+    bgcolor: theme === "light" ? "rgba(0,0,0,0.2)" : "rgba(255,255,255,0.4)",
+  };
+  // Profile typography styles
+  const detail_ref_style = {
+    fontSize: "15px",
+    color: "#778da9",
+    marginTop: "1rem",
+    edit_button_style: {
+      padding: "10px",
+      color: "#fff",
+    },
+    userDetailStyle: {
+      fontSize: "20px",
+      color: theme === "light" ? "#0d1b2a" : "background.paper",
+    },
+  };
+  return {
+    modelStyle,
+    modelTextField,
+    modelAutocomplete,
+    profile_edit_textfield,
+    detail_ref_style,
+    profile_divider_styles,
+  };
 }

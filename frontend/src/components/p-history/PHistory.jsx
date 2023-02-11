@@ -4,6 +4,7 @@ import "./P_History.scss";
 import { useStateContext } from "../../context/stateContext";
 
 const PHistory = () => {
+  document.title = "E-Ticket | Purchase History";
   const { theme } = useStateContext();
   return (
     <Box

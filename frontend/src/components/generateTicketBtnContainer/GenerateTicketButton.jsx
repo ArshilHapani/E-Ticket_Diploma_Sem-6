@@ -5,6 +5,7 @@ import {
   Box,
   Button,
   Card,
+  Fade,
   Modal,
   Paper,
   TextField,
@@ -17,8 +18,23 @@ import { top100Films } from "../../constants/dummy";
 
 const GenerateTicketButton = () => {
   const [model, setModel] = useState(false);
-  const { homeTicketDetails, theme } = useStateContext();
+  const { homeTicketDetails, theme, setSnackbar } = useStateContext();
   const { modelStyle, modelTextField, modelAutocomplete } = useMuiStyles();
+  const [dist, setDist] = useState({
+    source: "",
+    destination: "",
+  });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(dist);
+    setSnackbar({
+      show: true,
+      message: "Ticket generated successfully",
+      type: "success",
+    });
+    setModel(false);
+  };
+  // console.log(dist); //! Dist have data of source and destinations with nested objects
   return (
     <>
       <Box
@@ -75,85 +91,102 @@ const GenerateTicketButton = () => {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={modelStyle}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Select your stations
-            </Typography>
-            <Autocomplete
-              // TODO to make asynchronous request on api call (Prefer mui documentation)
-              disablePortal
-              id="auto-highlight"
-              autoHighlight
-              sx={modelAutocomplete}
-              options={top100Films}
-              PaperComponent={({ children }) => (
-                <Paper
-                  style={{
-                    background: theme === "light" ? "#f1f5f9" : "#33373e",
-                    color: theme === "light" ? "#0d1b2a" : "#f1f5f9 ",
+          <form onSubmit={handleSubmit}>
+            <Fade in={model}>
+              <Box sx={modelStyle}>
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                  Select your stations
+                </Typography>
+                {/* For source */}
+                <Autocomplete
+                  // TODO to make asynchronous request on api call (Prefer mui documentation)
+                  disablePortal
+                  id="auto-highlight"
+                  autoHighlight
+                  onChange={(event, value) => {
+                    setDist({ ...dist, source: value });
                   }}
-                >
-                  {children}
-                </Paper>
-              )}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Current"
-                  variant="standard"
-                  sx={modelTextField}
-                  className="model-autocomplete-textfield"
+                  sx={modelAutocomplete}
+                  options={top100Films}
+                  PaperComponent={({ children }) => (
+                    <Paper
+                      style={{
+                        background: theme === "light" ? "#f1f5f9" : "#33373e",
+                        color: theme === "light" ? "#0d1b2a" : "#f1f5f9 ",
+                      }}
+                    >
+                      {children}
+                    </Paper>
+                  )}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Current"
+                      variant="standard"
+                      sx={modelTextField}
+                      className="model-autocomplete-textfield"
+                      color="error"
+                      required
+                    />
+                  )}
                 />
-              )}
-            />
-            <Autocomplete
-              disablePortal
-              id="auto-highlight"
-              sx={modelAutocomplete}
-              autoHighlight
-              options={top100Films}
-              PaperComponent={({ children }) => (
-                <Paper
-                  style={{
-                    background: theme === "light" ? "#f1f5f9" : "#33373e",
-                    color: theme === "light" ? "#0d1b2a" : "#f1f5f9 ",
-                    "&::webkit-scrollbar": "2px",
-                    "&::webkit-scrollbar-track":
-                      theme === "light" ? "#e5e5e5" : "#0d1b2a",
-                    "&::webkit-scrollbar-thumb":
-                      theme === "light" ? "#0d1b2a" : "#e5e5e5",
-                  }}
-                >
-                  {children}
-                </Paper>
-              )}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Destination"
-                  variant="standard"
-                  sx={modelTextField}
-                  className="model-autocomplete-textfield"
+                {/* for destinations */}
+                <Autocomplete
+                  disablePortal
+                  id="auto-highlight"
+                  sx={modelAutocomplete}
+                  autoHighlight
+                  onChange={(event, value) =>
+                    setDist({ ...dist, destination: value })
+                  }
+                  options={top100Films}
+                  PaperComponent={({ children }) => (
+                    <Paper
+                      style={{
+                        background: theme === "light" ? "#f1f5f9" : "#33373e",
+                        color: theme === "light" ? "#0d1b2a" : "#f1f5f9 ",
+                        "&::webkitScrollbar": { width: "2px" },
+                        "&::webkitScrollbarTrack":
+                          theme === "light" ? "#e5e5e5" : "#0d1b2a",
+                        "&::webkitScrollbarThumb":
+                          theme === "light" ? "#0d1b2a" : "#e5e5e5",
+                      }}
+                    >
+                      {children}
+                    </Paper>
+                  )}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Destination"
+                      variant="standard"
+                      sx={modelTextField}
+                      className="model-autocomplete-textfield"
+                      color="error"
+                      required
+                    />
+                  )}
                 />
-              )}
-            />
-            <Box sx={modelAutocomplete.generateTicketButtonContainer}>
-              <Button
-                variant="contained"
-                sx={modelAutocomplete.generateTicketButton}
-              >
-                Generate Ticket
-              </Button>
-              <Button
-                variant="contained"
-                color="error"
-                sx={modelAutocomplete.generateTicketButton.cancelButton}
-                onClick={() => setModel(false)}
-              >
-                Cancel
-              </Button>
-            </Box>
-          </Box>
+                <Box sx={modelAutocomplete.generateTicketButtonContainer}>
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    sx={modelAutocomplete.generateTicketButton.cancelButton}
+                    onClick={() => setModel(false)}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    variant="contained"
+                    sx={modelAutocomplete.generateTicketButton}
+                    type="submit"
+                  >
+                    Generate Ticket
+                  </Button>
+                </Box>
+              </Box>
+            </Fade>
+          </form>
         </Modal>
       </Box>
     </>

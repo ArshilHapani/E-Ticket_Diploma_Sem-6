@@ -1,5 +1,6 @@
 import { Home, Sidebar } from "./container";
 import { Route, Routes } from "react-router-dom";
+import SnackbarAlert from "./components/snackar/Snackbar";
 function App() {
   return (
     <>
@@ -8,6 +9,8 @@ function App() {
         <Routes>
           <Route exact path="*" element={<Home />} />
         </Routes>
+
+        <SnackbarAlert />
       </div>
     </>
   );

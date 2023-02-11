@@ -10,6 +10,7 @@ import React from "react";
 import { useStateContext } from "../../context/stateContext";
 import "./Settings.scss";
 const Settings = () => {
+  document.title = "E-Ticket | Settings";
   const { theme, setTheme } = useStateContext();
   return (
     <Box
