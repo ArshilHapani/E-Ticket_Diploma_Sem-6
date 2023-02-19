@@ -12,6 +12,16 @@ import "./Settings.scss";
 const Settings = () => {
   document.title = "E-Ticket | Settings";
   const { theme, setTheme } = useStateContext();
+
+  const setSystemTheme = () => {
+    const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
+    if (darkThemeMq.matches) {
+      setTheme("dark");
+    } else {
+      setTheme("light");
+    }
+  };
+
   return (
     <Box
       className={`settings__container ${theme === "light" ? "light" : "dark"}`}
@@ -46,10 +56,12 @@ const Settings = () => {
               />
             }
             label="Light (Default)"
-            onClick={() => setTheme("light")}
+            onClick={() => {
+              setTheme("light");
+            }}
           />
           <FormControlLabel
-            key={`radio-theme-${theme}+1234`}
+            key={`radio-theme-${theme}+3435`}
             value="dark"
             control={
               <Radio
@@ -64,7 +76,27 @@ const Settings = () => {
               />
             }
             label="Dark"
-            onClick={() => setTheme("dark")}
+            onClick={() => {
+              setTheme("dark");
+            }}
+          />
+          <FormControlLabel
+            key={`radio-theme-${theme}+1234`}
+            value="system-theme"
+            control={
+              <Radio
+                suppressContentEditableWarning
+                suppressHydrationWarning
+                sx={{
+                  color: `${theme === "light" ? "black" : "white"}`,
+                  "&.Mui-checked": {
+                    color: `${theme === "light" ? "black" : "white"}`,
+                  },
+                }}
+              />
+            }
+            label="System"
+            onClick={setSystemTheme}
           />
         </RadioGroup>
       </FormControl>

@@ -4,6 +4,7 @@ import "./layout.scss";
 import { useStateContext } from "../../../context/stateContext";
 const Layout = () => {
   const { theme } = useStateContext();
+  document.title = "E-Ticket | Home";
   return (
     <>
       <div

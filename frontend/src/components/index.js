@@ -7,6 +7,7 @@ import PHistory from "./p-history/PHistory";
 import Profile from "./profile/Profile";
 import Settings from "./Settings/Settings";
 import SnackbarAlert from "./snackar/Snackbar";
+import ActiveTickets from "./activeTickets/ActiveTickets";
 
 export {
   RecentTickets,
@@ -18,4 +19,5 @@ export {
   Profile,
   Settings,
   SnackbarAlert,
+  ActiveTickets,
 };

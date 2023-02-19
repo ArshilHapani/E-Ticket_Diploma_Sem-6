@@ -2,7 +2,22 @@ import { Box, Typography } from "@mui/material";
 import React from "react";
 import "./P_History.scss";
 import { useStateContext } from "../../context/stateContext";
-
+const purchaseHistory = [
+  {
+    amount: 120,
+    time: "2:20 P.M.",
+    date: "1-10-2004",
+    id: "qwwadesfe3",
+    transactionBy: "Baburao Apte",
+  },
+  {
+    amount: 120,
+    time: "2:20 P.M.",
+    date: "1-10-2004",
+    id: "qwwadesfe3",
+    transactionBy: "Baburao Apte",
+  },
+];
 const PHistory = () => {
   document.title = "E-Ticket | Purchase History";
   const { theme } = useStateContext();
@@ -19,27 +34,30 @@ const PHistory = () => {
         Recent Transactions
       </Typography>
       {/* <Typography>Looks like you don't have transaction records..</Typography> */}
-      <div
-        className={`recent-transaction-details ${
-          theme === "light" ? "light" : "dark"
-        }`}
-      >
-        <h4>
-          Transactions Amount : <span>120 &#8377;</span>
-        </h4>
-        <h4>
-          Transaction Time : <span>3:20 P.M.</span>
-        </h4>
-        <h4>
-          Transaction Date :<span> 12-12-2022</span>
-        </h4>
-        <h4>
-          Transaction ID : <span> dxdfgrt55443</span>
-        </h4>
-        <h4>
-          Transaction By : <span> Baburao Apte</span>
-        </h4>
-      </div>
+      {purchaseHistory.map((item, index) => (
+        <div
+          key={item.id + index}
+          className={`recent-transaction-details ${
+            theme === "light" ? "light" : "dark"
+          }`}
+        >
+          <h4>
+            Transactions Amount : <span>{item.amount} &#8377;</span>
+          </h4>
+          <h4>
+            Transaction Time : <span>{item.time}</span>
+          </h4>
+          <h4>
+            Transaction Date :<span> {item.date}</span>
+          </h4>
+          <h4>
+            Transaction ID : <span> {item.id}</span>
+          </h4>
+          <h4>
+            Transaction By : <span> {item.transactionBy}</span>
+          </h4>
+        </div>
+      ))}
     </Box>
   );
 };

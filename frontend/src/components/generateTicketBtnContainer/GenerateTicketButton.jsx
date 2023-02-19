@@ -8,6 +8,7 @@ import {
   Fade,
   Modal,
   Paper,
+  Slider,
   TextField,
   Typography,
 } from "@mui/material";
@@ -15,14 +16,18 @@ import { FaExchangeAlt } from "react-icons/fa";
 import { useStateContext } from "../../context/stateContext";
 import useMuiStyles from "../../hooks/useMuiStyles";
 import { top100Films } from "../../constants/dummy";
+import { useNavigate } from "react-router-dom";
+import { Stack } from "@mui/system";
 
 const GenerateTicketButton = () => {
+  const navigate = useNavigate();
   const [model, setModel] = useState(false);
   const { homeTicketDetails, theme, setSnackbar } = useStateContext();
   const { modelStyle, modelTextField, modelAutocomplete } = useMuiStyles();
   const [dist, setDist] = useState({
     source: "",
     destination: "",
+    quantity: 1,
   });
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -43,7 +48,8 @@ const GenerateTicketButton = () => {
         }`}
       >
         <Card
-          variant="outlined"
+          onClick={() => navigate("/tickets")}
+          variant="elevation"
           className={`current-active-ticket-container ${
             theme === "light" ? "light" : "dark"
           }`}
@@ -87,7 +93,6 @@ const GenerateTicketButton = () => {
         {/* For overlay model */}
         <Modal
           open={model}
-          // onClose={() => setModel(false)}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
@@ -167,6 +172,32 @@ const GenerateTicketButton = () => {
                     />
                   )}
                 />
+                <Stack
+                  direction="column"
+                  justifyContent="center"
+                  sx={{
+                    margin: "0.8rem 1.2rem",
+                  }}
+                  alignItems="center"
+                >
+                  <Typography sx={{ margin: "0" }}>
+                    Number of Tickets : {dist.quantity}
+                  </Typography>
+                  <Slider
+                    required
+                    aria-label="Temperature"
+                    defaultValue={1}
+                    valueLabelDisplay="auto"
+                    step={1}
+                    marks
+                    min={1}
+                    max={10}
+                    onChange={(e) =>
+                      setDist({ ...dist, quantity: e.target.value })
+                    }
+                    sx={{ width: "98%", marginTop: "0.6rem" }}
+                  />
+                </Stack>
                 <Box sx={modelAutocomplete.generateTicketButtonContainer}>
                   <Button
                     variant="outlined"
@@ -181,7 +212,7 @@ const GenerateTicketButton = () => {
                     sx={modelAutocomplete.generateTicketButton}
                     type="submit"
                   >
-                    Generate Ticket
+                    Generate Ticket ({dist.quantity * 4}&#8377;)
                   </Button>
                 </Box>
               </Box>

@@ -19,8 +19,8 @@ const Navbar = () => {
         <Tooltip
           title="your balance"
           placement="bottom"
-          arrow
           TransitionComponent={Zoom}
+          followCursor
         >
           <div
             className={`balance-container ${

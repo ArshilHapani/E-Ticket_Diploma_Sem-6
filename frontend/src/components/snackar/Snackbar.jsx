@@ -22,7 +22,7 @@ const SnackbarAlert = () => {
     <div>
       <Snackbar
         open={snackbar.show}
-        autoHideDuration={6000}
+        autoHideDuration={4000}
         action={action}
         onClose={() => setSnackbar({ ...snackbar, show: false })}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}

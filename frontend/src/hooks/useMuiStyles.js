@@ -31,6 +31,12 @@ export default function useMuiStyles() {
     generateTicketButtonContainer: {
       display: "flex",
       justifyContent: "flex-end",
+      alignItems: {
+        sm: "center",
+        md: "center",
+        lg: "flex-end",
+        xl: "flex-end",
+      },
       flexWrap: "wrap",
       flexDirection: {
         sm: "column",

@@ -15,8 +15,9 @@ import "./Profile.scss";
 import { useStateContext } from "../../context/stateContext";
 import avatar from "../../assets/download.jpeg";
 import useMuiStyles from "../../hooks/useMuiStyles";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 const Profile = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   document.title = `E-Ticket | Profile - ${id}`;
   const { theme, setSnackbar } = useStateContext();
@@ -161,7 +162,6 @@ const Profile = () => {
                   placeholder="update mobile number"
                   variant="standard"
                   color="info"
-                  required
                   type="number"
                   className="number-tb"
                 />
@@ -196,6 +196,10 @@ const Profile = () => {
           <Typography sx={detail_ref_style.userDetailStyle}>
             Ufrt4354r45
           </Typography>
+          <Divider sx={profile_divider_styles} />
+          <Button variant="outlined" onClick={() => navigate("/tickets")}>
+            View active tickets
+          </Button>
         </div>
       </div>
     </Box>

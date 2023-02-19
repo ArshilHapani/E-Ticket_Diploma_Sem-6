@@ -13,7 +13,7 @@ export const ContextProvider = ({ children }) => {
   const [snackbar, setSnackbar] = useState({
     show: false,
     message: "",
-    type: "",
+    type: "info",
   });
   localStorage.setItem("theme", theme);
   return (

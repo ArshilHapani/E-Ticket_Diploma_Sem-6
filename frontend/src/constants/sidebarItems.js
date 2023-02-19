@@ -6,6 +6,7 @@ import {
 import { MdHistoryEdu } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import { BsMap } from "react-icons/bs";
+import { TbFileInvoice } from "react-icons/tb";
 export const sidebarItems = [
   {
     title: "Home",
@@ -13,10 +14,16 @@ export const sidebarItems = [
     icon: <AiOutlineHome />,
   },
   {
+    title: "Active Tickets",
+    path: "tickets",
+    icon: <TbFileInvoice />,
+  },
+  {
     title: "History",
     path: "history",
     icon: <AiOutlineHistory />,
   },
+
   {
     title: "P-History",
     path: "p_history",

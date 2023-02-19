@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  ActiveTickets,
   History,
   Map,
   Navbar,
@@ -26,6 +27,7 @@ const Home = () => {
           <Route exact path="/profile/:id" element={<Profile />} />
           <Route exact path="/setting" element={<Settings />} />
           <Route exact path="/map" element={<Map />} />
+          <Route exact path="/tickets" element={<ActiveTickets />} />
         </Routes>
       </div>
     </div>
