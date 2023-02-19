@@ -1,8 +1,8 @@
 import React from "react";
 import {
   ActiveTickets,
+  GuideMap,
   History,
-  Map,
   Navbar,
   PHistory,
   Profile,
@@ -26,7 +26,7 @@ const Home = () => {
           <Route exact path="/p_history" element={<PHistory />} />
           <Route exact path="/profile/:id" element={<Profile />} />
           <Route exact path="/setting" element={<Settings />} />
-          <Route exact path="/map" element={<Map />} />
+          <Route exact path="/map" element={<GuideMap />} />
           <Route exact path="/tickets" element={<ActiveTickets />} />
         </Routes>
       </div>

@@ -1,6 +1,7 @@
 import { Home, Sidebar } from "./container";
 import { Route, Routes } from "react-router-dom";
 import SnackbarAlert from "./components/snackar/Snackbar";
+import { Loader } from "./components";
 function App() {
   return (
     <>
@@ -11,6 +12,7 @@ function App() {
         </Routes>
 
         <SnackbarAlert />
+        <Loader />
       </div>
     </>
   );

@@ -49,8 +49,7 @@ export default function useMuiStyles() {
       marginTop: "1.2rem",
       marginRight: "0.6rem",
       "&:disabled": {
-        backgroundColor: "#283543",
-        color: "#a9b8c8   ",
+        backgroundColor: "#5aaaff",
       },
       cancelButton: {
         marginTop: "1.2rem",

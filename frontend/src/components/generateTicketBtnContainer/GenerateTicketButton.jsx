@@ -18,10 +18,12 @@ import useMuiStyles from "../../hooks/useMuiStyles";
 import { top100Films } from "../../constants/dummy";
 import { useNavigate } from "react-router-dom";
 import { Stack } from "@mui/system";
+import { LoadingButton } from "@mui/lab";
 
 const GenerateTicketButton = () => {
   const navigate = useNavigate();
   const [model, setModel] = useState(false);
+  const [buttonLoading, setButtonLoading] = useState(false);
   const { homeTicketDetails, theme, setSnackbar } = useStateContext();
   const { modelStyle, modelTextField, modelAutocomplete } = useMuiStyles();
   const [dist, setDist] = useState({
@@ -30,6 +32,7 @@ const GenerateTicketButton = () => {
     quantity: 1,
   });
   const handleSubmit = (e) => {
+    setButtonLoading(true);
     e.preventDefault();
     console.log(dist);
     setSnackbar({
@@ -38,6 +41,7 @@ const GenerateTicketButton = () => {
       type: "success",
     });
     setModel(false);
+    setButtonLoading(false);
   };
   // console.log(dist); //! Dist have data of source and destinations with nested objects
   return (
@@ -207,13 +211,16 @@ const GenerateTicketButton = () => {
                   >
                     Cancel
                   </Button>
-                  <Button
+                  <LoadingButton
+                    loading={buttonLoading}
+                    loadingPosition="center"
                     variant="contained"
                     sx={modelAutocomplete.generateTicketButton}
                     type="submit"
+                    color="primary"
                   >
                     Generate Ticket ({dist.quantity * 4}&#8377;)
-                  </Button>
+                  </LoadingButton>
                 </Box>
               </Box>
             </Fade>

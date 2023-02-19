@@ -7,7 +7,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  .proto-image {
+    width: 100%;
+  }
+  .proto-image:hover {
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
   &.light {
     background-color: var(--bg-light-primary);
     color: var(--text-dark-color);
@@ -18,7 +24,6 @@
   }
 
   @media screen and (max-width: 900px) {
-    width: 90%;
     height: 80%;
   }
   &:hover {
