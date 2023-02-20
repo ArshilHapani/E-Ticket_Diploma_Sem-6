@@ -50,3 +50,7 @@ input[type="number"]::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+.link-styles-anchor-tags {
+  text-decoration: none;
+  color: inherit;
+}

@@ -6,6 +6,7 @@ import { Box, Stack } from "@mui/system";
 import img1 from "../../assets/map1.jpg";
 import img2 from "../../assets/map2.jpg";
 import { Divider, Typography } from "@mui/material";
+
 const GuideMap = () => {
   document.title = "E-Ticket | Maps";
   const { theme, setSnackbar } = useStateContext();

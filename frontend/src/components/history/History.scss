@@ -33,6 +33,10 @@
       width: 90%;
       height: 30%;
     }
+    @media screen and (max-width: 450px) {
+      width: 90%;
+      height: 18%;
+    }
     &:hover {
       box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
       transform: translateY(-2px);
@@ -48,6 +52,9 @@
     color: var(--text-light-color);
   }
   @media screen and (max-width: 900px) {
+    width: 98%;
+  }
+  @media screen and (max-width: 450px) {
     width: 98%;
   }
 }

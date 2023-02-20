@@ -5,7 +5,9 @@ const stateContext = createContext();
 export const ContextProvider = ({ children }) => {
   const [sidebarMenu, setSidebarMenu] = useState(false);
   const [homeTicketDetails, setHomeTicketDetails] = useState(true);
+  const [buyTicketModel, setBuyTicketModel] = useState(false);
   const [loader, setLoader] = useState(false);
+
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") !== null || undefined
       ? localStorage.getItem("theme")
@@ -30,6 +32,8 @@ export const ContextProvider = ({ children }) => {
         snackbar,
         loader,
         setLoader,
+        setBuyTicketModel,
+        buyTicketModel,
       }}
     >
       {children}

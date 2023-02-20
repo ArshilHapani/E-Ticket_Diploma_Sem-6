@@ -102,7 +102,7 @@ const ActiveTickets = () => {
                   }}
                   sx={{ margin: "1rem 0" }}
                 >
-                  view ticket
+                  QR Code
                 </Button>
               </Tooltip>
               <Modal

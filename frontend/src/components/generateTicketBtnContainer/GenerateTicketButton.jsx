@@ -12,19 +12,23 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
 import { FaExchangeAlt } from "react-icons/fa";
 import { useStateContext } from "../../context/stateContext";
 import useMuiStyles from "../../hooks/useMuiStyles";
 import { top100Films } from "../../constants/dummy";
 import { useNavigate } from "react-router-dom";
 import { Stack } from "@mui/system";
-import { LoadingButton } from "@mui/lab";
 
 const GenerateTicketButton = () => {
   const navigate = useNavigate();
-  const [model, setModel] = useState(false);
-  const [buttonLoading, setButtonLoading] = useState(false);
-  const { homeTicketDetails, theme, setSnackbar } = useStateContext();
+  const {
+    homeTicketDetails,
+    theme,
+    setSnackbar,
+    buyTicketModel,
+    setBuyTicketModel,
+  } = useStateContext();
   const { modelStyle, modelTextField, modelAutocomplete } = useMuiStyles();
   const [dist, setDist] = useState({
     source: "",
@@ -32,7 +36,6 @@ const GenerateTicketButton = () => {
     quantity: 1,
   });
   const handleSubmit = (e) => {
-    setButtonLoading(true);
     e.preventDefault();
     console.log(dist);
     setSnackbar({
@@ -40,8 +43,7 @@ const GenerateTicketButton = () => {
       message: "Ticket generated successfully",
       type: "success",
     });
-    setModel(false);
-    setButtonLoading(false);
+    setBuyTicketModel(false);
   };
   // console.log(dist); //! Dist have data of source and destinations with nested objects
   return (
@@ -89,19 +91,19 @@ const GenerateTicketButton = () => {
           variant="contained"
           className="mui__btn-buy-ticket"
           color="error"
-          onClick={() => setModel(true)}
+          onClick={() => setBuyTicketModel(true)}
         >
           Buy ticket
         </Button>
 
         {/* For overlay model */}
         <Modal
-          open={model}
+          open={buyTicketModel}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
           <form onSubmit={handleSubmit}>
-            <Fade in={model}>
+            <Fade in={buyTicketModel}>
               <Box sx={modelStyle}>
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                   Select your stations
@@ -207,17 +209,14 @@ const GenerateTicketButton = () => {
                     variant="outlined"
                     color="error"
                     sx={modelAutocomplete.generateTicketButton.cancelButton}
-                    onClick={() => setModel(false)}
+                    onClick={() => setBuyTicketModel(false)}
                   >
                     Cancel
                   </Button>
                   <LoadingButton
-                    loading={buttonLoading}
-                    loadingPosition="center"
                     variant="contained"
                     sx={modelAutocomplete.generateTicketButton}
                     type="submit"
-                    color="primary"
                   >
                     Generate Ticket ({dist.quantity * 4}&#8377;)
                   </LoadingButton>
