@@ -75,6 +75,11 @@ const Navbar = () => {
             anchorEl={anchorEl}
             sx={{
               padding: "0.5rem 1rem",
+              "& .MuiPaper-root": {
+                backgroundColor: theme === "light" ? "#f2f2f2" : "#20232a",
+                borderRadius: "20px",
+              },
+              color: theme === "light" ? "#0d1b2a" : "#f2f2f2",
             }}
             open={open}
             onClose={handleClose}
@@ -93,30 +98,39 @@ const Navbar = () => {
                 direction="column"
                 sx={{ margin: "0.5rem 1rem" }}
                 justifyContent="center"
-                alignItem="center"
               >
                 <Stack
                   justifyContent="space-between"
-                  alignItems="center"
                   direction="row"
+                  alignItems="center"
                 >
                   <Avatar
                     src={avatar}
                     sx={{
                       bgcolor: colors.red[600],
-                      width: 60,
-                      height: 60,
+                      width: 80,
+                      height: 80,
                     }}
                   />
                   <Link
                     className="link-styles-anchor-tags"
                     to={"/profile/12345"}
+                    onClick={handleClose}
                   >
                     {" "}
-                    <MenuItem>Edit profile</MenuItem>
+                    <MenuItem
+                      sx={{ color: theme === "light" ? "#0d1b2a" : "#f2f2f2" }}
+                    >
+                      Edit profile
+                    </MenuItem>
                   </Link>
                 </Stack>
-                <Typography fontSize={20} fontWeight={700} marginTop={1.5}>
+                <Typography
+                  fontSize={20}
+                  fontWeight={700}
+                  marginTop={1.5}
+                  sx={{ color: theme === "light" ? "#0d1b2a" : "#f2f2f2" }}
+                >
                   Arshil Hapani
                 </Typography>
                 <Typography
@@ -134,15 +148,30 @@ const Navbar = () => {
                   setBuyTicketModel(true);
                 }}
               >
-                <BiPurchaseTag />{" "}
-                <Typography sx={{ marginLeft: "0.6rem" }}>
+                <BiPurchaseTag
+                  color={theme === "light" ? "#0d1b2a" : "#f2f2f2"}
+                />{" "}
+                <Typography
+                  sx={{
+                    marginLeft: "0.6rem",
+                    color: theme === "light" ? "#0d1b2a" : "#f2f2f2",
+                  }}
+                >
                   {" "}
                   Buy Ticket
                 </Typography>
               </MenuItem>
               <MenuItem onClick={handleClose}>
-                <FiLogOut />{" "}
-                <Typography sx={{ marginLeft: "0.6rem" }}> Logout</Typography>
+                <FiLogOut color={theme === "light" ? "#0d1b2a" : "#f2f2f2"} />{" "}
+                <Typography
+                  sx={{
+                    marginLeft: "0.6rem",
+                    color: theme === "light" ? "#0d1b2a" : "#f2f2f2",
+                  }}
+                >
+                  {" "}
+                  Logout
+                </Typography>
               </MenuItem>
             </Box>
           </Menu>

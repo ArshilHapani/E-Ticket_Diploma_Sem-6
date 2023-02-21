@@ -1,7 +1,7 @@
 import { Home, Sidebar } from "./container";
 import { Route, Routes } from "react-router-dom";
 import SnackbarAlert from "./components/snackar/Snackbar";
-import { Loader } from "./components";
+import { Loader, PurchaseTicketModel } from "./components";
 function App() {
   return (
     <>
@@ -13,6 +13,8 @@ function App() {
 
         <SnackbarAlert />
         <Loader />
+
+        <PurchaseTicketModel />
       </div>
     </>
   );

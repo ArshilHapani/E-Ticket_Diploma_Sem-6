@@ -9,6 +9,7 @@ import Settings from "./Settings/Settings";
 import SnackbarAlert from "./snackar/Snackbar";
 import ActiveTickets from "./activeTickets/ActiveTickets";
 import Loader from "./loader/Loader";
+import PurchaseTicketModel from "./purchaseTicketModel/PurchaseTicketModel";
 
 export {
   RecentTickets,
@@ -22,4 +23,5 @@ export {
   SnackbarAlert,
   ActiveTickets,
   Loader,
+  PurchaseTicketModel,
 };

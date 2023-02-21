@@ -112,7 +112,7 @@
       margin-top: 3%;
       width: 90%;
       opacity: 0.7;
-      height: 90%;
+      height: 50%;
     }
     @media screen and (max-width: 900px) and (min-height: 500px) {
       margin-top: 3%;
@@ -131,7 +131,7 @@
   }
 
   @media screen and (max-width: 900px) {
-    height: 70%;
+    height: 50%;
     width: 98%;
     &.light {
       background-image: linear-gradient(
