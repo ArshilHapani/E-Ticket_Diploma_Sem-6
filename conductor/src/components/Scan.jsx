@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { QrReader } from "react-qr-reader";
+import QrScanner from "react-qr-scanner";
 
 const Scan = () => {
   const [selected, setSelected] = useState("environment");
@@ -42,13 +42,15 @@ const Scan = () => {
             <option value={"environment"}>Back Camera</option>
             <option value={"user"}>Front Camera</option>
           </select>
-          <QrReader
-            facingMode={selected}
-            delay={1000}
+          <QrScanner
+            delay={300}
+            constraints={{
+              facingMode: "environment",
+            }}
+            style={{ width: "100%" }}
             onError={handleError}
             onScan={handleScan}
-            // chooseDeviceId={()=>selected}
-            style={{ width: "300px" }}
+            qrArea
           />
         </>
       )}
