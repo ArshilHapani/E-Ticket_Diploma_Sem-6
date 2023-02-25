@@ -1,0 +1,7 @@
+user view:
+
+https://e-ticket-diploma-sem-6.vercel.app
+
+conductor view:
+
+https://conductor-view-sem-6-e-ticket.netlify.app
