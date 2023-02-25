@@ -5,7 +5,6 @@ import {
   colors,
   Divider,
   Modal,
-  TextField,
   Typography,
 } from "@mui/material";
 import { MdPhotoCamera } from "react-icons/md";
@@ -17,6 +16,7 @@ import avatar from "../../assets/download.jpeg";
 import useMuiStyles from "../../hooks/useMuiStyles";
 import { useNavigate, useParams } from "react-router-dom";
 import { Stack } from "@mui/system";
+import UpdateProfileModel from "./UpdateProfileModel";
 
 const userObj = {
   name: "Arshil",
@@ -31,31 +31,19 @@ const Profile = () => {
   const { id } = useParams();
   document.title = `E-Ticket | Profile - ${id}`;
   const [updatedUserInfo, setUpdatedUserInfo] = useState({
-    name: "",
-    username: "",
-    email: "",
-    mobileNumber: "",
-    dateOfBirth: "",
-    age: "",
+    name: userObj.name,
+    username: userObj.username,
+    email: userObj.email,
+    mobileNumber: userObj.mobileNumber,
+    dateOfBirth: userObj.dateOfBirth,
+    age: userObj.age,
   });
-  const { theme, setSnackbar, setBuyTicketModel } = useStateContext();
-  const {
-    profile_edit_textfield,
-    detail_ref_style,
-    profile_divider_styles,
-    modelStyle,
-    modelAutocomplete,
-  } = useMuiStyles();
+  const { theme, setBuyTicketModel, showSnackBar } = useStateContext();
+  const { detail_ref_style, profile_divider_styles } = useMuiStyles();
   const [open, setOpen] = useState(false);
   const uploadImage = (e) => {
     const selectedFile = e.target.files[0];
     console.log(selectedFile);
-  };
-  const onChange = (e) => {
-    setUpdatedUserInfo({
-      ...updatedUserInfo,
-      [e.target.name]: e.target.value, //Change the value equivalent to the value of the name
-    });
   };
   const handleForm = (e) => {
     e.preventDefault();
@@ -67,20 +55,12 @@ const Profile = () => {
       updatedUserInfo.mobileNumber === "" ||
       updatedUserInfo.username === ""
     ) {
-      setSnackbar({
-        show: true,
-        message: "Please fill all the required fields",
-        type: "error",
-      });
+      showSnackBar("Please fill all the required fields", "error");
       return;
     }
     console.log(updatedUserInfo);
     setOpen(false);
-    setSnackbar({
-      show: true,
-      message: "soon changes get reflected",
-      type: "success",
-    });
+    showSnackBar("soon changes get reflected", "success");
     //TODO
   };
   return (
@@ -111,7 +91,6 @@ const Profile = () => {
             component="label"
             startIcon={<MdPhotoCamera />}
             color="info"
-            InputLabelProps={{ shrink: true }}
           >
             Upload image
             <input hidden accept="image/*" type="file" onChange={uploadImage} />
@@ -157,7 +136,6 @@ const Profile = () => {
             component="label"
             startIcon={<AiFillEdit />}
             color="info"
-            InputLabelProps={{ shrink: true }}
             onClick={() => setOpen(true)}
           >
             Edit Profile
@@ -168,75 +146,11 @@ const Profile = () => {
             aria-describedby="modal-modal-description"
           >
             <form onSubmit={handleForm}>
-              <Box sx={modelStyle}>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-                  Update profile
-                </Typography>
-                <TextField
-                  label="name"
-                  sx={profile_edit_textfield}
-                  placeholder="update name"
-                  variant="standard"
-                  value={updatedUserInfo.name}
-                  onChange={onChange}
-                  color="info"
-                  InputLabelProps={{ shrink: true }}
-                  type="text"
-                />
-                <TextField
-                  label="username"
-                  sx={profile_edit_textfield}
-                  value={updatedUserInfo.username}
-                  onChange={onChange}
-                  placeholder="update username"
-                  variant="standard"
-                  color="info"
-                  InputLabelProps={{ shrink: true }}
-                  type="text"
-                />
-
-                <TextField
-                  label="email"
-                  sx={profile_edit_textfield}
-                  value={updatedUserInfo.email}
-                  onChange={onChange}
-                  placeholder="update email"
-                  variant="standard"
-                  color="info"
-                  InputLabelProps={{ shrink: true }}
-                  type="email"
-                />
-                <TextField
-                  label="mobile number"
-                  sx={profile_edit_textfield}
-                  value={updatedUserInfo.mobileNumber}
-                  onChange={onChange}
-                  placeholder="update mobile number"
-                  variant="standard"
-                  color="info"
-                  InputLabelProps={{ shrink: true }}
-                  maxLength={10}
-                  type="number"
-                  className="number-tb"
-                />
-                <Box sx={modelAutocomplete.generateTicketButtonContainer}>
-                  <Button
-                    variant="outlined"
-                    color="error"
-                    sx={modelAutocomplete.generateTicketButton.cancelButton}
-                    onClick={() => setOpen(false)}
-                  >
-                    Cancel
-                  </Button>
-                  <Button
-                    variant="contained"
-                    sx={modelAutocomplete.generateTicketButton}
-                    type="submit"
-                  >
-                    Update credentials
-                  </Button>
-                </Box>
-              </Box>
+              <UpdateProfileModel
+                updatedUserInfo={updatedUserInfo}
+                setUpdatedUserInfo={setUpdatedUserInfo}
+                setOpen={setOpen}
+              />
             </form>
           </Modal>
         </div>

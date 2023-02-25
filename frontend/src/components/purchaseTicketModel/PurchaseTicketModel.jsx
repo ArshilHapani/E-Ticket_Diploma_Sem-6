@@ -16,7 +16,7 @@ import { top100Films } from "../../constants/dummy";
 import { useStateContext } from "../../context/stateContext";
 import useMuiStyles from "../../hooks/useMuiStyles";
 const PurchaseTicketModel = () => {
-  const { theme, setSnackbar, buyTicketModel, setBuyTicketModel } =
+  const { theme, buyTicketModel, setBuyTicketModel, showSnackBar } =
     useStateContext();
   const { modelStyle, modelTextField, modelAutocomplete } = useMuiStyles();
   const [dist, setDist] = useState({
@@ -27,19 +27,11 @@ const PurchaseTicketModel = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (dist.source === "" || dist.destination === "") {
-      setSnackbar({
-        show: true,
-        message: "Please select  source and/or destination",
-        type: "error",
-      });
+      showSnackBar("Please select source and/or destination", "error");
       return;
     }
     console.log(dist);
-    setSnackbar({
-      show: true,
-      message: "Ticket generated successfully",
-      type: "success",
-    });
+    showSnackBar("Ticket generated successfully", "success");
     setBuyTicketModel(false);
   };
   return (

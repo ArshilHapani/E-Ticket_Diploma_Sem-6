@@ -22,7 +22,7 @@ const ActiveTickets = () => {
     left: "50%",
     transform: "translate(-50%, -50%)",
     padding: "1rem",
-    backgroundColor: "#f2f2f2",
+    backgroundColor: "#fff",
     boxShadow: 24,
     height: "fit-content",
     width: "fit-content",

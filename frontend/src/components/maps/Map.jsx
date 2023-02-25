@@ -9,7 +9,7 @@ import { Divider, Typography } from "@mui/material";
 
 const GuideMap = () => {
   document.title = "E-Ticket | Maps";
-  const { theme, setSnackbar } = useStateContext();
+  const { theme, showSnackBar } = useStateContext();
   const [location, setLocation] = useState({
     longitude: "",
     latitude: "",
@@ -18,11 +18,7 @@ const GuideMap = () => {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
   } else {
-    setSnackbar({
-      show: true,
-      type: "error",
-      message: "Geolocation is not supported by this browser.",
-    });
+    showSnackBar("Geolocation is not supported by this browser.", "error");
   }
   function showPosition(position) {
     setLocation({

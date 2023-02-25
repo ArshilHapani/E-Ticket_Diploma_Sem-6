@@ -18,6 +18,13 @@ export const ContextProvider = ({ children }) => {
     message: "",
     type: "info",
   });
+  function showSnackBar(message, type) {
+    setSnackbar({
+      show: true,
+      message: message,
+      type: type,
+    });
+  }
   localStorage.setItem("theme", theme);
   return (
     <stateContext.Provider
@@ -29,6 +36,7 @@ export const ContextProvider = ({ children }) => {
         theme,
         setTheme,
         setSnackbar,
+        showSnackBar,
         snackbar,
         loader,
         setLoader,
