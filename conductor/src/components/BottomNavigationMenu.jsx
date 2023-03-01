@@ -2,7 +2,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import { AiOutlineHome, AiOutlineScan } from "react-icons/ai";
+import { AiOutlineHome } from "react-icons/ai";
 import { BsPerson } from "react-icons/bs";
 import { useNavigate, useLocation } from "react-router-dom";
 const BottomNavigationMenu = () => {
@@ -11,11 +11,9 @@ const BottomNavigationMenu = () => {
   const location = useLocation();
   React.useEffect(() => {
     if (location.pathname === "/profile") {
-      setValue(2);
+      setValue(1);
     } else if (location.pathname === "/") {
       setValue(0);
-    } else if (location.pathname === "/scan") {
-      setValue(1);
     }
   }, [location]);
 
@@ -40,11 +38,6 @@ const BottomNavigationMenu = () => {
           label="Home"
           icon={<AiOutlineHome size={25} />}
           onClick={() => navigate("/")}
-        />
-        <BottomNavigationAction
-          label="Scan"
-          icon={<AiOutlineScan size={25} />}
-          onClick={() => navigate("/scan")}
         />
 
         <BottomNavigationAction

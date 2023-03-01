@@ -104,17 +104,23 @@ const Navbar = () => {
                   direction="row"
                   alignItems="center"
                 >
-                  <Avatar
-                    src={avatar}
-                    sx={{
-                      bgcolor: colors.red[600],
-                      width: 80,
-                      height: 80,
-                    }}
-                  />
                   <Link
                     className="link-styles-anchor-tags"
                     to={"/profile/12345"}
+                    onClick={handleClose}
+                  >
+                    <Avatar
+                      src={avatar}
+                      sx={{
+                        bgcolor: colors.red[600],
+                        width: 80,
+                        height: 80,
+                      }}
+                    />
+                  </Link>
+                  <Link
+                    className="link-styles-anchor-tags"
+                    to={"/profile/12345"} //TODO
                     onClick={handleClose}
                   >
                     {" "}

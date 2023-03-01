@@ -58,9 +58,19 @@ const Profile = () => {
       showSnackBar("Please fill all the required fields", "error");
       return;
     }
+    if (updatedUserInfo.mobileNumber.length !== 10) {
+      showSnackBar("Length of mobile number must be of 10", "error");
+      return;
+    }
     console.log(updatedUserInfo);
     setOpen(false);
     showSnackBar("soon changes get reflected", "success");
+    userObj.name = updatedUserInfo.name;
+    userObj.email = updatedUserInfo.email;
+    userObj.dateOfBirth = updatedUserInfo.dateOfBirth;
+    userObj.age = updatedUserInfo.age;
+    userObj.mobileNumber = updatedUserInfo.mobileNumber;
+    userObj.username = updatedUserInfo.username;
     //TODO
   };
   return (
@@ -159,11 +169,6 @@ const Profile = () => {
             Total number of ticket generated
           </Typography>
           <Typography sx={detail_ref_style.userDetailStyle}>78</Typography>
-          <Divider sx={profile_divider_styles} />
-          <Typography sx={detail_ref_style}>userId</Typography>
-          <Typography sx={detail_ref_style.userDetailStyle}>
-            Ufrt4354r45
-          </Typography>
           <Divider sx={profile_divider_styles} />
           <Stack direction="column" gap={1}>
             <Button variant="outlined" onClick={() => navigate("/tickets")}>

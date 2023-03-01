@@ -61,7 +61,9 @@ const EditProfileModel = ({ closeModal, initialValues }) => {
   const [updateData, setUpdateData] = useState({
     name: initialValues.name,
     email: initialValues.email,
-    mobileNumber: initialValues.mobile,
+    mobile: initialValues.mobile,
+    dob: initialValues.dob,
+    username: initialValues.username,
   });
 
   const handleSubmit = (e) => {
@@ -69,15 +71,23 @@ const EditProfileModel = ({ closeModal, initialValues }) => {
     if (
       updateData.name === "" ||
       updateData.email === "" ||
-      updateData.mobileNumber === ""
+      updateData.mobile === null ||
+      updateData.dob === null ||
+      updateData.username === ""
     ) {
       snackbarSetterFunction("please fill all the required fields", "error");
       return;
     }
-    if (updateData.mobileNumber.length !== 10) {
+    if (updateData.mobile.length !== 10) {
       snackbarSetterFunction("Length of mobile number must be of 10", "error");
       return;
     }
+    initialValues.name = updateData.name;
+    initialValues.email = updateData.email;
+    initialValues.mobile = updateData.mobile;
+    initialValues.dob = updateData.dob;
+    initialValues.username = updateData.username;
+
     console.log(updateData);
     closeModal(false);
     snackbarSetterFunction("Profile updated successfully", "success");
@@ -91,9 +101,22 @@ const EditProfileModel = ({ closeModal, initialValues }) => {
           value={updateData.name}
           variant="standard"
           label="name"
+          type="text"
           InputLabelProps={{ shrink: true }}
           onChange={(e) =>
             setUpdateData({ ...updateData, name: e.target.value })
+          }
+        />
+
+        <TextField
+          sx={modelTextField}
+          variant="standard"
+          type="text"
+          value={updateData.username}
+          label="username"
+          InputLabelProps={{ shrink: true }}
+          onChange={(e) =>
+            setUpdateData({ ...updateData, username: e.target.value })
           }
         />
 
@@ -113,13 +136,26 @@ const EditProfileModel = ({ closeModal, initialValues }) => {
           sx={modelTextField}
           variant="standard"
           type="number"
-          value={updateData.mobileNumber}
+          value={updateData.mobile}
           label="mobile number"
           InputLabelProps={{ shrink: true }}
           onChange={(e) =>
-            setUpdateData({ ...updateData, mobileNumber: e.target.value })
+            setUpdateData({ ...updateData, mobile: e.target.value })
           }
         />
+
+        <TextField
+          sx={modelTextField}
+          variant="standard"
+          type="date"
+          value={updateData.dob}
+          label="Date of Birth"
+          InputLabelProps={{ shrink: true }}
+          onChange={(e) =>
+            setUpdateData({ ...updateData, dob: e.target.value })
+          }
+        />
+
         <Stack
           justifyContent="flex-end"
           gap={2}

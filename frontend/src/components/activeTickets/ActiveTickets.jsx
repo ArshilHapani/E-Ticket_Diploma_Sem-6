@@ -12,6 +12,8 @@ import { useStateContext } from "../../context/stateContext";
 import "./activeTickets.scss";
 import { useState } from "react";
 import QrCodeSVG from "../svg_qr/QrCodeSVG";
+const currentDate = new Date();
+let formattedDate = `${currentDate.getDay()}-${currentDate.getMonth()}-${currentDate.getFullYear()}`;
 const ActiveTickets = () => {
   const { theme } = useStateContext();
   const [qModel, setQModel] = useState(false);
@@ -36,6 +38,7 @@ const ActiveTickets = () => {
       fare: 16,
       validityFrom: "12:05 A.M.",
       validityTo: "2:05 A.M.",
+      date: formattedDate,
     },
     {
       startingPoint: "station",
@@ -43,6 +46,7 @@ const ActiveTickets = () => {
       fare: 8,
       validityFrom: "10:00 A.M.",
       validityTo: "12:05 A.M.",
+      date: formattedDate,
     },
     {
       startingPoint: "jakatnaka",
@@ -50,6 +54,7 @@ const ActiveTickets = () => {
       fare: 12,
       validityFrom: "10:00 A.M.",
       validityTo: "12:05 A.M.",
+      date: formattedDate,
     },
   ];
   return (
@@ -86,6 +91,9 @@ const ActiveTickets = () => {
                 <Typography>
                   validity to:{" "}
                   <Typography variant="span">{item.validityTo}</Typography>
+                </Typography>
+                <Typography>
+                  date: <Typography variant="span">{item.date}</Typography>
                 </Typography>
               </Stack>
               <Tooltip

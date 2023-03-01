@@ -10,6 +10,7 @@ import SnackbarAlert from "./snackar/Snackbar";
 import ActiveTickets from "./activeTickets/ActiveTickets";
 import Loader from "./loader/Loader";
 import PurchaseTicketModel from "./purchaseTicketModel/PurchaseTicketModel";
+import QrCodeSVG from "./svg_qr/QrCodeSVG";
 
 export {
   RecentTickets,
@@ -24,4 +25,5 @@ export {
   ActiveTickets,
   Loader,
   PurchaseTicketModel,
+  QrCodeSVG,
 };

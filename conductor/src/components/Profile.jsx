@@ -14,9 +14,10 @@ import avatar from "../assets/download.jpeg";
 import EditProfileModel from "./EditProfileModel";
 const conductorObj = {
   name: "Baburao apt",
+  username: "baburaoApte",
   email: "baburao@gmail.com",
   mobile: 798896896,
-  cid: "C3312423",
+  dob: "10-4-1998",
   image: avatar,
 };
 const labelStyle = {
@@ -126,14 +127,17 @@ const Profile = () => {
           <Typography sx={labelStyle}>Name</Typography>
           <Typography sx={userDetailsStyle}>{conductorObj.name}</Typography>
           <Divider />
+          <Typography sx={labelStyle}>username</Typography>
+          <Typography sx={userDetailsStyle}>{conductorObj.username}</Typography>
+          <Divider />
           <Typography sx={labelStyle}>email</Typography>
           <Typography sx={userDetailsStyle}>{conductorObj.email}</Typography>
           <Divider />
           <Typography sx={labelStyle}>mobile</Typography>
           <Typography sx={userDetailsStyle}>{conductorObj.mobile}</Typography>
           <Divider />
-          <Typography sx={labelStyle}>id</Typography>
-          <Typography sx={userDetailsStyle}>{conductorObj.cid}</Typography>
+          <Typography sx={labelStyle}>Date of Birth</Typography>
+          <Typography sx={userDetailsStyle}>{conductorObj.dob}</Typography>
           <Divider />
         </Stack>
       </Stack>

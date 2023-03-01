@@ -4,7 +4,7 @@ const stateContext = createContext();
 
 export const ContextProvider = ({ children }) => {
   const [sidebarMenu, setSidebarMenu] = useState(false);
-  const [homeTicketDetails, setHomeTicketDetails] = useState(true);
+  const [homeTicketDetails, setHomeTicketDetails] = useState(false);
   const [buyTicketModel, setBuyTicketModel] = useState(false);
   const [loader, setLoader] = useState(false);
 

@@ -4,6 +4,7 @@ import { Box, Button, Card } from "@mui/material";
 import { FaExchangeAlt } from "react-icons/fa";
 import { useStateContext } from "../../context/stateContext";
 import { useNavigate } from "react-router-dom";
+import { Stack } from "@mui/system";
 
 const GenerateTicketButton = () => {
   const navigate = useNavigate();
@@ -50,14 +51,23 @@ const GenerateTicketButton = () => {
             </div>
           )}
         </Card>
-        <Button
-          variant="contained"
-          className="mui__btn-buy-ticket"
-          color="error"
-          onClick={() => setBuyTicketModel(true)}
-        >
-          Buy ticket
-        </Button>
+        <Stack direction="column" width={{ sm: "100%", xs: "100%" }}>
+          <Button
+            variant="contained"
+            className="mui__btn-buy-ticket"
+            color="error"
+            onClick={() => setBuyTicketModel(true)}
+          >
+            Buy ticket
+          </Button>
+          <Button
+            variant="contained"
+            className="mui__btn-buy-ticket"
+            color="success"
+          >
+            Add Recharge
+          </Button>
+        </Stack>
       </Box>
     </>
   );
