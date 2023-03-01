@@ -6,11 +6,14 @@ import GuideMap from "./maps/Map";
 import PHistory from "./p-history/PHistory";
 import Profile from "./profile/Profile";
 import Settings from "./Settings/Settings";
-import SnackbarAlert from "./snackar/Snackbar";
+import SnackbarAlert from "./snackbar/Snackbar";
 import ActiveTickets from "./activeTickets/ActiveTickets";
 import Loader from "./loader/Loader";
 import PurchaseTicketModel from "./purchaseTicketModel/PurchaseTicketModel";
 import QrCodeSVG from "./svg_qr/QrCodeSVG";
+import NewUser from "./forms/NewUser";
+import OldUser from "./forms/OldUser";
+import ForgotPassword from "./forms/ForgetPassword";
 
 export {
   RecentTickets,
@@ -26,4 +29,7 @@ export {
   Loader,
   PurchaseTicketModel,
   QrCodeSVG,
+  NewUser,
+  OldUser,
+  ForgotPassword,
 };

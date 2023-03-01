@@ -54,3 +54,12 @@ input[type="number"] {
   text-decoration: none;
   color: inherit;
 }
+
+.form-root {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  min-height: 100vh;
+  min-width: 100vw;
+  background-color: #eef2f6;
+}

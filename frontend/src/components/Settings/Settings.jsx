@@ -55,7 +55,7 @@ const Settings = () => {
                 }}
               />
             }
-            label="Light (Default)"
+            label="Light"
             onClick={() => {
               setTheme("light");
             }}

@@ -1,14 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import "./generateTicketBtn.scss";
-import { Box, Button, Card } from "@mui/material";
+import { Box, Button, Card, Modal, Typography } from "@mui/material";
 import { FaExchangeAlt } from "react-icons/fa";
 import { useStateContext } from "../../context/stateContext";
 import { useNavigate } from "react-router-dom";
 import { Stack } from "@mui/system";
+import QrCodeSVG from "../svg_qr/QrCodeSVG";
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  padding: "1rem",
+  backgroundColor: "#fff",
+  boxShadow: 24,
+  height: "fit-content",
+  width: 300,
 
+  p: 4,
+};
+const userId = "UA1R2S3H4I5L6";
 const GenerateTicketButton = () => {
   const navigate = useNavigate();
   const { homeTicketDetails, theme, setBuyTicketModel } = useStateContext();
+  const [qrModel, setQrModel] = useState(false);
 
   return (
     <>
@@ -64,9 +79,31 @@ const GenerateTicketButton = () => {
             variant="contained"
             className="mui__btn-buy-ticket"
             color="success"
+            onClick={() => setQrModel(true)}
           >
             Add Recharge
           </Button>
+          {/* Id Qr Model */}
+          <Modal
+            open={qrModel}
+            onClose={() => setQrModel(false)}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <Stack
+                direction="column"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <QrCodeSVG values={userId} />
+                <Typography sx={{ marginTop: "1rem", textAlign: "center" }}>
+                  Request any nearby bus <b>conductor</b> to recharge into your
+                  account by scanning this QR code{" "}
+                </Typography>
+              </Stack>
+            </Box>
+          </Modal>
         </Stack>
       </Box>
     </>
