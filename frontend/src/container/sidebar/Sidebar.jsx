@@ -1,5 +1,5 @@
 import React from "react";
-import { sidebarItems } from "../../constants/sidebarItems";
+import { useSidebarItems } from "../../constants/sidebarItems";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import "./Sidebar.scss";
 import { IoBusOutline } from "react-icons/io5";
@@ -21,7 +21,7 @@ const Sidebar = () => {
           <IoBusOutline className="logo-icon" />
           <span>E-Ticket</span>
         </Link>
-        {sidebarItems.map((item, index) => (
+        {useSidebarItems.map((item, index) => (
           <NavLink
             to={item.path}
             key={item.title + index}
@@ -58,7 +58,7 @@ const Sidebar = () => {
                 <AiOutlineCloseCircle onClick={() => setSidebarMenu(false)} />
               </span>
             </Link>
-            {sidebarItems.map((item, index) => (
+            {useSidebarItems.map((item, index) => (
               <NavLink
                 to={item.path}
                 key={item.title + index}

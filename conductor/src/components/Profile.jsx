@@ -33,6 +33,7 @@ const userDetailsStyle = {
 const Profile = () => {
   document.title = "E-Ticket | Conductor - Profile";
   const [profileModal, setProfileModal] = useState(false);
+
   return (
     <Stack
       sx={{

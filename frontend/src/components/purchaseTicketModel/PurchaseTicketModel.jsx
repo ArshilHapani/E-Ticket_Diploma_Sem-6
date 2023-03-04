@@ -24,6 +24,15 @@ const PurchaseTicketModel = () => {
     destination: "",
     quantity: 1,
   });
+  // useEffect(() => {
+  //   async function fetchStation() {
+  //     const data = await fetch("http://localhost:6565/fetchTicket",{
+  //       method:"POST",
+  //       //TODO...
+  //     })
+  //   }
+  // }, [])
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (dist.source === "" || dist.destination === "") {
@@ -132,7 +141,7 @@ const PurchaseTicketModel = () => {
                 step={1}
                 marks
                 min={1}
-                max={10}
+                max={5}
                 onChange={(e) => setDist({ ...dist, quantity: e.target.value })}
                 sx={{ width: "98%", marginTop: "0.6rem" }}
               />

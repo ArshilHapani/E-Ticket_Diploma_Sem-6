@@ -1,6 +1,5 @@
 import React from "react";
 import "./navbar.scss";
-import avatar from "../../assets/download.jpeg";
 import { AiOutlineMenu } from "react-icons/ai";
 import { FiLogOut } from "react-icons/fi";
 import { BiPurchaseTag } from "react-icons/bi";
@@ -15,11 +14,13 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Box } from "@mui/system";
 const Navbar = () => {
-  const { setSidebarMenu, theme, setBuyTicketModel } = useStateContext();
+  const { setSidebarMenu, theme, setBuyTicketModel, newUser } =
+    useStateContext();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const navigate = useNavigate();
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -48,7 +49,7 @@ const Navbar = () => {
             }`}
           >
             <div>
-              Current balance - <span>500 &#8377;</span>
+              Current balance - <span>{newUser.p_balance} &#8377;</span>
             </div>
           </div>
         </Tooltip>
@@ -59,7 +60,7 @@ const Navbar = () => {
         >
           <div onClick={handleClick}>
             <Avatar
-              src={avatar}
+              src={newUser.p_img}
               sx={{
                 bgcolor: colors.red[600],
                 width: 60,
@@ -106,11 +107,11 @@ const Navbar = () => {
                 >
                   <Link
                     className="link-styles-anchor-tags"
-                    to={"/profile/12345"}
+                    to={`/profile/${newUser.p_uname}`}
                     onClick={handleClose}
                   >
                     <Avatar
-                      src={avatar}
+                      src={newUser.p_img}
                       sx={{
                         bgcolor: colors.red[600],
                         width: 80,
@@ -120,7 +121,7 @@ const Navbar = () => {
                   </Link>
                   <Link
                     className="link-styles-anchor-tags"
-                    to={"/profile/12345"} //TODO
+                    to={`/profile/${newUser.p_uname}`}
                     onClick={handleClose}
                   >
                     {" "}
@@ -137,14 +138,14 @@ const Navbar = () => {
                   marginTop={1.5}
                   sx={{ color: theme === "light" ? "#0d1b2a" : "#f2f2f2" }}
                 >
-                  Arshil Hapani
+                  {newUser.p_name}
                 </Typography>
                 <Typography
                   fontSize={14}
                   fontWeight={500}
                   sx={{ color: "#778da9" }}
                 >
-                  arshilhapani998@gmail.com
+                  {newUser.p_email}
                 </Typography>
                 {/* //TODO */}
               </Stack>
@@ -167,7 +168,13 @@ const Navbar = () => {
                   Buy Ticket
                 </Typography>
               </MenuItem>
-              <MenuItem onClick={handleClose}>
+              <MenuItem
+                onClick={() => {
+                  handleClose();
+                  localStorage.removeItem("user");
+                  navigate("/signIn");
+                }}
+              >
                 <FiLogOut color={theme === "light" ? "#0d1b2a" : "#f2f2f2"} />{" "}
                 <Typography
                   sx={{

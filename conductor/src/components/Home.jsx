@@ -1,8 +1,14 @@
 import { Button, Modal, Typography } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import { useState, useEffect } from "react";
-import { MdQrCodeScanner } from "react-icons/md";
+import {
+  MdOutlineAttachMoney,
+  MdOutlineHistory,
+  MdQrCodeScanner,
+} from "react-icons/md";
 import QrReader from "react-qr-reader";
+import { useStateContext } from "../context/stateContext";
+import AddRechargeQrModel from "./AddRechargeQrModel";
 
 const style = {
   position: "absolute",
@@ -20,11 +26,12 @@ const spanStyle = {
 };
 const Home = () => {
   document.title = "E-Ticket | Conductor - Scan";
-  const [startScan, setStartScan] = useState(false);
+  const { snackbarSetterFunction } = useStateContext();
   const [qrModel, setQrModel] = useState(false);
+  const [startScan, setStartScan] = useState(false);
   const [open, setOpen] = useState(false);
   const [data, setData] = useState("");
-  const [stringData, setStringData] = useState("");
+  const [rechargeModel, setRechargeModel] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   useEffect(() => {
@@ -46,8 +53,7 @@ const Home = () => {
       } catch (error) {
         console.log(error);
         //if data is string...
-        setStringData(scanData);
-        alert("Data" + stringData);
+        snackbarSetterFunction("Invalid QR Code", "error");
       }
       //stopping the user's cam manually
       navigator.mediaDevices
@@ -81,15 +87,31 @@ const Home = () => {
           setQrModel(true);
           setStartScan(true);
         }}
+        endIcon={<MdQrCodeScanner />}
       >
         {startScan ? "Stop Scanning" : "Scan ticket"}{" "}
-        <MdQrCodeScanner style={{ marginLeft: "0.5rem" }} />
       </Button>
-      <Button sx={{ width: "20rem" }} variant="contained" color="primary">
-        Transaction History
+      <Button
+        sx={{ width: "20rem" }}
+        endIcon={<MdOutlineAttachMoney />}
+        variant="contained"
+        color="secondary"
+        onClick={() => {
+          setRechargeModel(true);
+        }}
+      >
+        Add Recharge{" "}
+      </Button>
+      <Button
+        sx={{ width: "20rem" }}
+        variant="contained"
+        color="primary"
+        endIcon={<MdOutlineHistory />}
+      >
+        Transaction History{" "}
       </Button>
       {startScan && (
-        <Modal open={qrModel} onClose={() => setQrModel(false)}>
+        <Modal open={qrModel}>
           <>
             <Stack
               direction="column"
@@ -124,7 +146,6 @@ const Home = () => {
       {data !== "" && (
         <Modal
           open={open}
-          onClose={handleClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
@@ -163,6 +184,27 @@ const Home = () => {
           )}
         </Modal>
       )}
+      {/* Recharge Qr Scan */}
+      <Modal open={rechargeModel} onClose={() => setRechargeModel(false)}>
+        <Stack
+          sx={style}
+          direction="column"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <AddRechargeQrModel style={style} />
+          <Button
+            variant="outlined"
+            color="error"
+            onClick={() => {
+              setRechargeModel(false);
+            }}
+            sx={{ marginTop: 5 }}
+          >
+            Close
+          </Button>
+        </Stack>
+      </Modal>
     </Stack>
   );
 };

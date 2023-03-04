@@ -7,7 +7,7 @@ import { MdHistoryEdu } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import { BsMap } from "react-icons/bs";
 import { TbFileInvoice } from "react-icons/tb";
-export const sidebarItems = [
+export const useSidebarItems = [
   {
     title: "Home",
     path: "/",
@@ -31,7 +31,7 @@ export const sidebarItems = [
   },
   {
     title: "Profile",
-    path: "profile/12345",
+    path: `/profile/${localStorage.getItem("user_path")}`,
     icon: <CgProfile />,
   },
   {

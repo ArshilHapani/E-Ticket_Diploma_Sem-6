@@ -8,7 +8,16 @@
   flex-direction: column;
   padding: 1rem 1.3rem;
   box-sizing: border-box;
-
+  .sync__btn-cont {
+    width: 40%;
+    margin: 2rem 0;
+    button {
+      padding: 0;
+      .sync_icon {
+        margin: 0 0.3rem;
+      }
+    }
+  }
   &.light {
     background-color: var(--bg-light-primary);
     color: var(--text-light-dark);

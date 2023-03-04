@@ -13,13 +13,45 @@ import Layout from "./layout/Layout";
 import { useStateContext } from "../../context/stateContext";
 import { Route, Routes } from "react-router-dom";
 import Sidebar from "../sidebar/Sidebar";
+import { useEffect } from "react";
 const Home = () => {
   document.title = "E-Ticket | Home";
-  const { theme } = useStateContext();
+  const { setNewUser, theme, setLoader, showSnackBar } = useStateContext();
+  // Fetch user data....
+  async function fetchUser() {
+    const data = await fetch("http://localhost:6565/fetchPassenger", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        'authToken': localStorage.getItem("user"),
+      },
+    });
+    const response = await data.json();
+    const { passenger, success } = response;
+    if (!success) {
+      showSnackBar(
+        "Something went wrong while fetching user information",
+        "warning"
+      );
+    }
+    return passenger;
+  }
+  useEffect(() => {
+    setLoader(true);
+
+    async function fetchPassenger() {
+      const data = await fetchUser();
+      setNewUser(data);
+    }
+    fetchPassenger();
+
+    setLoader(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       <Sidebar />
-
       <div className="home-main-container">
         <div
           className={`layout-wrapper ${theme === "light" ? "light" : "dark"}`}

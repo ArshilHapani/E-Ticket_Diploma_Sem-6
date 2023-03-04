@@ -17,21 +17,43 @@ import { useStateContext } from "../../context/stateContext";
 
 const OldUser = () => {
   const navigate = useNavigate();
-  const { showSnackBar } = useStateContext();
+  const { showSnackBar, setLoader } = useStateContext();
   const [user, setUser] = useState({
-    username: "",
+    uname: "",
     password: "",
   });
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(user);
     if (user.username === "" || user.password === "") {
       showSnackBar("please enter required fields", "error");
       return;
     }
-    localStorage.setItem("user", JSON.stringify(user));
-    showSnackBar("Login successful! Welcome.", "success");
-    navigate("/");
+    if (user.password.length < 8) {
+      showSnackBar(
+        "The length of the password must be greater than or equal to 8",
+        "error"
+      );
+      return;
+    }
+    setLoader(true);
+    const data = await fetch("http://localhost:6565/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    });
+    const response = await data.json();
+    console.log(response);
+    if (response.success) {
+      showSnackBar("Login Success", "success");
+      localStorage.setItem("user", response.authToken);
+      navigate("/");
+      setLoader(false);
+    } else {
+      showSnackBar(response.msg, "error");
+      setLoader(false);
+    }
   };
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -86,7 +108,7 @@ const OldUser = () => {
                 onChange={(e) => {
                   setUser({
                     ...user,
-                    username: e.target.value,
+                    uname: e.target.value,
                   });
                 }}
               />
@@ -129,7 +151,12 @@ const OldUser = () => {
                 paddingBottom: "15px",
               }}
             >
-              <Link to="/forgetPassword" underline="none" align="right">
+              <Link
+                to="/forgetPassword"
+                className="link-styles-anchor-tags"
+                underline="none"
+                align="right"
+              >
                 <Typography> Forgot Password?</Typography>
               </Link>
               <Button variant="contained" type="submit">
@@ -143,7 +170,7 @@ const OldUser = () => {
                 paddingBottom: "15px",
               }}
             >
-              <Link to="/signUp" underline="none">
+              <Link to="/signUp" className="link-styles-anchor-tags">
                 <Typography>Don't have an account?</Typography>
               </Link>
             </Stack>

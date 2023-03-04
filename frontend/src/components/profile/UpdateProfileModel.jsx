@@ -9,6 +9,7 @@ const UpdateProfileModel = ({
 }) => {
   const { profile_edit_textfield, modelStyle, modelAutocomplete } =
     useMuiStyles();
+
   return (
     <Box sx={modelStyle}>
       <Typography id="modal-modal-title" variant="h6" component="h2">
@@ -33,11 +34,11 @@ const UpdateProfileModel = ({
       <TextField
         label="username"
         sx={profile_edit_textfield}
-        value={updatedUserInfo.username}
+        value={updatedUserInfo.uname}
         onChange={(e) =>
           setUpdatedUserInfo({
             ...updatedUserInfo,
-            username: e.target.value,
+            uname: e.target.value,
           })
         }
         placeholder="update username"
@@ -66,11 +67,11 @@ const UpdateProfileModel = ({
       <TextField
         label="mobile number"
         sx={profile_edit_textfield}
-        value={updatedUserInfo.mobileNumber}
+        value={updatedUserInfo.no}
         onChange={(e) =>
           setUpdatedUserInfo({
             ...updatedUserInfo,
-            mobileNumber: e.target.value,
+            no: e.target.value,
           })
         }
         placeholder="update mobile number"

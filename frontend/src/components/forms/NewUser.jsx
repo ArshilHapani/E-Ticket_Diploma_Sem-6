@@ -14,41 +14,77 @@ import {
 import { useNavigate, Link } from "react-router-dom";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useStateContext } from "../../context/stateContext";
+import isUserNameValid from "../../functions/userNameValidate";
 
 const NewUser = () => {
   const navigate = useNavigate();
-  const { showSnackBar } = useStateContext();
+  const { showSnackBar, setLoader } = useStateContext();
   const [user, setUser] = useState({
-    fName: "",
-    lName: "",
-    email: "",
-    userName: "",
-    password: "",
-    mobile: "",
+    uname: "",
+    pwd: "",
+    name: "",
     dob: "",
+    no: "",
+    email: "",
   });
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    console.log(user);
     if (
-      user.fName === "" ||
-      user.lName === "" ||
+      user.uname === "" ||
       user.dob === "" ||
       user.email === "" ||
-      user.password === "" ||
-      user.userName === ""
+      user.pwd === "" ||
+      user.name === ""
     ) {
       showSnackBar("Please enter all required fields", "error");
       return;
     }
-    // if (user.mobile.length !== 10) {
-    //   showSnackBar("Please enter valid length of mobile number", "error");
-    //   return;
-    // }
-    localStorage.setItem("user", JSON.stringify(user));
-    showSnackBar("Successfully created a new account", "success");
-    navigate("/");
+    if (user.pwd.length < 8) {
+      showSnackBar(
+        "The length of the password must be greater than or equal to 8",
+        "error"
+      );
+      return;
+    }
+    if (user.no.length < 10) {
+      showSnackBar("Enter a valid mobile number", "error");
+      return;
+    }
+    if (user.uname.length < 5) {
+      showSnackBar(
+        "The length of the username must be greater than or equal to 5",
+        "error"
+      );
+      return;
+    }
+    if (!isUserNameValid(user.uname)) {
+      showSnackBar("Enter a valid username", "error");
+      return;
+    }
+    // Fetch...
+    setLoader(true);
+    const data = await fetch("http://localhost:6565/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    });
+    const response = await data.json();
+
+    console.log(response);
+    if (response.success) {
+      showSnackBar("Successfully created a new account", "success");
+      localStorage.setItem("user", response.authToken);
+      navigate("/");
+    } else if (response.msg !== "") {
+      showSnackBar(response.msg, "error");
+    } else {
+      showSnackBar("Something went wrong", "warning");
+    }
+    setLoader(false);
   }
+
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -95,44 +131,30 @@ const NewUser = () => {
           </Stack>
           <Divider />
           <Stack gap={1} direction="column">
-            <Stack direction="row" gap={1} width="100%">
-              <TextField
-                sx={{ width: "50%" }}
-                label="First Name"
-                variant="standard"
-                value={user.fName}
-                onChange={(e) => {
-                  setUser({
-                    ...user,
-                    fName: e.target.value,
-                  });
-                }}
-              />
-              <TextField
-                sx={{ width: "50%" }}
-                label="Last Name"
-                variant="standard"
-                onChange={(e) => {
-                  setUser({
-                    ...user,
-                    lName: e.target.value,
-                  });
-                }}
-              />
-            </Stack>
             <TextField
-              label="Create Username"
+              label="name*"
+              variant="standard"
+              value={user.name}
+              onChange={(e) => {
+                setUser({
+                  ...user,
+                  name: e.target.value,
+                });
+              }}
+            />
+            <TextField
+              label="username*"
               variant="standard"
               onChange={(e) => {
                 setUser({
                   ...user,
-                  userName: e.target.value,
+                  uname: e.target.value,
                 });
               }}
             />
             <FormControl sx={{ width: "100%" }} variant="standard">
               <InputLabel htmlFor="standard-adornment-password">
-                Password
+                Password*
               </InputLabel>
               <Input
                 id="standard-adornment-password"
@@ -140,7 +162,7 @@ const NewUser = () => {
                 onChange={(e) => {
                   setUser({
                     ...user,
-                    password: e.target.value,
+                    pwd: e.target.value,
                   });
                 }}
                 endAdornment={
@@ -161,7 +183,7 @@ const NewUser = () => {
               />
             </FormControl>
             <TextField
-              label="email"
+              label="email*"
               variant="standard"
               type="email"
               onChange={(e) => {
@@ -178,12 +200,12 @@ const NewUser = () => {
               onChange={(e) => {
                 setUser({
                   ...user,
-                  mobile: e.target.value,
+                  no: e.target.value,
                 });
               }}
             />
             <TextField
-              label="Date of Birth"
+              label="Date of Birth*"
               type="date"
               variant="standard"
               InputLabelProps={{ shrink: true }}
@@ -212,7 +234,7 @@ const NewUser = () => {
                 paddingBottom: "15px",
               }}
             >
-              <Link to="/signIn" underline="none">
+              <Link to="/signIn" className="link-styles-anchor-tags">
                 Already have an account?
               </Link>
             </Stack>

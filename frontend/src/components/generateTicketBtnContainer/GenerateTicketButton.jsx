@@ -19,10 +19,10 @@ const style = {
 
   p: 4,
 };
-const userId = "UA1R2S3H4I5L6";
 const GenerateTicketButton = () => {
   const navigate = useNavigate();
-  const { homeTicketDetails, theme, setBuyTicketModel } = useStateContext();
+  const { homeTicketDetails, theme, setBuyTicketModel, newUser } =
+    useStateContext();
   const [qrModel, setQrModel] = useState(false);
 
   return (
@@ -96,7 +96,7 @@ const GenerateTicketButton = () => {
                 alignItems="center"
                 justifyContent="center"
               >
-                <QrCodeSVG values={userId} />
+                <QrCodeSVG values={{ name: newUser.p_uname }} />
                 <Typography sx={{ marginTop: "1rem", textAlign: "center" }}>
                   Request any nearby bus <b>conductor</b> to recharge into your
                   account by scanning this QR code{" "}

@@ -20,6 +20,7 @@
 }
 .main-parent {
   display: flex;
+  overflow-x: hidden;
 }
 ::selection {
   background-color: #ef233c;
