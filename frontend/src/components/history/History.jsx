@@ -2,6 +2,7 @@ import React from "react";
 import "./History.scss";
 import { useStateContext } from "../../context/stateContext";
 import { Box, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 const dummyHistory = [
   {
     startingPoint: "kamrej",
@@ -29,6 +30,13 @@ const dummyHistory = [
   },
 ];
 const History = () => {
+  const navigate = useNavigate();
+  if (
+    localStorage.getItem("user") === null ||
+    localStorage.getItem("user") === undefined
+  ) {
+    navigate("/signUp");
+  }
   document.title = "E-Ticket | Ticket History";
   const { theme } = useStateContext();
   return (

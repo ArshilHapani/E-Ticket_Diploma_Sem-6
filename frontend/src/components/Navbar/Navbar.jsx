@@ -16,12 +16,20 @@ import {
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { Box } from "@mui/system";
+
 const Navbar = () => {
   const { setSidebarMenu, theme, setBuyTicketModel, newUser } =
     useStateContext();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate();
+  if (
+    localStorage.getItem("user") === null ||
+    localStorage.getItem("user") === undefined
+  ) {
+    navigate("/signUp");
+  }
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -48,9 +56,12 @@ const Navbar = () => {
               theme === "light" ? "light" : "dark"
             }`}
           >
-            <div>
-              Current balance - <span>{newUser.p_balance} &#8377;</span>
-            </div>
+            <Link to="/" className="link-styles-anchor-tags">
+              <div>
+                {" "}
+                Current balance - <span>{newUser?.p_balance} &#8377;</span>
+              </div>
+            </Link>
           </div>
         </Tooltip>
         <div
@@ -60,7 +71,7 @@ const Navbar = () => {
         >
           <div onClick={handleClick}>
             <Avatar
-              src={newUser.p_img}
+              src={newUser?.p_img}
               sx={{
                 bgcolor: colors.red[600],
                 width: 60,
@@ -68,7 +79,9 @@ const Navbar = () => {
               }}
               className="img-avatar"
               alt="profile-picture"
-            ></Avatar>
+            >
+              {newUser?.p_name?.charAt(0)}
+            </Avatar>
           </div>
           <Menu
             id="demo-positioned-menu"
@@ -77,7 +90,7 @@ const Navbar = () => {
             sx={{
               padding: "0.5rem 1rem",
               "& .MuiPaper-root": {
-                backgroundColor: theme === "light" ? "#f2f2f2" : "#20232a",
+                backgroundColor: theme === "light" ? "#fff" : "#20232a",
                 borderRadius: "20px",
               },
               color: theme === "light" ? "#0d1b2a" : "#f2f2f2",
@@ -107,21 +120,23 @@ const Navbar = () => {
                 >
                   <Link
                     className="link-styles-anchor-tags"
-                    to={`/profile/${newUser.p_uname}`}
+                    to={`/profile/${newUser?.p_uname}`}
                     onClick={handleClose}
                   >
                     <Avatar
-                      src={newUser.p_img}
+                      src={newUser?.p_img}
                       sx={{
                         bgcolor: colors.red[600],
                         width: 80,
                         height: 80,
                       }}
-                    />
+                    >
+                      {newUser?.p_name?.charAt(0)}
+                    </Avatar>
                   </Link>
                   <Link
                     className="link-styles-anchor-tags"
-                    to={`/profile/${newUser.p_uname}`}
+                    to={`/profile/${newUser?.p_uname}`}
                     onClick={handleClose}
                   >
                     {" "}
@@ -138,14 +153,14 @@ const Navbar = () => {
                   marginTop={1.5}
                   sx={{ color: theme === "light" ? "#0d1b2a" : "#f2f2f2" }}
                 >
-                  {newUser.p_name}
+                  {newUser?.p_name}
                 </Typography>
                 <Typography
                   fontSize={14}
                   fontWeight={500}
                   sx={{ color: "#778da9" }}
                 >
-                  {newUser.p_email}
+                  {newUser?.p_email}
                 </Typography>
                 {/* //TODO */}
               </Stack>

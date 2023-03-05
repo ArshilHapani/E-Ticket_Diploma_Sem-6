@@ -4,22 +4,21 @@ import { useNavigate } from "react-router-dom";
 const stateContext = createContext();
 
 export const ContextProvider = ({ children }) => {
-  const navigate = useNavigate();
   const [sidebarMenu, setSidebarMenu] = useState(false);
   const [homeTicketDetails, setHomeTicketDetails] = useState(false);
   const [buyTicketModel, setBuyTicketModel] = useState(false);
   const [loader, setLoader] = useState(false);
   const [newUser, setNewUser] = useState({
-    uname: "",
-    pwd: "",
-    name: "",
-    email: "",
-    dob: "",
-    mobile: "",
-    balance: "",
-    img: "",
+    p_uname: "",
+    p_pwd: "",
+    p_name: "",
+    p_email: "",
+    p_dob: "",
+    p_no: "",
+    p_balance: "",
+    p_img: "",
   });
-  localStorage.setItem("user_path", newUser.p_uname);
+  localStorage.setItem("user_path", newUser?.p_uname);
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") !== null || undefined
       ? localStorage.getItem("theme")

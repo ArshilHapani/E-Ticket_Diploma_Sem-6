@@ -2,6 +2,7 @@ import { Box, Typography } from "@mui/material";
 import React from "react";
 import "./P_History.scss";
 import { useStateContext } from "../../context/stateContext";
+import { useNavigate } from "react-router-dom";
 const purchaseHistory = [
   {
     amount: 120,
@@ -21,6 +22,13 @@ const purchaseHistory = [
 const PHistory = () => {
   document.title = "E-Ticket | Purchase History";
   const { theme } = useStateContext();
+  const navigate = useNavigate();
+  if (
+    localStorage.getItem("user") === null ||
+    localStorage.getItem("user") === undefined
+  ) {
+    navigate("/signUp");
+  }
   return (
     <Box
       className={`p__history-container ${theme === "light" ? "light" : "dark"}`}

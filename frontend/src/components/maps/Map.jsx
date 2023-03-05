@@ -6,8 +6,16 @@ import { Box, Stack } from "@mui/system";
 import img1 from "../../assets/map1.jpg";
 import img2 from "../../assets/map2.jpg";
 import { Divider, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const GuideMap = () => {
+  const navigate = useNavigate();
+  if (
+    localStorage.getItem("user") === null ||
+    localStorage.getItem("user") === undefined
+  ) {
+    navigate("/signUp");
+  }
   document.title = "E-Ticket | Maps";
   const { theme, showSnackBar } = useStateContext();
   const [location, setLocation] = useState({

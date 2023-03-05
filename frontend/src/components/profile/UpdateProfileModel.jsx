@@ -9,7 +9,6 @@ const UpdateProfileModel = ({
 }) => {
   const { profile_edit_textfield, modelStyle, modelAutocomplete } =
     useMuiStyles();
-
   return (
     <Box sx={modelStyle}>
       <Typography id="modal-modal-title" variant="h6" component="h2">

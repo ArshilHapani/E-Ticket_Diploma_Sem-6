@@ -23,6 +23,13 @@ import b64Convertor from "../../functions/b64Convertor";
 
 const Profile = () => {
   const navigate = useNavigate();
+
+  if (
+    localStorage.getItem("user") === null ||
+    localStorage.getItem("user") === undefined
+  ) {
+    navigate("/signUp");
+  }
   const { id } = useParams();
   document.title = `E-Ticket | Profile - ${id}`;
   const {
@@ -35,6 +42,7 @@ const Profile = () => {
   } = useStateContext();
   const { detail_ref_style, profile_divider_styles } = useMuiStyles();
   const [open, setOpen] = useState(false);
+
   const [updatedUserInfo, setUpdatedUserInfo] = useState({
     name: newUser.p_name,
     uname: newUser.p_uname,
@@ -43,8 +51,21 @@ const Profile = () => {
   });
 
   const uploadImage = (e) => {
-    setLoader(true);
     const selectedFile = e.target.files[0];
+    console.log(selectedFile);
+    console.log(typeof selectedFile.type);
+    if (
+      selectedFile.type !== "image/jpeg" ||
+      selectedFile.type !== "image/png" ||
+      selectedFile.type !== "image/svg" ||
+      selectedFile.type !== "image/jpg"
+    ) {
+      console.log("check if");
+      showSnackBar("Please upload an image with valid format", "error");
+      return;
+    }
+    console.log("check else");
+    setLoader(true);
     b64Convertor(selectedFile);
     fetchUser();
     setLoader(false);
@@ -59,7 +80,7 @@ const Profile = () => {
       showSnackBar("Please fill all the required fields", "error");
       return;
     }
-    if (updatedUserInfo.no.length !== 10) {
+    if (updatedUserInfo?.no?.length !== 10) {
       showSnackBar("Length of mobile number must be of 10", "error");
       return;
     }
@@ -128,7 +149,7 @@ const Profile = () => {
       >
         <Box className="profile-hero-section dark">
           <Avatar
-            src={newUser.p_img}
+            src={newUser?.p_img}
             sx={{
               bgcolor: colors.red[600],
               width: 90,
@@ -137,7 +158,9 @@ const Profile = () => {
             }}
             className="img-avatar"
             alt="profile-picture"
-          ></Avatar>
+          >
+            {newUser?.p_name?.charAt(0)}
+          </Avatar>
           <Button
             variant="outlined"
             component="label"
@@ -145,7 +168,7 @@ const Profile = () => {
             color="info"
           >
             Upload image
-            <input hidden accept="image/*" type="file" onChange={uploadImage} />
+            <input hidden type="file" onChange={uploadImage} />
           </Button>
         </Box>
         <div className="profile-credentials-container">
@@ -201,7 +224,9 @@ const Profile = () => {
               <UpdateProfileModel
                 updatedUserInfo={updatedUserInfo}
                 setUpdatedUserInfo={setUpdatedUserInfo}
-                setOpen={setOpen}
+                setOpen={() => {
+                  setOpen();
+                }}
               />
             </form>
           </Modal>

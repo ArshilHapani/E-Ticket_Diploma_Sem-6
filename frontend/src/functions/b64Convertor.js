@@ -1,7 +1,7 @@
 export default async function b64Convertor(file) {
   let base64String;
   var reader = new FileReader();
-  console.log("check");
+  console.log("base 64 invoked");
 
   reader.onload = async function () {
     base64String = reader.result.replace("data:", "").replace(/^.+,/, "");

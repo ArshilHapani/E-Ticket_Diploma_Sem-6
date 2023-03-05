@@ -1,8 +1,16 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useStateContext } from "../../context/stateContext";
 import "./RecentTickets.scss";
 const RecentTickets = () => {
+  const navigate = useNavigate();
+  if (
+    localStorage.getItem("user") === null ||
+    localStorage.getItem("user") === undefined
+  ) {
+    navigate("/signUp");
+  }
   const { theme } = useStateContext();
   const dummy = [
     {

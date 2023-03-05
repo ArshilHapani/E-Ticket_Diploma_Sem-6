@@ -11,19 +11,30 @@ import {
 import "./Home.scss";
 import Layout from "./layout/Layout";
 import { useStateContext } from "../../context/stateContext";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Sidebar from "../sidebar/Sidebar";
 import { useEffect } from "react";
+import { IconButton, Tooltip } from "@mui/material";
+import { AiOutlineSync } from "react-icons/ai";
+import useUserFetch from "../../hooks/useUserFetch";
 const Home = () => {
+  const navigate = useNavigate();
+  if (
+    localStorage.getItem("user") === null ||
+    localStorage.getItem("user") === undefined
+  ) {
+    navigate("/signUp");
+  }
   document.title = "E-Ticket | Home";
   const { setNewUser, theme, setLoader, showSnackBar } = useStateContext();
+  const { fetchUser } = useUserFetch();
   // Fetch user data....
-  async function fetchUser() {
+  async function fetchUsers() {
     const data = await fetch("http://localhost:6565/fetchPassenger", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        'authToken': localStorage.getItem("user"),
+        authToken: localStorage.getItem("user"),
       },
     });
     const response = await data.json();
@@ -40,7 +51,7 @@ const Home = () => {
     setLoader(true);
 
     async function fetchPassenger() {
-      const data = await fetchUser();
+      const data = await fetchUsers();
       setNewUser(data);
     }
     fetchPassenger();
@@ -66,6 +77,25 @@ const Home = () => {
             <Route exact path="/map" element={<GuideMap />} />
             <Route exact path="/tickets" element={<ActiveTickets />} />
           </Routes>
+          <Tooltip title="sync" placement="left">
+            <IconButton
+              size="medium"
+              color="primary"
+              variant="outlined"
+              sx={{
+                position: "fixed",
+                borderRadius: "50%",
+                bottom: "1rem",
+                right: "1rem",
+                height: "25px",
+                width: "25px",
+                padding: 0,
+              }}
+              onClick={fetchUser}
+            >
+              <AiOutlineSync />
+            </IconButton>
+          </Tooltip>
         </div>
       </div>
     </>

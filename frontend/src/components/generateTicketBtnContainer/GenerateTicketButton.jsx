@@ -80,6 +80,7 @@ const GenerateTicketButton = () => {
             className="mui__btn-buy-ticket"
             color="success"
             onClick={() => setQrModel(true)}
+            tabIndex={2}
           >
             Add Recharge
           </Button>
@@ -96,7 +97,7 @@ const GenerateTicketButton = () => {
                 alignItems="center"
                 justifyContent="center"
               >
-                <QrCodeSVG values={{ name: newUser.p_uname }} />
+                <QrCodeSVG values={{ name: newUser?.p_uname }} />
                 <Typography sx={{ marginTop: "1rem", textAlign: "center" }}>
                   Request any nearby bus <b>conductor</b> to recharge into your
                   account by scanning this QR code{" "}

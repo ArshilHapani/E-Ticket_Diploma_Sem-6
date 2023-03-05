@@ -12,9 +12,17 @@ import { useStateContext } from "../../context/stateContext";
 import "./activeTickets.scss";
 import { useState } from "react";
 import QrCodeSVG from "../svg_qr/QrCodeSVG";
+import { useNavigate } from "react-router-dom";
 const currentDate = new Date();
 let formattedDate = `${currentDate.getDay()}-${currentDate.getMonth()}-${currentDate.getFullYear()}`;
 const ActiveTickets = () => {
+  const navigate = useNavigate();
+  if (
+    localStorage.getItem("user") === null ||
+    localStorage.getItem("user") === undefined
+  ) {
+    navigate("/signUp");
+  }
   const { theme } = useStateContext();
   const [qModel, setQModel] = useState(false);
   const [qrProps, setQrProps] = useState(null);

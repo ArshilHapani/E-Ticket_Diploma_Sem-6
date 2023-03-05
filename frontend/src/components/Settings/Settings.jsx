@@ -5,17 +5,22 @@ import {
   Radio,
   RadioGroup,
   Typography,
-  Button,
 } from "@mui/material";
 import React from "react";
-import { AiOutlineSync } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 import { useStateContext } from "../../context/stateContext";
-import useUserFetch from "../../hooks/useUserFetch";
+
 import "./Settings.scss";
 const Settings = () => {
+  const navigate = useNavigate();
+  if (
+    localStorage.getItem("user") === null ||
+    localStorage.getItem("user") === undefined
+  ) {
+    navigate("/signUp");
+  }
   document.title = "E-Ticket | Settings";
   const { theme, setTheme } = useStateContext();
-  const { fetchUser } = useUserFetch();
 
   const setSystemTheme = () => {
     const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
@@ -104,11 +109,6 @@ const Settings = () => {
           />
         </RadioGroup>
       </FormControl>
-      <Box className="sync__btn-cont">
-        <Button onClick={() => fetchUser()}>
-          Sync changes <AiOutlineSync className="sync_icon" />
-        </Button>
-      </Box>
     </Box>
   );
 };
