@@ -51,22 +51,27 @@ const Profile = () => {
   });
 
   const uploadImage = (e) => {
+    e.preventDefault();
+    setLoader(true);
     const selectedFile = e.target.files[0];
     console.log(selectedFile);
-    console.log(typeof selectedFile.type);
+    console.log(selectedFile.size);
     if (
-      selectedFile.type !== "image/jpeg" ||
-      selectedFile.type !== "image/png" ||
-      selectedFile.type !== "image/svg" ||
+      selectedFile.type !== "image/jpeg" &&
+      selectedFile.type !== "image/png" &&
+      selectedFile.type !== "image/svg" &&
       selectedFile.type !== "image/jpg"
     ) {
-      console.log("check if");
       showSnackBar("Please upload an image with valid format", "error");
+      setLoader(false);
       return;
     }
-    console.log("check else");
-    setLoader(true);
-    b64Convertor(selectedFile);
+    if (selectedFile.size >= 1000000) {
+      showSnackBar("Size of the image must be less than 1 mb", "error");
+      setLoader(false);
+      return;
+    }
+    b64Convertor(selectedFile, showSnackBar);
     fetchUser();
     setLoader(false);
   };
