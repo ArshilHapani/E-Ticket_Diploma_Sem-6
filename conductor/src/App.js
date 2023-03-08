@@ -1,19 +1,19 @@
 import { Route, Routes } from "react-router-dom";
-import BottomNavigationMenu from "./components/BottomNavigationMenu";
-import Home from "./components/Home";
 import Loader from "./components/Loader";
-import Profile from "./components/Profile";
+import OldUser from "./container/OldUser";
+import ForgotPassword from "./container/ForgetPassword";
 import SnackbarAlert from "./components/Snackbar";
+import Layout from "./container/Layout";
 
 function App() {
   return (
     <div style={{ height: "100vh", width: "100vw" }}>
       <Loader />
       <SnackbarAlert />
-      <BottomNavigationMenu />
       <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route exact path="/profile" element={<Profile />} />
+        <Route exact path="/*" element={<Layout />} />
+        <Route exact path="/signIn" element={<OldUser />} />
+        <Route exact path="/forgetPassword" element={<ForgotPassword />} />
       </Routes>
     </div>
   );
