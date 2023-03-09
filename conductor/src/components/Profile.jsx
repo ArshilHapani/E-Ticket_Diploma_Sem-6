@@ -10,16 +10,10 @@ import {
 import React, { useState } from "react";
 import { MdPhotoCamera } from "react-icons/md";
 import { AiFillEdit } from "react-icons/ai";
-import avatar from "../assets/download.jpeg";
 import EditProfileModel from "./EditProfileModel";
-const conductorObj = {
-  name: "Baburao apt",
-  username: "baburaoApte",
-  email: "baburao@gmail.com",
-  mobile: 798896896,
-  dob: "10-4-1998",
-  image: avatar,
-};
+import { useStateContext } from "../context/stateContext";
+import b64Convertor from "../functions/b64Convertor";
+import { useNavigate } from "react-router-dom";
 const labelStyle = {
   color: "#8d99ae",
   fontSize: 15,
@@ -31,9 +25,70 @@ const userDetailsStyle = {
 };
 
 const Profile = () => {
+  const navigate = useNavigate();
   document.title = "E-Ticket | Conductor - Profile";
   const [profileModal, setProfileModal] = useState(false);
+  const { user, setLoading, snackbarSetterFunction, fetchUser } =
+    useStateContext();
+  const [localObj, setLocalObj] = useState({
+    name: user?.c_name,
+    username: user?.c_uname,
+    email: user?.c_email,
+    mobile: user?.c_no,
+    dob: user?.c_dob,
+    image: user?.c_img,
+  });
+  if (
+    localObj.name === undefined ||
+    localObj.name === "" ||
+    localObj.name === null
+  ) {
+    navigate("/");
+  }
+  console.log("Local OBJ");
+  console.log(localObj);
 
+  const uploadImage = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    const selectedFile = e.target.files[0];
+    console.log(selectedFile);
+    console.log(selectedFile.size);
+    if (
+      selectedFile.type !== "image/jpeg" &&
+      selectedFile.type !== "image/png" &&
+      selectedFile.type !== "image/svg" &&
+      selectedFile.type !== "image/jpg"
+    ) {
+      snackbarSetterFunction(
+        "Please upload an image with valid format",
+        "error"
+      );
+      setLoading(false);
+      return;
+    }
+    if (selectedFile.size >= 1000000) {
+      snackbarSetterFunction(
+        "Size of the image must be less than 1 mb",
+        "error"
+      );
+      setLoading(false);
+      return;
+    }
+    b64Convertor(selectedFile, snackbarSetterFunction);
+    fetchUser();
+    console.log("upload image");
+    console.log(user);
+    setLocalObj({
+      name: user?.c_name,
+      username: user?.c_uname,
+      email: user?.c_email,
+      mobile: user?.c_no,
+      dob: user?.c_dob,
+      image: user?.c_img,
+    });
+    setLoading(false);
+  };
   return (
     <Stack
       sx={{
@@ -77,6 +132,7 @@ const Profile = () => {
             boxShadow: "0 0 10px rgba(0,0,0,0.2)",
           },
           borderRadius: "8px",
+          padding: "1rem",
         }}
         gap={10}
         alignItems="center"
@@ -89,10 +145,12 @@ const Profile = () => {
           width="40%"
         >
           <Avatar
-            src={conductorObj.image}
-            sx={{ width: 70, height: 70 }}
-            alt={conductorObj.name}
-          />
+            src={`data:image/png;base64,${localObj.image}`}
+            sx={{ width: 70, height: 70, bgcolor: "#3f51b5" }}
+            alt={localObj.name}
+          >
+            {localObj?.username?.charAt(0)}
+          </Avatar>
           <Button
             variant="outlined"
             component="label"
@@ -102,7 +160,13 @@ const Profile = () => {
             }}
           >
             Upload
-            <input hidden accept="image/*" multiple type="file" />
+            <input
+              hidden
+              accept="image/*"
+              multiple
+              type="file"
+              onChange={uploadImage}
+            />
           </Button>
           <Button
             variant="outlined"
@@ -118,7 +182,7 @@ const Profile = () => {
           <Modal open={profileModal} onClose={() => setProfileModal(false)}>
             <Box>
               <EditProfileModel
-                initialValues={conductorObj}
+                initialValues={localObj}
                 closeModal={setProfileModal}
               />
             </Box>
@@ -126,19 +190,23 @@ const Profile = () => {
         </Stack>
         <Stack width="60%" gap={1}>
           <Typography sx={labelStyle}>Name</Typography>
-          <Typography sx={userDetailsStyle}>{conductorObj.name}</Typography>
+          <Typography sx={userDetailsStyle}>{localObj.name}</Typography>
           <Divider />
           <Typography sx={labelStyle}>username</Typography>
-          <Typography sx={userDetailsStyle}>{conductorObj.username}</Typography>
+          <Typography sx={userDetailsStyle}>{localObj.username}</Typography>
           <Divider />
           <Typography sx={labelStyle}>email</Typography>
-          <Typography sx={userDetailsStyle}>{conductorObj.email}</Typography>
+          <Typography sx={userDetailsStyle}>{localObj.email}</Typography>
           <Divider />
           <Typography sx={labelStyle}>mobile</Typography>
-          <Typography sx={userDetailsStyle}>{conductorObj.mobile}</Typography>
+          <Typography sx={userDetailsStyle}>
+            {localObj.mobile === null
+              ? "No mobile number added"
+              : localObj.mobile}
+          </Typography>
           <Divider />
           <Typography sx={labelStyle}>Date of Birth</Typography>
-          <Typography sx={userDetailsStyle}>{conductorObj.dob}</Typography>
+          <Typography sx={userDetailsStyle}>{localObj.dob}</Typography>
           <Divider />
         </Stack>
       </Stack>

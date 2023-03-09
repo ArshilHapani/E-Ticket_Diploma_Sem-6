@@ -1,4 +1,6 @@
+import { IconButton, Tooltip } from "@mui/material";
 import React from "react";
+import { AiOutlineSync } from "react-icons/ai";
 import { Route, Routes } from "react-router-dom";
 import BottomNavigationMenu from "../components/BottomNavigationMenu";
 import Home from "../components/Home";
@@ -12,6 +14,25 @@ const Layout = () => {
         <Route exact path="/" element={<Home />} />
         <Route exact path="/profile" element={<Profile />} />
       </Routes>
+      <Tooltip title="sync" placement="left">
+        <IconButton
+          size="medium"
+          color="primary"
+          variant="outlined"
+          sx={{
+            position: "fixed",
+            borderRadius: "50%",
+            bottom: "1rem",
+            right: "1rem",
+            height: "25px",
+            width: "25px",
+            padding: 0,
+          }}
+          onClick={() => window.location.reload()}
+        >
+          <AiOutlineSync />
+        </IconButton>
+      </Tooltip>
     </div>
   );
 };

@@ -76,6 +76,9 @@ const Home = () => {
       alignItems="center"
       justifyContent="center"
       height="100%"
+      sx={{
+        backgroundColor: "#f2f2f2",
+      }}
     >
       <Button
         sx={{

@@ -12,12 +12,13 @@ const GuideMap = () => {
   const navigate = useNavigate();
   if (
     localStorage.getItem("user") === null ||
-    localStorage.getItem("user") === undefined
+    localStorage.getItem("user") === undefined ||
+    localStorage.getItem("user") === ""
   ) {
     navigate("/signUp");
   }
   document.title = "E-Ticket | Maps";
-  const { theme, showSnackBar } = useStateContext();
+  const { theme, showSnackBar, setLoader } = useStateContext();
   const [location, setLocation] = useState({
     longitude: "",
     latitude: "",
@@ -29,12 +30,13 @@ const GuideMap = () => {
     showSnackBar("Geolocation is not supported by this browser.", "error");
   }
   function showPosition(position) {
+    setLoader(true);
     setLocation({
       latitude: position.coords.latitude,
       longitude: position.coords.longitude,
     });
+    setLoader(false);
   }
-  // if (!isLoaded) return setLoader(true);
   return (
     <div
       className={`guide-map-container ${theme === "light" ? "light" : "dark"}`}

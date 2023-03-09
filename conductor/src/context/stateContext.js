@@ -1,9 +1,11 @@
-import { useState, useContext, createContext } from "react";
+import { useState, useContext, createContext, useEffect } from "react";
+import usefetchUser from "../functions/usefetchUser";
 
 const stateContext = createContext();
 
 export const ContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState();
   const [snackbar, setSnackbar] = useState({
     show: false,
     message: "",
@@ -16,6 +18,16 @@ export const ContextProvider = ({ children }) => {
       type: type,
     });
   };
+
+  async function fetchUser() {
+    const data = await usefetchUser();
+    setUser(data);
+  }
+  useEffect(() => {
+    fetchUser();
+  }, [setUser, setSnackbar]);
+
+  console.log(user);
   return (
     <stateContext.Provider
       value={{
@@ -24,6 +36,9 @@ export const ContextProvider = ({ children }) => {
         snackbar,
         snackbarSetterFunction,
         setSnackbar,
+        user,
+        setUser,
+        fetchUser,
       }}
     >
       {children}

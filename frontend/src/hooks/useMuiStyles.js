@@ -148,6 +148,9 @@ export default function useMuiStyles() {
       color: theme === "light" ? "#0d1b2a" : "background.paper",
     },
   };
+  const textTheme = {
+    color: theme === "light" ? "#0d1b2a" : "#e5e5e5",
+  };
   return {
     modelStyle,
     modelTextField,
@@ -155,5 +158,6 @@ export default function useMuiStyles() {
     profile_edit_textfield,
     detail_ref_style,
     profile_divider_styles,
+    textTheme,
   };
 }

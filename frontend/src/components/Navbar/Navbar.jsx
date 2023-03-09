@@ -24,7 +24,8 @@ const Navbar = () => {
   const navigate = useNavigate();
   if (
     localStorage.getItem("user") === null ||
-    localStorage.getItem("user") === undefined
+    localStorage.getItem("user") === undefined ||
+    localStorage.getItem("user") === ""
   ) {
     navigate("/signUp");
   }
@@ -106,7 +107,6 @@ const Navbar = () => {
               horizontal: "right",
             }}
           >
-            {/* //TODO... */}
             <Box>
               <Stack
                 direction="column"
@@ -141,7 +141,10 @@ const Navbar = () => {
                   >
                     {" "}
                     <MenuItem
-                      sx={{ color: theme === "light" ? "#0d1b2a" : "#f2f2f2" }}
+                      sx={{
+                        color: theme === "light" ? "#0d1b2a" : "#f2f2f2",
+                        marginLeft: "0.4rem",
+                      }}
                     >
                       Edit profile
                     </MenuItem>

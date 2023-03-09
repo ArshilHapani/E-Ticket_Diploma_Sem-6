@@ -1,5 +1,6 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import useMuiStyles from "../../hooks/useMuiStyles";
 
 const UpdateProfileModel = ({
@@ -9,6 +10,14 @@ const UpdateProfileModel = ({
 }) => {
   const { profile_edit_textfield, modelStyle, modelAutocomplete } =
     useMuiStyles();
+  const navigate = useNavigate();
+  if (
+    updatedUserInfo.name === "" ||
+    updatedUserInfo.name === undefined ||
+    updatedUserInfo.name === null
+  ) {
+    navigate("/");
+  } //TODO
   return (
     <Box sx={modelStyle}>
       <Typography id="modal-modal-title" variant="h6" component="h2">

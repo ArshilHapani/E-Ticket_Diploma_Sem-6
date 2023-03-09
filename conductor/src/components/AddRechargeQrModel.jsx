@@ -79,14 +79,25 @@ const AddRechargeQrModel = ({ style }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const data = await fetch("​http://localhost:6565/recharge",{
-    //     method: "POST",
-    //     headers:{
-    //         'Content-Type': 'application/json',
-
-    //     }
-    // })
-    alert("recharge" + rechargeAmount);
+    const data = await fetch("http://localhost:6565/recharge", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authToken: localStorage.getItem("user").toString(),
+      },
+      body: JSON.stringify({
+        puname: qrData,
+        amount: rechargeAmount,
+      }),
+    });
+    const response = await data.json();
+    console.log(response);
+    if (response.success) {
+      snackbarSetterFunction(
+        `Balance added to ${qrData} of amount ${rechargeAmount}`,
+        "success"
+      );
+    }
   };
 
   return (

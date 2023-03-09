@@ -35,3 +35,6 @@ input[type="number"] {
   min-width: 100vw;
   background-color: #eef2f6;
 }
+body {
+  overflow-x: hidden;
+}
