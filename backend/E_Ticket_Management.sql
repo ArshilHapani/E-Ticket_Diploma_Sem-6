@@ -6,13 +6,13 @@ use e_ticket;
 
 create table login (
     id char(15),
-    uname varchar(10) NOT NULL,
+    uname varchar(35) NOT NULL,
     pwd char(60) NOT NULL,
     primary key(id)
 );
 
 create table passenger(
-    p_uname varchar(15),
+    p_uname varchar(35),
     p_id char(15) NOT NULL,
     p_name varchar(30) NOT NULL,
     p_email varchar(30) NOT NULL,
@@ -25,7 +25,7 @@ create table passenger(
 );
 
 create table conductor(
-    c_uname varchar(15),
+    c_uname varchar(35),
     c_id char(15) NOT NULL,
     c_name varchar(30) NOT NULL,
     c_email varchar(30) NOT NULL,

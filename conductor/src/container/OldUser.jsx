@@ -19,7 +19,7 @@ const OldUser = () => {
   const navigate = useNavigate();
   const { snackbarSetterFunction, setLoading } = useStateContext();
   const [user, setUser] = useState({
-    cid: "",
+    uname: "",
     password: "",
   });
   const handleSubmit = async (e) => {
@@ -36,6 +36,7 @@ const OldUser = () => {
       return;
     }
     setLoading(true);
+    console.log(user);
     const data = await fetch("http://localhost:6565/login", {
       method: "POST",
       headers: {
@@ -103,12 +104,12 @@ const OldUser = () => {
             <Stack gap={1}>
               <TextField
                 className="textfield"
-                label="Conductor ID"
+                label="username"
                 variant="standard"
                 onChange={(e) => {
                   setUser({
                     ...user,
-                    cid: e.target.value,
+                    uname: e.target.value,
                   });
                 }}
               />

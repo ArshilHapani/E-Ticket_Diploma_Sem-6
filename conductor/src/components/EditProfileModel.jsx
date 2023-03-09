@@ -65,8 +65,8 @@ const EditProfileModel = ({ closeModal, initialValues }) => {
     dob: initialValues.dob,
     username: initialValues.username,
   });
-
-  const handleSubmit = (e) => {
+  console.log(initialValues);
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (
       updateData.name === "" ||
@@ -82,6 +82,28 @@ const EditProfileModel = ({ closeModal, initialValues }) => {
       snackbarSetterFunction("Length of mobile number must be of 10", "error");
       return;
     }
+
+    const data = await fetch("http://localhost:6565/changeConductor", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        authToken: localStorage.getItem("user").toString(),
+      },
+      body: JSON.stringify({
+        uname: updateData.username,
+        name: updateData.name,
+        email: updateData.email,
+        no: updateData.mobile,
+      }),
+    });
+    const response = await data.json();
+    if (response.success) {
+      snackbarSetterFunction("Profile updated successfully", "success");
+    } else {
+      snackbarSetterFunction("Failed to update profile", "error");
+      return;
+    }
+
     initialValues.name = updateData.name;
     initialValues.email = updateData.email;
     initialValues.mobile = updateData.mobile;
@@ -90,7 +112,6 @@ const EditProfileModel = ({ closeModal, initialValues }) => {
 
     console.log(updateData);
     closeModal(false);
-    snackbarSetterFunction("Profile updated successfully", "success");
   };
 
   return (
@@ -136,26 +157,13 @@ const EditProfileModel = ({ closeModal, initialValues }) => {
           sx={modelTextField}
           variant="standard"
           type="number"
-          value={updateData.mobile}
+          value={updateData?.mobile}
           label="mobile number"
           InputLabelProps={{ shrink: true }}
           onChange={(e) =>
             setUpdateData({ ...updateData, mobile: e.target.value })
           }
         />
-
-        <TextField
-          sx={modelTextField}
-          variant="standard"
-          type="date"
-          value={updateData.dob}
-          label="Date of Birth"
-          InputLabelProps={{ shrink: true }}
-          onChange={(e) =>
-            setUpdateData({ ...updateData, dob: e.target.value })
-          }
-        />
-
         <Stack
           justifyContent="flex-end"
           gap={2}

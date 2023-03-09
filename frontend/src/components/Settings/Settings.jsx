@@ -1,33 +1,50 @@
 import {
   Box,
-  FormControl,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
+  Button,
+  ToggleButton,
+  ToggleButtonGroup,
   Typography,
 } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { CiDark } from "react-icons/ci";
+import { WiMoonAltFirstQuarter } from "react-icons/wi";
+import { BsSun } from "react-icons/bs";
+
 import { useStateContext } from "../../context/stateContext";
+import useMuiStyles from "../../hooks/useMuiStyles";
 
 import "./Settings.scss";
 const Settings = () => {
   const navigate = useNavigate();
   if (
     localStorage.getItem("user") === null ||
-    localStorage.getItem("user") === undefined
+    localStorage.getItem("user") === undefined ||
+    localStorage.getItem("user") === ""
   ) {
     navigate("/signUp");
   }
   document.title = "E-Ticket | Settings";
   const { theme, setTheme } = useStateContext();
+  const [alignment, setAlignment] = React.useState(
+    localStorage.getItem("theme") !== null || undefined
+      ? localStorage.getItem("theme")
+      : "light"
+  );
+  const { textTheme } = useMuiStyles();
 
-  const setSystemTheme = () => {
-    const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
-    if (darkThemeMq.matches) {
-      setTheme("dark");
-    } else {
-      setTheme("light");
+  const handleChange = (event, newAlignment) => {
+    if (newAlignment !== null) {
+      setAlignment(newAlignment);
+      setTheme(newAlignment);
+    }
+    if (newAlignment === "system") {
+      const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
+      if (darkThemeMq.matches) {
+        setTheme("dark");
+      } else {
+        setTheme("light");
+      }
     }
   };
 
@@ -38,77 +55,38 @@ const Settings = () => {
       <Typography
         sx={{
           fontSize: 30,
+          marginBottom: "1rem",
         }}
       >
         Theme
       </Typography>
-      <FormControl>
-        <RadioGroup
-          aria-labelledby="demo-radio-buttons-group-label"
-          defaultValue={`${theme === "light" ? "light" : "dark"}`}
-          name="radio-buttons-group"
-          key={`theme-${theme}`}
-        >
-          <FormControlLabel
-            value="light"
-            control={
-              <Radio
-                key={`radio-theme-${theme}`}
-                suppressContentEditableWarning
-                suppressHydrationWarning
-                sx={{
-                  color: `${theme === "light" ? "black" : "white"}`,
-                  "&.Mui-checked": {
-                    color: `${theme === "light" ? "black" : "white"}`,
-                  },
-                }}
-              />
-            }
-            label="Light"
-            onClick={() => {
-              setTheme("light");
-            }}
-          />
-          <FormControlLabel
-            key={`radio-theme-${theme}+3435`}
-            value="dark"
-            control={
-              <Radio
-                suppressContentEditableWarning
-                suppressHydrationWarning
-                sx={{
-                  color: `${theme === "light" ? "black" : "white"}`,
-                  "&.Mui-checked": {
-                    color: `${theme === "light" ? "black" : "white"}`,
-                  },
-                }}
-              />
-            }
-            label="Dark"
-            onClick={() => {
-              setTheme("dark");
-            }}
-          />
-          <FormControlLabel
-            key={`radio-theme-${theme}+1234`}
-            value="system-theme"
-            control={
-              <Radio
-                suppressContentEditableWarning
-                suppressHydrationWarning
-                sx={{
-                  color: `${theme === "light" ? "black" : "white"}`,
-                  "&.Mui-checked": {
-                    color: `${theme === "light" ? "black" : "white"}`,
-                  },
-                }}
-              />
-            }
-            label="System"
-            onClick={setSystemTheme}
-          />
-        </RadioGroup>
-      </FormControl>
+
+      {/* Toggle Buttons */}
+      <ToggleButtonGroup
+        color="primary"
+        value={alignment}
+        exclusive
+        onChange={handleChange}
+        aria-label="Platform"
+      >
+        <ToggleButton sx={textTheme} value="dark">
+          <Button startIcon={<CiDark />}>Dark</Button>
+        </ToggleButton>
+        <ToggleButton sx={textTheme} value="system">
+          <Button startIcon={<WiMoonAltFirstQuarter />}>System</Button>
+        </ToggleButton>
+        <ToggleButton sx={textTheme} value="light">
+          <Button startIcon={<BsSun />}>Light</Button>
+        </ToggleButton>
+      </ToggleButtonGroup>
+      <Typography
+        sx={{
+          fontSize: 15,
+          margin: "1rem 0",
+        }}
+      >
+        Report a bug
+      </Typography>
     </Box>
   );
 };

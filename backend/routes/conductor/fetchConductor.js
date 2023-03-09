@@ -20,7 +20,11 @@ router.get("/", fetchuser, async (req, res) => {
         res.json({ success });
       } else if (qres) {
         success = true;
-        res.json({ success, "conductor": qres[0] })
+        const dateobj = new Date(qres[0].c_dob);
+        const dob = dateobj.toLocaleString();
+        const date = dob.substring(0, dob.length - 13);
+        qres[0].c_dob = date;
+        res.json({ success, conductor: qres[0] });
       } else {
         res.json({ success });
       }

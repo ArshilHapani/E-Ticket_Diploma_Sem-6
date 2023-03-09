@@ -19,7 +19,8 @@ const ActiveTickets = () => {
   const navigate = useNavigate();
   if (
     localStorage.getItem("user") === null ||
-    localStorage.getItem("user") === undefined
+    localStorage.getItem("user") === undefined ||
+    localStorage.getItem("user") === ""
   ) {
     navigate("/signUp");
   }

@@ -26,7 +26,8 @@ const Profile = () => {
 
   if (
     localStorage.getItem("user") === null ||
-    localStorage.getItem("user") === undefined
+    localStorage.getItem("user") === undefined ||
+    localStorage.getItem("user") === ""
   ) {
     navigate("/signUp");
   }
@@ -49,7 +50,6 @@ const Profile = () => {
     email: newUser.p_email,
     no: newUser.p_no,
   });
-
   const uploadImage = (e) => {
     e.preventDefault();
     setLoader(true);
@@ -104,6 +104,7 @@ const Profile = () => {
       setLoader(false);
     }
   };
+
   async function updateProfile(updateData) {
     const data = await fetch("http://localhost:6565/changePassenger", {
       method: "POST",
@@ -230,7 +231,7 @@ const Profile = () => {
                 updatedUserInfo={updatedUserInfo}
                 setUpdatedUserInfo={setUpdatedUserInfo}
                 setOpen={() => {
-                  setOpen();
+                  setOpen(); //TODO fixing update profile bug
                 }}
               />
             </form>
