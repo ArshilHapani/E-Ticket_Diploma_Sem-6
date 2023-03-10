@@ -3,45 +3,47 @@ to change information of themself into system*/
 
 const express = require("express");
 const router = express.Router();
+const con = require("../database");
 const fetchuser = require("../middleware/fetchUser");
 
-const con = require("../database");
+router.use(fetchuser);
 
-router.post("/", fetchuser, async (req, res) => {
+router.post("/", async (req, res) => {
   const { uname, name, email, no } = req.body;
 
   try {
-    var success = false;
+    let success = false;
 
     con.beginTransaction();
 
     const setLogin = `UPDATE login SET uname='${uname}' WHERE id='${req.user.id}';`;
     const setPassenger = `UPDATE passenger SET p_uname='${uname}', p_name='${name}',${no ? "p_no='" + no + "'," : " "} p_email='${email}' WHERE p_id='${req.user.id}';`;
 
-    // Changing login related information of passenger
-    con.query(setLogin, (err, qres) => {
+    //  Changing information of passenger
+    con.query(setPassenger, (err, qres) => {
       if (err) {
         console.log(err.message);
         res.json({ success });
-      } else if (qres) {
+      } else if (qres.affectedRows > 0) {
 
-        // Changing information of passenger
-        con.query(setPassenger, (err, qres) => {
+        // Changing login related information of passenger
+        con.query(setLogin, (err, qres) => {
           if (err) {
             console.log(err.message);
             con.rollback(); // Undo changes into database
             res.json({ success });
-          } else if (qres) {
+          } else if (qres.affectedRows > 0) {
+            console.log(qres);
             success = true;
             con.commit(); // Saving changes into database
             res.json({ success });
           } else {
             con.rollback();
-            res.json({ success });
+            res.json({ success, msg:"Passenger does not exist" });
           }
         });
       } else {
-        res.json({ success });
+        res.json({ success, msg:"Passenger does not exist" });
       }
     });
   } catch (error) {

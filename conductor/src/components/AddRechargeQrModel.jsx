@@ -79,6 +79,8 @@ const AddRechargeQrModel = ({ style }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("QrData " + qrData);
+    console.log("Amount " + rechargeAmount);
     const data = await fetch("http://localhost:6565/recharge", {
       method: "POST",
       headers: {

@@ -3,33 +3,34 @@ to change profile picture of themself into system*/
 
 const express = require("express");
 const router = express.Router();
+const con = require("../database");
 const fetchuser = require("../middleware/fetchUser");
 
-const con = require("../database");
+router.use(fetchuser);
 
-router.post("/c", fetchuser, async (req, res) => {
-  const { image } = req.body;
+router.post("/c", async (req, res) => {
+  let { image } = req.body;
 
   try {
     let success = false;
+    image = `data:image/png;base64,${image}`;
+    if (image) {
+      const setImg = `UPDATE conductor SET c_img='${image}' WHERE c_id='${req.user.id}';`;
 
-    if(image){
-        const setImg = `UPDATE conductor SET c_img='${image}' WHERE c_id='${req.user.id}';`;
-    
-        // Changing Picture of Conductor
-        con.query(setImg, (err, qres) => {
-          if (err) {
-            console.log(err.message);
-            res.json({ success });
-          } else if (qres) {
-            success = true;
-            res.json({ success })
-          } else {
-            res.json({ success });
-          }
-        });
+      // Changing Picture of Conductor
+      con.query(setImg, (err, qres) => {
+        if (err) {
+          console.log(err.message);
+          res.json({ success });
+        } else if (qres.length > 0) {
+          success = true;
+          res.json({ success });
+        } else {
+          res.json({ success });
+        }
+      });
     } else {
-        res.json({ success })
+      res.json({ success });
     }
   } catch (error) {
     console.error(error.message);

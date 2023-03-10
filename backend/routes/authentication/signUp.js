@@ -14,7 +14,7 @@ router.post("/", async (req, res) => {
   const { uname, pwd, name, email, no, dob } = req.body;
   let success = true;
 
-  // Creating insetance of Date to generate unique id for user
+  // Creating instance of Date to generate unique id for user
   const d = new Date();
   const id =
     "P" +

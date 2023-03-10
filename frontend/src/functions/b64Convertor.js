@@ -17,6 +17,7 @@ export default async function b64Convertor(file, showSnackBar) {
       }),
     });
     const response = await data.json();
+    console.log(response);
     if (!response.success) showSnackBar("Something went wrong", "error");
   };
   reader.readAsDataURL(file);

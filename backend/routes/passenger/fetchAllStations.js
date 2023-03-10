@@ -2,11 +2,12 @@
 
 const express = require("express");
 const router = express.Router();
+const con = require("../database");
 const fetchuser = require("../middleware/fetchUser");
 
-const con = require("../database");
+router.use(fetchuser);
 
-router.get("/", fetchuser, async (req, res) => {
+router.get("/", async (req, res) => {
   let success = false;
 
   try {

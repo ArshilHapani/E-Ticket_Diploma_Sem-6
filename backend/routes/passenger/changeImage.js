@@ -3,11 +3,13 @@ to change profile picture of themself into system*/
 
 const express = require("express");
 const router = express.Router();
-const fetchuser = require("../middleware/fetchUser");
-
 const con = require("../database");
+const fetchuser = require("../middleware/fetchUser");
+const checkPassenger = require("../middleware/checkPassenger");
 
-router.post("/p", fetchuser, async (req, res) => {
+router.use(fetchuser, checkPassenger);
+
+router.post("/p", async (req, res) => {
   let { image } = req.body;
 
   try {
@@ -22,7 +24,7 @@ router.post("/p", fetchuser, async (req, res) => {
           console.log(err.message);
           success = false;
           res.json({ success });
-        } else if (qres) {
+        } else if (qres.affectedRows > 0) {
           res.json({ success });
         } else {
           success = false;

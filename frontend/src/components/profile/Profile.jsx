@@ -54,8 +54,6 @@ const Profile = () => {
     e.preventDefault();
     setLoader(true);
     const selectedFile = e.target.files[0];
-    console.log(selectedFile);
-    console.log(selectedFile.size);
     if (
       selectedFile.type !== "image/jpeg" &&
       selectedFile.type !== "image/png" &&
@@ -141,7 +139,6 @@ const Profile = () => {
     fetchUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setNewUser]);
-
   return (
     <Box
       className={`user-profile-container ${
@@ -209,7 +206,6 @@ const Profile = () => {
           <Typography sx={detail_ref_style.userDetailStyle}>
             {calculateAge(newUser?.p_dob)}
           </Typography>
-
           <Divider sx={profile_divider_styles} />
           <Button
             variant="outlined"

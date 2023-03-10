@@ -3,11 +3,12 @@ to send their data and show them in UI after they are logged into the system*/
 
 const express = require("express");
 const router = express.Router();
+const con = require("../database");
 const fetchuser = require("../middleware/fetchUser");
 
-const con = require("../database");
+router.use(fetchuser);
 
-router.get("/", fetchuser, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     let success = false;
 
@@ -18,15 +19,14 @@ router.get("/", fetchuser, async (req, res) => {
       if (err) {
         console.log(err.message);
         res.json({ success });
-      } else if (qres) {
+      } else if (qres.length > 0) {
+        const date = new Date(qres[0].c_dob);
+        const dob = date.toLocaleString();
+        qres[0].c_dob = dob.substring(0, dob.length - 13);
         success = true;
-        const dateobj = new Date(qres[0].c_dob);
-        const dob = dateobj.toLocaleString();
-        const date = dob.substring(0, dob.length - 13);
-        qres[0].c_dob = date;
-        res.json({ success, conductor: qres[0] });
+        res.json({ success, "conductor": qres[0] })
       } else {
-        res.json({ success });
+        res.json({ success, msg:"Conductor does not exist" });
       }
     });
   } catch (error) {

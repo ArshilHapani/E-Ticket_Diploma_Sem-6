@@ -145,7 +145,7 @@ const Profile = () => {
           width="40%"
         >
           <Avatar
-            src={`data:image/png;base64,${localObj.image}`}
+            src={localObj.image}
             sx={{ width: 70, height: 70, bgcolor: "#3f51b5" }}
             alt={localObj.name}
           >

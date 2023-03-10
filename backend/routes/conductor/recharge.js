@@ -2,11 +2,11 @@
 
 const express = require("express");
 const router = express.Router();
-const fetchuser = require("../middleware/fetchUser");
-
 const con = require("../database");
+const fetchuser = require("../middleware/fetchUser");
+const checkConductor = require("../middleware/checkConductor");
 
-router.use(fetchuser);
+router.use(fetchuser, checkConductor);
 
 router.post("/", async (req, res) => {
   const { puname, amount } = req.body;
@@ -35,7 +35,7 @@ router.post("/", async (req, res) => {
           console.log(err.message);
           res.json({ success });
         } else if (qres.length > 0) {
-          if (parseInt(qres[0].p_balance) + amount >= 10000) {
+          if (parseInt(qres[0].p_balance) + parseInt(amount) >= 10000) {
             res.json({ success, msg: "Balance is too much" });
           } else {
             con.beginTransaction();
@@ -72,7 +72,7 @@ router.post("/", async (req, res) => {
                   } else if (qres) {
                     con.commit();
                     success = true;
-                    res.json({ success });
+                    res.json({ success, msg: "Payment successful" });
                   } else {
                     con.rollback();
                     res.json({ success });

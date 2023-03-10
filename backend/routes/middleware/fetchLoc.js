@@ -20,14 +20,19 @@ const fetchloc = (req, res, next) => {
             con.query(endLoc, (err,qres)=>{
                 if(err){
                     console.log(err);
+                    res.json({ success: false });
                 }else if(qres){
                     // Storing start location's information into req object
                     req.dest = qres[0];
 
                     // Calling next function
                     next();
+                } else {
+                    res.json({ success: false });
                 }
             })
+        } else {
+            res.json({ success: false });
         }
     })
 }

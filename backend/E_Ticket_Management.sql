@@ -6,7 +6,7 @@ use e_ticket;
 
 create table login (
     id char(15),
-    uname varchar(35) NOT NULL,
+    uname varchar(35) UNIQUE KEY,
     pwd char(60) NOT NULL,
     primary key(id)
 );
@@ -14,21 +14,21 @@ create table login (
 create table passenger(
     p_uname varchar(35),
     p_id char(15) NOT NULL,
-    p_name varchar(30) NOT NULL,
-    p_email varchar(30) NOT NULL,
+    p_name varchar(50) NOT NULL,
+    p_email varchar(40) NOT NULL,
     p_no varchar(15),
     p_dob date NOT NULL,
     p_img mediumtext,
     primary key(p_uname),
     foreign key(p_id) references login(id),
-    p_balance float(6,2) DEFAULT 0.00 check(p_balance<=9999.99 AND p_balance>=0.00)
+    p_balance float(7,2) DEFAULT 0.00 check(p_balance<=10000.00 AND p_balance>=0.00)
 );
 
 create table conductor(
     c_uname varchar(35),
     c_id char(15) NOT NULL,
-    c_name varchar(30) NOT NULL,
-    c_email varchar(30) NOT NULL,
+    c_name varchar(50) NOT NULL,
+    c_email varchar(40) NOT NULL,
     c_no varchar(15),
     c_dob date NOT NULL,
     c_img mediumtext,

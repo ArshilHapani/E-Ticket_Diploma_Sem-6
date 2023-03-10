@@ -6,9 +6,9 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const con = require("../database"); // Connection object to run query
+const con = require("../database");   // Connection object to run query
 
-const SECRET_MSG = "E-TICKET"; // Secret message to send in JWT for authentication //TODO make env
+const SECRET_MSG = "E-TICKET";    // Secret message to send in JWT for authentication
 
 router.post("/", async (req, res) => {
   const { uname, password } = req.body; // fetching data from request body
@@ -20,19 +20,19 @@ router.post("/", async (req, res) => {
     // Query to find the user
     const findUser = `SELECT * FROM login WHERE uname='${uname}'`;
 
-    con.query(findUser, async (err, qres) => {
+    con.query(findUser, async(err, qres) => {
       if (err) {
         console.log(err.message);
       } else if (qres) {
         user = qres;
 
         // Checking user exist or not
-        if (user.length == 0) {
+        if (user.length==0) {
           res.json({ success, msg: "Invalid Username" });
-        } else {
+        }else{
           // Checking password is correct or not
           const passwordCompare = await bcrypt.compare(password, user[0].pwd);
-
+          
           if (!passwordCompare) {
             return res.json({ success, msg: "Invalid Password" });
           }

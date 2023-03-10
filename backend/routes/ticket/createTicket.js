@@ -2,15 +2,15 @@
 
 const express = require("express");
 const router = express.Router();
+const con = require("../database");
 
 // Middlewares used to create ticket
 const fetchuser = require("../middleware/fetchUser");
+const checkPassenger = require("../middleware/checkPassenger");
 const fetchloc = require("../middleware/fetchLoc");
 const findDistance = require("../middleware/findDistance");
 
-const con = require("../database");
-
-router.use(fetchuser);
+router.use(fetchuser, checkPassenger, fetchloc, findDistance);
 
 router.put("/", fetchloc, findDistance, async (req, res) => {
   const quantity = req.body.quantity;

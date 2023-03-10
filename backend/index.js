@@ -1,10 +1,10 @@
 const express = require("express");
 const app = express();
-const port = 6565;
 const cors = require("cors");
+const port = 6565;
 
 const con = require("./routes/database"); // Connection object to establish connection with database
-app.use(cors());
+
 con.connect((error) => {
   // Connecting to database
   if (error) {
@@ -14,10 +14,13 @@ con.connect((error) => {
   }
 });
 
+app.use(cors());
 app.use(express.json({ limit: "20mb" })); // Setting limit of data upto 20 mb
 
 app.use("/login", require("./routes/authentication/login"));
 app.use("/signup", require("./routes/authentication/signup"));
+app.use("/sendPin", require("./routes/authentication/sendPin"));
+app.use("/changePwd", require("./routes/authentication/changePwd"));
 
 app.use("/changePassenger", require("./routes/passenger/changePassenger"));
 app.use("/changeImage", require("./routes/passenger/changeImage"));

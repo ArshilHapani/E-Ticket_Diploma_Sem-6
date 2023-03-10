@@ -2,11 +2,13 @@
 
 const express = require("express");
 const router = express.Router();
-const fetchuser = require("../middleware/fetchUser");
-
 const con = require("../database");
+const fetchuser = require("../middleware/fetchUser");
+const checkPassenger = require("../middleware/checkPassenger");
 
-router.delete("/", fetchuser,async (req, res) => {
+router.use(fetchuser, checkPassenger);
+
+router.delete("/",async (req, res) => {
   const { tid } = req.body;
   let success = false;
 
