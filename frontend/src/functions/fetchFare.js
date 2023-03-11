@@ -5,8 +5,8 @@ export async function generateFare(dist) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      start: dist.source.st_id,
-      dest: dist.destination.st_id,
+      start: dist?.source?.st_id,
+      dest: dist?.destination?.st_id,
     }),
   });
   const { amount } = await fare.json();

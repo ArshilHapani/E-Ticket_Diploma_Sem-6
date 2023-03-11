@@ -8,7 +8,7 @@ const fetchuser = require("../middleware/fetchUser");
 
 router.use(fetchuser);
 
-router.post("/c", async (req, res) => {
+router.post("/", async (req, res) => {
   let { image } = req.body;
 
   try {

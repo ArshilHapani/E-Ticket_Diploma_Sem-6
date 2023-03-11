@@ -119,7 +119,7 @@ const EditProfileModel = ({ closeModal, initialValues }) => {
       <Stack sx={style} gap={2} direction="column">
         <TextField
           sx={modelTextField}
-          value={updateData.name}
+          value={updateData?.name}
           variant="standard"
           label="name"
           type="text"
@@ -133,7 +133,7 @@ const EditProfileModel = ({ closeModal, initialValues }) => {
           sx={modelTextField}
           variant="standard"
           type="text"
-          value={updateData.username}
+          value={updateData?.username}
           label="username"
           InputLabelProps={{ shrink: true }}
           onChange={(e) =>
@@ -143,7 +143,7 @@ const EditProfileModel = ({ closeModal, initialValues }) => {
 
         <TextField
           sx={modelTextField}
-          value={updateData.email}
+          value={updateData?.email}
           variant="standard"
           type="email"
           label="email"

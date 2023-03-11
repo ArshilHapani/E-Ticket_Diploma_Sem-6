@@ -7,6 +7,7 @@ import {
   MdQrCodeScanner,
 } from "react-icons/md";
 import QrReader from "react-qr-reader";
+import { useNavigate } from "react-router-dom";
 import { useStateContext } from "../context/stateContext";
 import AddRechargeQrModel from "./AddRechargeQrModel";
 
@@ -26,7 +27,7 @@ const spanStyle = {
 };
 const Home = () => {
   document.title = "E-Ticket | Conductor - Scan";
-  const { snackbarSetterFunction } = useStateContext();
+  const { snackbarSetterFunction, user } = useStateContext();
   const [qrModel, setQrModel] = useState(false);
   const [startScan, setStartScan] = useState(false);
   const [open, setOpen] = useState(false);
@@ -38,6 +39,10 @@ const Home = () => {
     if (startScan)
       navigator.mediaDevices.getUserMedia({ video: true, audio: false });
   }, [startScan]);
+  const navigate = useNavigate();
+  if (user === undefined) {
+    navigate("/signIn");
+  }
 
   const handleScan = async (scanData) => {
     if (scanData && scanData !== "") {

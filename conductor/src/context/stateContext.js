@@ -21,6 +21,7 @@ export const ContextProvider = ({ children }) => {
 
   async function fetchUser() {
     const data = await usefetchUser();
+    console.log(data);
     setUser(data);
   }
   useEffect(() => {

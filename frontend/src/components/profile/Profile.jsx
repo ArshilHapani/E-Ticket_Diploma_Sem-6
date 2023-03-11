@@ -64,8 +64,8 @@ const Profile = () => {
       setLoader(false);
       return;
     }
-    if (selectedFile.size >= 1000000) {
-      showSnackBar("Size of the image must be less than 1 mb", "error");
+    if (selectedFile.size >= 830000) {
+      showSnackBar("Size of the image must be less than 830 kb", "error");
       setLoader(false);
       return;
     }
@@ -171,7 +171,7 @@ const Profile = () => {
             color="info"
           >
             Upload image
-            <input hidden type="file" onChange={uploadImage} />
+            <input hidden type="file" accept="image/*" onChange={uploadImage} />
           </Button>
         </Box>
         <div className="profile-credentials-container">

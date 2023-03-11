@@ -13,8 +13,10 @@ import {
 } from "@mui/material";
 import { Stack } from "@mui/system";
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { useStateContext } from "../../context/stateContext";
 import { fetchStation, generateFare } from "../../functions";
+import { createTicket } from "../../functions/createTicket";
 import useMuiStyles from "../../hooks/useMuiStyles";
 
 const PurchaseTicketModel = () => {
@@ -28,6 +30,7 @@ const PurchaseTicketModel = () => {
   } = useStateContext();
   const [dropdownStations, setDropdownStations] = useState([]);
   const [fareText, setFareText] = useState(0);
+  const location = useLocation();
   const { modelStyle, modelTextField, modelAutocomplete } = useMuiStyles();
   const [dist, setDist] = useState({
     source: "",
@@ -36,7 +39,9 @@ const PurchaseTicketModel = () => {
   });
   useEffect(() => {
     setLoader(true);
-    fetchStation(setDropdownStations, showSnackBar);
+    if (location.pathname === "/") {
+      fetchStation(setDropdownStations, showSnackBar);
+    }
     callGenerateFare();
     setLoader(false);
   }, [showSnackBar, dist]);
@@ -51,9 +56,17 @@ const PurchaseTicketModel = () => {
       showSnackBar("Please select source and/or destination", "error");
       return;
     }
+
     console.log(dist);
-    showSnackBar("Ticket generated successfully", "success");
+    setLoader(true);
+    createTicket(dist, showSnackBar);
+    setLoader(false);
     setBuyTicketModel(false);
+    setDist({
+      source: "",
+      destination: "",
+      quantity: 1,
+    });
   };
   return (
     <Modal

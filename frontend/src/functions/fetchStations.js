@@ -3,11 +3,10 @@ export async function fetchStation(setDropdownStations, showSnackBar) {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      authToken: localStorage.getItem("user").toString(),
+      authToken: localStorage?.getItem("user")?.toString(),
     },
   });
-  const { stations, success } = await data.json();
-  // console.log(stations);
+  const { stations, success } = await data?.json();
   stations.map((st) => {
     st["label"] = st["st_name"];
     delete st["st_name"];
@@ -16,5 +15,6 @@ export async function fetchStation(setDropdownStations, showSnackBar) {
   setDropdownStations(stations);
   if (!success) {
     showSnackBar("Something went wrong", "error");
+    return;
   }
 }

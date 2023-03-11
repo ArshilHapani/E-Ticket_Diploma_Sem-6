@@ -30,6 +30,9 @@ const Profile = () => {
   const [profileModal, setProfileModal] = useState(false);
   const { user, setLoading, snackbarSetterFunction, fetchUser } =
     useStateContext();
+  if (user === undefined) {
+    navigate("/signIn");
+  }
   const [localObj, setLocalObj] = useState({
     name: user?.c_name,
     username: user?.c_uname,

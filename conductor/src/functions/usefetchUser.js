@@ -4,7 +4,7 @@ async function usefetchUser() {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      authToken: localStorage.getItem("user").toString(),
+      authToken: localStorage?.getItem("user")?.toString(),
     },
   });
 

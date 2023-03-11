@@ -1,4 +1,4 @@
-/* fetchDistance.js is used to create a middleware that is used to find distance bewteen two stations and store into req object */
+/* fetchDistance.js is used to create a middleware that is used to find distance between two stations and store into req object */
 
 function haversineDistance(coords1, coords2) {
   // Convert coordinates to radians

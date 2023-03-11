@@ -72,6 +72,15 @@ const ActiveTickets = () => {
         theme === "light" ? "light" : "dark"
       }`}
     >
+      <Typography
+        sx={{
+          fontSize: 24,
+          margin: 1,
+          textAlign: "center",
+        }}
+      >
+        Active Tickets
+      </Typography>
       {dummy.map((item, index) => {
         return (
           <Box

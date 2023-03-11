@@ -9,7 +9,7 @@ const checkPassenger = require("../middleware/checkPassenger");
 
 router.use(fetchuser, checkPassenger);
 
-router.post("/p", async (req, res) => {
+router.post("/", async (req, res) => {
   let { image } = req.body;
 
   try {

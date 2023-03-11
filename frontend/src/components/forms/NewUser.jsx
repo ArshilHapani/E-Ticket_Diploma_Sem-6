@@ -46,7 +46,7 @@ const NewUser = () => {
       );
       return;
     }
-    if (user.no.length < 10) {
+    if (user.no.length !== 0 && user.no.length !== 10) {
       showSnackBar("Enter a valid mobile number", "error");
       return;
     }

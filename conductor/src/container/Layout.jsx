@@ -1,12 +1,14 @@
 import { IconButton, Tooltip } from "@mui/material";
 import React from "react";
 import { AiOutlineSync } from "react-icons/ai";
-import { Route, Routes } from "react-router-dom";
+import { MdLogout } from "react-icons/md";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import BottomNavigationMenu from "../components/BottomNavigationMenu";
 import Home from "../components/Home";
 import Profile from "../components/Profile";
 
 const Layout = () => {
+  const navigate = useNavigate();
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
       <BottomNavigationMenu />
@@ -22,8 +24,8 @@ const Layout = () => {
           sx={{
             position: "fixed",
             borderRadius: "50%",
-            bottom: "1rem",
-            right: "1rem",
+            left: "1rem",
+            top: "1rem",
             height: "25px",
             width: "25px",
             padding: 0,
@@ -31,6 +33,28 @@ const Layout = () => {
           onClick={() => window.location.reload()}
         >
           <AiOutlineSync />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="log out" placement="left">
+        <IconButton
+          size="medium"
+          color="error"
+          variant="outlined"
+          sx={{
+            position: "fixed",
+            borderRadius: "50%",
+            top: "1rem",
+            right: "1rem",
+            height: "25px",
+            width: "25px",
+            padding: 0,
+          }}
+          onClick={() => {
+            localStorage.clear();
+            navigate("/signIn");
+          }}
+        >
+          <MdLogout />
         </IconButton>
       </Tooltip>
     </div>
