@@ -1,26 +1,11 @@
 import { Box, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import "./P_History.scss";
 import { useStateContext } from "../../context/stateContext";
 import { useNavigate } from "react-router-dom";
-const purchaseHistory = [
-  {
-    amount: 120,
-    time: "2:20 P.M.",
-    date: "1-10-2004",
-    id: "qwwadesfe3",
-    transactionBy: "Baburao Apte",
-  },
-  {
-    amount: 120,
-    time: "2:20 P.M.",
-    date: "1-10-2004",
-    id: "qwwadesfe3",
-    transactionBy: "Baburao Apte",
-  },
-];
 const PHistory = () => {
   document.title = "E-Ticket | Purchase History";
+  const [history, setHistory] = useState([]);
   const { theme } = useStateContext();
   const navigate = useNavigate();
   if (
@@ -42,31 +27,35 @@ const PHistory = () => {
       >
         Recent Transactions
       </Typography>
-      {/* <Typography>Looks like you don't have transaction records..</Typography> */}
-      {purchaseHistory.map((item, index) => (
-        <div
-          key={item.id + index}
-          className={`recent-transaction-details ${
-            theme === "light" ? "light" : "dark"
-          }`}
-        >
-          <h4>
-            Transactions Amount : <span>{item.amount} &#8377;</span>
-          </h4>
-          <h4>
-            Transaction Time : <span>{item.time}</span>
-          </h4>
-          <h4>
-            Transaction Date :<span> {item.date}</span>
-          </h4>
-          <h4>
-            Transaction ID : <span> {item.id}</span>
-          </h4>
-          <h4>
-            Transaction By : <span> {item.transactionBy}</span>
-          </h4>
-        </div>
-      ))}
+      <Typography>
+        {history.length === 0 &&
+          "Looks like you don't have transaction records.."}
+      </Typography>
+      {history.length !== 0 &&
+        history.map((item, index) => (
+          <div
+            key={item.id + index}
+            className={`recent-transaction-details ${
+              theme === "light" ? "light" : "dark"
+            }`}
+          >
+            <h4>
+              Transactions Amount : <span>{item.amount} &#8377;</span>
+            </h4>
+            <h4>
+              Transaction Time : <span>{item.time}</span>
+            </h4>
+            <h4>
+              Transaction Date :<span> {item.date}</span>
+            </h4>
+            <h4>
+              Transaction ID : <span> {item.id}</span>
+            </h4>
+            <h4>
+              Transaction By : <span> {item.transactionBy}</span>
+            </h4>
+          </div>
+        ))}
     </Box>
   );
 };

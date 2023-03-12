@@ -37,13 +37,12 @@ const PurchaseTicketModel = () => {
   });
   useEffect(() => {
     setLoader(true);
-    // fetchStation(setDropdownStations, showSnackBar);
+    fetchStation(setDropdownStations, showSnackBar);
     callGenerateFare();
     setLoader(false);
   }, [showSnackBar, dist]);
   async function callGenerateFare() {
     const fare = await generateFare(dist);
-    console.log(fare);
     setFareText(fare);
   }
   const handleSubmit = (e) => {

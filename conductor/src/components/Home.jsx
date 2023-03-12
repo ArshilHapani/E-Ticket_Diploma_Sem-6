@@ -19,6 +19,7 @@ const style = {
   bgcolor: "#f2f2f2",
   boxShadow: 24,
   p: 4,
+  borderRadius: "8px",
 };
 const spanStyle = {
   fontSize: 20,

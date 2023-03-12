@@ -49,6 +49,10 @@ const modelAutocomplete = {
   },
   generateTicketButton: {
     marginTop: "1.2rem",
+    width: {
+      sm: "15rem",
+      md: "auto",
+    },
     marginRight: "0.6rem",
     "&:disabled": {
       backgroundColor: "#1976d2",
@@ -57,6 +61,10 @@ const modelAutocomplete = {
     cancelButton: {
       marginTop: "1.2rem",
       marginRight: "0.6rem",
+      width: {
+        sm: "15rem",
+        md: "auto",
+      },
     },
   },
 };

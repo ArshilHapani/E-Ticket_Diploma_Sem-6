@@ -189,7 +189,7 @@ const Navbar = () => {
               <MenuItem
                 onClick={() => {
                   handleClose();
-                  localStorage.removeItem("user");
+                  localStorage.clear();
                   navigate("/signIn");
                 }}
               >

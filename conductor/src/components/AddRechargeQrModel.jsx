@@ -97,6 +97,9 @@ const AddRechargeQrModel = ({ style }) => {
         `Balance added to ${qrData} of amount ${rechargeAmount}`,
         "success"
       );
+      setDataModel(false);
+    } else if (!response.success) {
+      snackbarSetterFunction(response.msg, "warning");
     }
   };
 

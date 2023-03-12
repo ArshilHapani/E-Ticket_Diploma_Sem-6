@@ -7,7 +7,7 @@ const fetchuser = require("../middleware/fetchUser");
 
 const con = require("../database");
 
-router.post("/p", fetchuser, async (req, res) => {
+router.post("/", fetchuser, async (req, res) => {
   let { image } = req.body;
 
   try {

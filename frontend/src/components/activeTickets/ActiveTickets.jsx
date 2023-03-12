@@ -37,8 +37,8 @@ const ActiveTickets = () => {
     boxShadow: 24,
     height: "fit-content",
     width: "fit-content",
-
     p: 4,
+    borderRadius: "8px",
   };
   const dummy = [
     {

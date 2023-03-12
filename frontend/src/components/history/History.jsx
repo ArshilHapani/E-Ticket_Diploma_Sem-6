@@ -1,36 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./History.scss";
 import { useStateContext } from "../../context/stateContext";
 import { Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-const dummyHistory = [
-  {
-    startingPoint: "kamrej",
-    destination: "majuragate",
-    fare: 16,
-    time: "12:05 A.M.",
-    date: "1-10-2004",
-    ticketId: "eret5454",
-  },
-  {
-    startingPoint: "kamrej",
-    destination: "majuragate",
-    fare: 16,
-    time: "12:05 A.M.",
-    date: "1-10-2004",
-    ticketId: "eret5454",
-  },
-  {
-    startingPoint: "kamrej",
-    destination: "majuragate",
-    fare: 16,
-    time: "12:05 A.M.",
-    date: "1-10-2004",
-    ticketId: "eret5454",
-  },
-];
+
 const History = () => {
   const navigate = useNavigate();
+  const [allTickets, setAllTickets] = useState([]);
   if (
     localStorage.getItem("user") === null ||
     localStorage.getItem("user") === undefined ||
@@ -40,6 +16,24 @@ const History = () => {
   }
   document.title = "E-Ticket | Ticket History";
   const { theme } = useStateContext();
+  useEffect(() => {
+    fetchAllTickets();
+  }, []);
+
+  async function fetchAllTickets() {
+    const data = await fetch("http://localhost:6565/fetchAllTickets", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authToken: localStorage.getItem("user"),
+      },
+    });
+    const response = await data.json();
+    if (response.success) {
+      setAllTickets(response.tickets);
+    }
+  }
+
   return (
     <Box
       className={`ticket-history-container ${
@@ -55,34 +49,36 @@ const History = () => {
       >
         Ticket History
       </Typography>
-      {/* <Typography>Looks like you don't have ticket records..</Typography> */}
-      {dummyHistory.map((item, index) => (
-        <div
-          key={item.date + item.ticketId + index}
-          className={`recent-ticket-details ${
-            theme === "light" ? "light" : "dark"
-          }`}
-        >
-          <h4>
-            Starting point : <span>{item.startingPoint}</span>
-          </h4>
-          <h4>
-            Destination : <span>{item.destination}</span>
-          </h4>
-          <h4>
-            Fare :<span> {item.fare} &#8377;</span>
-          </h4>
-          <h4>
-            Time : <span> {item.fare}</span>
-          </h4>
-          <h4>
-            Date : <span> {item.date}</span>
-          </h4>
-          <h4>
-            Ticket ID : <span>{item.ticketId}</span>
-          </h4>
-        </div>
-      ))}
+      <Typography>
+        {" "}
+        {allTickets.length === 0 &&
+          "Looks like you don't have ticket records.."}
+      </Typography>
+      {allTickets.length !== 0 &&
+        allTickets.map((item, index) => (
+          <div
+            key={item.date + item.ticketId + index + item.t_id}
+            className={`recent-ticket-details ${
+              theme === "light" ? "light" : "dark"
+            }`}
+          >
+            <h4>
+              Starting point : <span>{item.start_loc}</span>
+            </h4>
+            <h4>
+              Destination : <span>{item.dest_loc}</span>
+            </h4>
+            <h4>
+              Fare :<span> {item.t_fare} &#8377;</span>
+            </h4>
+            <h4>
+              Time : <span> {item.t_time}</span>
+            </h4>
+            <h4>
+              Ticket ID : <span>{item.t_id}</span>
+            </h4>
+          </div>
+        ))}
     </Box>
   );
 };

@@ -9,3 +9,12 @@ input[type="number"] {
   -moz-appearance: textfield;
   appearance: textfield;
 }
+
+.form-root {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  min-height: 100vh;
+  min-width: 100vw;
+  background-color: #eef2f6;
+}

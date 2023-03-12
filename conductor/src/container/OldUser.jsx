@@ -10,10 +10,12 @@ import {
   Input,
   InputAdornment,
   IconButton,
+  Avatar,
 } from "@mui/material";
 import { useNavigate, Link } from "react-router-dom";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useStateContext } from "../context/stateContext";
+import logo from "../assets/logo-no-background.png";
 
 const OldUser = () => {
   const navigate = useNavigate();
@@ -79,6 +81,11 @@ const OldUser = () => {
           boxShadow: "0 0 15px rgba(0, 0, 0, 0.1)",
         }}
       >
+        <Avatar
+          alt="logo"
+          src={logo}
+          sx={{ height: 60, width: 60, margin: "0.5rem 0" }}
+        />
         <form onSubmit={handleSubmit}>
           <Stack direction="column" gap={2}>
             <Stack
@@ -165,12 +172,6 @@ const OldUser = () => {
               </Button>
             </Stack>
             <Divider />
-            <Stack
-              sx={{
-                paddingTop: "15px",
-                paddingBottom: "15px",
-              }}
-            ></Stack>
           </Stack>
         </form>
       </Stack>

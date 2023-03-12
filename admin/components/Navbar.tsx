@@ -23,7 +23,6 @@ const style = {
 const Navbar = () => {
     const [open, setOpen]: any = React.useState(false);
     const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
     return (
         <Stack direction="row" justifyContent="space-between" alignItems="center" className="shadow-md h-[70px]" >
             <Box className="px-4" >

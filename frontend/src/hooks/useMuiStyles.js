@@ -150,6 +150,9 @@ export default function useMuiStyles() {
   };
   const textTheme = {
     color: theme === "light" ? "#0d1b2a" : "#e5e5e5",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   };
   return {
     modelStyle,

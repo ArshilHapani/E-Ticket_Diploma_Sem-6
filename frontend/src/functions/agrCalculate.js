@@ -1,4 +1,4 @@
-export default function calculateAge(birthdate) {          
+export default function calculateAge(birthdate) {
   const today = new Date();
   const birthDate = new Date(birthdate);
   let age = today.getFullYear() - birthDate.getFullYear();
@@ -8,6 +8,9 @@ export default function calculateAge(birthdate) {
     (monthDiff === 0 && today.getDate() < birthDate.getDate())
   ) {
     age--;
+  }
+  if (age === -1) {
+    age = 0;
   }
   return age;
 }

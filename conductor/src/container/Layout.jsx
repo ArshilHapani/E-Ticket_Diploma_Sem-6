@@ -50,7 +50,7 @@ const Layout = () => {
             padding: 0,
           }}
           onClick={() => {
-            localStorage.removeItem("user");
+            localStorage.clear();
             navigate("/signIn");
           }}
         >

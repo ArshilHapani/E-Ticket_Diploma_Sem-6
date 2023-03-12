@@ -10,11 +10,13 @@ import {
   Input,
   InputAdornment,
   IconButton,
+  Avatar,
 } from "@mui/material";
 import { useNavigate, Link } from "react-router-dom";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useStateContext } from "../../context/stateContext";
 import isUserNameValid from "../../functions/userNameValidate";
+import logo from "../../assets/logo-no-background.png";
 
 const NewUser = () => {
   const navigate = useNavigate();
@@ -46,7 +48,7 @@ const NewUser = () => {
       );
       return;
     }
-    if (user.no.length < 10) {
+    if (user.no.length !== 0 && user.no.length < 10) {
       showSnackBar("Enter a valid mobile number", "error");
       return;
     }
@@ -99,11 +101,11 @@ const NewUser = () => {
         sx={{
           width: {
             xs: "70vw",
-            md: "45vw",
+            md: "40vw",
             lg: "35vw",
           },
           alignContent: "center",
-          padding: "30px 1.5rem",
+          padding: "20px 1.5rem",
           boxShadow: "0 0 15px rgba(0, 0, 0, 0.1)",
           background: "#fff",
         }}
@@ -233,10 +235,18 @@ const NewUser = () => {
                 paddingTop: "15px",
                 paddingBottom: "15px",
               }}
+              justifyContent="space-between"
+              alignItems="center"
+              direction="row"
             >
               <Link to="/signIn" className="link-styles-anchor-tags">
                 Already have an account?
               </Link>
+              <Avatar
+                alt="logo"
+                src={logo}
+                sx={{ height: 60, width: 60, margin: "0.5rem 0" }}
+              />
             </Stack>
           </Stack>
         </form>

@@ -20,7 +20,7 @@ app.use("/login", require("./routes/authentication/login"));
 app.use("/signup", require("./routes/authentication/signup"));
 
 app.use("/changePassenger", require("./routes/passenger/changePassenger"));
-app.use("/changeImage", require("./routes/passenger/changeImage"));
+app.use("/changeImage/p", require("./routes/passenger/changeImage"));
 app.use("/fetchPassenger", require("./routes/passenger/fetchPassenger"));
 app.use("/generateFare", require("./routes/passenger/generateFare"));
 app.use("/fetchAllStations", require("./routes/passenger/fetchAllStations"));
@@ -29,7 +29,7 @@ app.use("/recharge", require("./routes/conductor/recharge"));
 app.use("/scanTicket", require("./routes/conductor/scanTicket"));
 app.use("/changeConductor", require("./routes/conductor/changeConductor"));
 app.use("/fetchConductor", require("./routes/conductor/fetchConductor"));
-app.use("/changeImage", require("./routes/conductor/changeImage"));
+app.use("/changeImage/c", require("./routes/conductor/changeImage"));
 
 app.use("/createTicket", require("./routes/ticket/createTicket"));
 app.use("/fetchTicket", require("./routes/ticket/fetchTicket"));

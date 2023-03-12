@@ -7,14 +7,14 @@ const fetchuser = require("../middleware/fetchUser");
 const con = require("../database");
 
 router.post("/", fetchuser, async (req, res) => {
-  const { limit, tid } = req.body;   // Get limit to fetch tickets
+  const { limit, tid } = req.body; // Get limit to fetch tickets
   let success = false;
 
   try {
     let fetchTicket;
-    if(limit){
+    if (limit) {
       fetchTicket = `SELECT * FROM ticket where p_id='${req.user.id}' LIMIT ${limit};`;
-    } else if(tid){
+    } else if (tid) {
       fetchTicket = `SELECT * FROM ticket where p_id='${req.user.id}' && t_id='${tid}';`;
     }
 
@@ -23,7 +23,7 @@ router.post("/", fetchuser, async (req, res) => {
       if (err) {
         console.log(err.message);
         res.json({ success });
-      } else if (qres) {
+      } else if (qres.length > 0) {
         let date = new Date(qres[0].expires);
         const expires = date.toLocaleString();
         qres[0].expires = expires;

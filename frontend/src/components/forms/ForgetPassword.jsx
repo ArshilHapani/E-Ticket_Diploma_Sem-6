@@ -1,8 +1,16 @@
 import React, { useState } from "react";
-import { Stack, Typography, TextField, Button, Divider } from "@mui/material";
+import {
+  Stack,
+  Typography,
+  TextField,
+  Button,
+  Divider,
+  Avatar,
+} from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useStateContext } from "../../context/stateContext";
 import validateEmail from "../../functions/validateEmail";
+import logo from "../../assets/logo-no-background.png";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -111,6 +119,9 @@ const ForgotPassword = () => {
                 paddingTop: "15px",
                 paddingBottom: "15px",
               }}
+              justifyContent="space-between"
+              alignItems="center"
+              direction="row"
             >
               <Link
                 to="/signIn"
@@ -119,6 +130,11 @@ const ForgotPassword = () => {
               >
                 Already have an account?
               </Link>
+              <Avatar
+                alt="logo"
+                src={logo}
+                sx={{ height: 60, width: 60, margin: "0.5rem 0" }}
+              />
             </Stack>
           </Stack>
         </Stack>

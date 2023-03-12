@@ -9,6 +9,9 @@ import {
     Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import ConductorTable from '@/components/ConductorTable';
+import { Container } from '@mui/system';
+import Navbar from '@/components/Navbar';
 
 
 ChartJS.register(
@@ -49,14 +52,16 @@ export const data = {
 const HomePage = () => {
     return (
         <>
-            <div className='flex gap-5 flex-wrap my-5 ' >
-                <div className='h-[50vh] w-[600px]' >
-                    <Bar options={options} data={data} />
+
+            <Navbar />
+            <Container>
+                <div className='flex gap-5 flex-wrap my-5 ' >
+                    <div className='h-[50vh] w-[600px]' >
+                        <Bar options={options} data={data} />
+                    </div>
                 </div>
-                <div className='h-[50vh] w-[600px]' >
-                    <Bar options={options} data={data} />
-                </div>
-            </div>
+                <ConductorTable />
+            </Container>
         </>
 
     )

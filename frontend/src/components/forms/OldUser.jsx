@@ -10,10 +10,12 @@ import {
   Input,
   InputAdornment,
   IconButton,
+  Avatar,
 } from "@mui/material";
 import { useNavigate, Link } from "react-router-dom";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useStateContext } from "../../context/stateContext";
+import logo from "../../assets/logo-no-background.png";
 
 const OldUser = () => {
   const navigate = useNavigate();
@@ -169,10 +171,18 @@ const OldUser = () => {
                 paddingTop: "15px",
                 paddingBottom: "15px",
               }}
+              justifyContent="space-between"
+              alignItems="center"
+              direction="row"
             >
               <Link to="/signUp" className="link-styles-anchor-tags">
                 <Typography>Don't have an account?</Typography>
               </Link>
+              <Avatar
+                alt="logo"
+                src={logo}
+                sx={{ height: 60, width: 60, margin: "0.5rem 0" }}
+              />
             </Stack>
           </Stack>
         </form>

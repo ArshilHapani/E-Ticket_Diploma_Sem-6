@@ -35,7 +35,7 @@ router.post("/", async (req, res) => {
           console.log(err.message);
           res.json({ success });
         } else if (qres.length > 0) {
-          if (parseInt(qres[0].p_balance) + amount >= 10000) {
+          if (parseInt(qres[0].p_balance) + parseInt(amount) >= 10000) {
             res.json({ success, msg: "Balance is too much" });
           } else {
             con.beginTransaction();
