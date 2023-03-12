@@ -1,15 +1,15 @@
 {
   "short_name": "E-Ticket",
-  "name": "BRTS E-Ticket Management PWA",
+  "name": "BRTS E-Ticket Management",
   "icons": [
-      {
-          "src": "/images/favicon.png",
-          "type": "image/png",
-          "sizes": "1024x1024"
-      }
+    {
+      "src": "/images/favicon.png",
+      "type": "image/png",
+      "sizes": "1024x1024"
+    }
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#eb0014",
+  "background_color": "#1565c0"
 }

@@ -18,7 +18,7 @@ router.get("/", fetchuser, async (req, res) => {
         console.log(err.message);
         res.json({ success });
       } else if (qres) {
-        qres.map((i)=>{
+        qres.map((i) => {
           let date = new Date(i.expires);
           const expires = date.toLocaleString();
           i.expires = expires;
@@ -26,7 +26,7 @@ router.get("/", fetchuser, async (req, res) => {
           date = new Date(i.t_time);
           const time = date.toLocaleString();
           i.t_time = time;
-        })
+        });
         success = true;
         res.json({ success, tickets: qres });
       } else {

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { LoadingButton } from "@mui/lab";
 import {
   Autocomplete,
@@ -11,37 +12,57 @@ import {
   Typography,
 } from "@mui/material";
 import { Stack } from "@mui/system";
-import React, { useState } from "react";
-import { top100Films } from "../../constants/dummy";
+import React, { useState, useEffect } from "react";
 import { useStateContext } from "../../context/stateContext";
+import { fetchStation, generateFare } from "../../functions";
+import { createTicket } from "../../functions/createTicket";
 import useMuiStyles from "../../hooks/useMuiStyles";
+
 const PurchaseTicketModel = () => {
-  const { theme, buyTicketModel, setBuyTicketModel, showSnackBar } =
-    useStateContext();
+  const {
+    theme,
+    buyTicketModel,
+    setBuyTicketModel,
+    showSnackBar,
+    setLoader,
+    loader,
+  } = useStateContext();
+  const [dropdownStations, setDropdownStations] = useState([]);
+  const [fareText, setFareText] = useState(0);
   const { modelStyle, modelTextField, modelAutocomplete } = useMuiStyles();
   const [dist, setDist] = useState({
     source: "",
     destination: "",
     quantity: 1,
   });
-  // useEffect(() => {
-  //   async function fetchStation() {
-  //     const data = await fetch("http://localhost:6565/fetchTicket",{
-  //       method:"POST",
-  //       //TODO...
-  //     })
-  //   }
-  // }, [])
-
+  useEffect(() => {
+    setLoader(true);
+    // fetchStation(setDropdownStations, showSnackBar);
+    callGenerateFare();
+    setLoader(false);
+  }, [showSnackBar, dist]);
+  async function callGenerateFare() {
+    const fare = await generateFare(dist);
+    console.log(fare);
+    setFareText(fare);
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
     if (dist.source === "" || dist.destination === "") {
       showSnackBar("Please select source and/or destination", "error");
       return;
     }
+
     console.log(dist);
-    showSnackBar("Ticket generated successfully", "success");
+    setLoader(true);
+    createTicket(dist, showSnackBar);
+    setLoader(false);
     setBuyTicketModel(false);
+    setDist({
+      source: "",
+      destination: "",
+      quantity: 1,
+    });
   };
   return (
     <Modal
@@ -61,11 +82,12 @@ const PurchaseTicketModel = () => {
               disablePortal
               id="auto-highlight"
               autoHighlight
+              isOptionEqualToValue={dropdownStations.st_id}
               onChange={(event, value) => {
                 setDist({ ...dist, source: value });
               }}
               sx={modelAutocomplete}
-              options={top100Films}
+              options={dropdownStations}
               PaperComponent={({ children }) => (
                 <Paper
                   style={{
@@ -93,10 +115,11 @@ const PurchaseTicketModel = () => {
               id="auto-highlight"
               sx={modelAutocomplete}
               autoHighlight
+              isOptionEqualToValue={dropdownStations.st_id}
               onChange={(event, value) =>
                 setDist({ ...dist, destination: value })
               }
-              options={top100Films}
+              options={dropdownStations}
               PaperComponent={({ children }) => (
                 <Paper
                   style={{
@@ -159,8 +182,9 @@ const PurchaseTicketModel = () => {
                 variant="contained"
                 sx={modelAutocomplete.generateTicketButton}
                 type="submit"
+                loading={loader}
               >
-                Generate Ticket ({dist.quantity * 4}&#8377;)
+                Generate Ticket ({dist.quantity * fareText}&#8377;)
               </LoadingButton>
             </Box>
           </Box>

@@ -70,7 +70,8 @@ const Settings = () => {
         aria-label="Platform"
       >
         <ToggleButton sx={textTheme} value="dark">
-          <Button startIcon={<CiDark />}>Dark</Button>
+          <CiDark />
+          Dark
         </ToggleButton>
         <ToggleButton sx={textTheme} value="system">
           <Button startIcon={<WiMoonAltFirstQuarter />}>System</Button>
