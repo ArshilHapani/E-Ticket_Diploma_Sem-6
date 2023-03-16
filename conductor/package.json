@@ -23,6 +23,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "author": "Arshil Hapani",
   "eslintConfig": {
     "extends": [
       "react-app",
