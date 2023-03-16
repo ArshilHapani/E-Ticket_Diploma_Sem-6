@@ -2,7 +2,7 @@ export async function createTicket(dist, showSnackBar) {
   console.log("create ticket invoked");
   console.log(dist);
   console.log(dist.quantity);
-  const ticket = await fetch("http://localhost:6565/createTicket", {
+  const ticket = await fetch("http://localhost:6565/ticket/create", {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -19,7 +19,7 @@ export async function createTicket(dist, showSnackBar) {
   if (!response.success) {
     showSnackBar("Insufficient balance", "error");
   } else {
-    showSnackBar("Ticket generated successfully", "success");
+    showSnackBar("Ticket purchased successfully", "success");
   }
   console.log(response);
 }

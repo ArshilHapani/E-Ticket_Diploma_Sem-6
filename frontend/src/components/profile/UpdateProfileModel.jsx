@@ -17,7 +17,7 @@ const UpdateProfileModel = ({
     updatedUserInfo.name === null
   ) {
     navigate("/");
-  } //TODO
+  }
   return (
     <Box sx={modelStyle}>
       <Typography id="modal-modal-title" variant="h6" component="h2">

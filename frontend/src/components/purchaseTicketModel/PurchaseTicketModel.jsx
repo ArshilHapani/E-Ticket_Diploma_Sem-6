@@ -17,8 +17,10 @@ import { useStateContext } from "../../context/stateContext";
 import { fetchStation, generateFare } from "../../functions";
 import { createTicket } from "../../functions/createTicket";
 import useMuiStyles from "../../hooks/useMuiStyles";
+import { useNavigate } from "react-router-dom";
 
 const PurchaseTicketModel = () => {
+  const navigate = useNavigate();
   const {
     theme,
     buyTicketModel,
@@ -26,6 +28,7 @@ const PurchaseTicketModel = () => {
     showSnackBar,
     setLoader,
     loader,
+    setToggleSync,
   } = useStateContext();
   const [dropdownStations, setDropdownStations] = useState([]);
   const [fareText, setFareText] = useState(0);
@@ -62,6 +65,8 @@ const PurchaseTicketModel = () => {
       destination: "",
       quantity: 1,
     });
+    setToggleSync(false);
+    navigate("/tickets");
   };
   return (
     <Modal

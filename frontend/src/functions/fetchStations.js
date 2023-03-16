@@ -1,5 +1,5 @@
 export async function fetchStation(setDropdownStations, showSnackBar) {
-  const res = await fetch("http://localhost:6565/fetchAllStations", {
+  const res = await fetch("http://localhost:6565/passenger/fetchStations", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

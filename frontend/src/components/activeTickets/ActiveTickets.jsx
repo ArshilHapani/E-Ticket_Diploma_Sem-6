@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   Button,
   Container,
@@ -10,11 +11,22 @@ import {
 import { Box } from "@mui/system";
 import { useStateContext } from "../../context/stateContext";
 import "./activeTickets.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import QrCodeSVG from "../svg_qr/QrCodeSVG";
 import { useNavigate } from "react-router-dom";
-const currentDate = new Date();
-let formattedDate = `${currentDate.getDay()}-${currentDate.getMonth()}-${currentDate.getFullYear()}`;
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  padding: "1rem",
+  backgroundColor: "#fff",
+  boxShadow: 24,
+  height: "fit-content",
+  width: "fit-content",
+  p: 4,
+  borderRadius: "8px",
+};
 const ActiveTickets = () => {
   const navigate = useNavigate();
   if (
@@ -24,124 +36,111 @@ const ActiveTickets = () => {
   ) {
     navigate("/signUp");
   }
-  const { theme } = useStateContext();
+  const { theme, toggleSync } = useStateContext();
   const [qModel, setQModel] = useState(false);
   const [qrProps, setQrProps] = useState(null);
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    padding: "1rem",
-    backgroundColor: "#fff",
-    boxShadow: 24,
-    height: "fit-content",
-    width: "fit-content",
-    p: 4,
-    borderRadius: "8px",
-  };
-  const dummy = [
-    {
-      startingPoint: "kamrej",
-      destination: "majuragate",
-      fare: 16,
-      validityFrom: "12:05 A.M.",
-      validityTo: "2:05 A.M.",
-      date: formattedDate,
-    },
-    {
-      startingPoint: "station",
-      destination: "spinning mill",
-      fare: 8,
-      validityFrom: "10:00 A.M.",
-      validityTo: "12:05 A.M.",
-      date: formattedDate,
-    },
-    {
-      startingPoint: "jakatnaka",
-      destination: "katargam",
-      fare: 12,
-      validityFrom: "10:00 A.M.",
-      validityTo: "12:05 A.M.",
-      date: formattedDate,
-    },
-  ];
+  const [activeTickets, setActiveTickets] = useState([]);
+  useEffect(() => {
+    fetchActiveTickets();
+  }, [toggleSync]);
+
+  async function fetchActiveTickets() {
+    const ticketsActive = await fetch(
+      "http://localhost:6565/ticket/fetchActive",
+      {
+        method: "GET",
+        headers: {
+          authToken: localStorage.getItem("user"),
+        },
+      }
+    );
+    const response = await ticketsActive.json();
+    console.log(response);
+    if (response.success) {
+      setActiveTickets(response.tickets);
+    } else if (!response.success) {
+      return;
+    }
+  }
   return (
     <Container
       className={`ticketsActive__container ${
         theme === "light" ? "light" : "dark"
       }`}
     >
-      {dummy.map((item, index) => {
-        return (
-          <Box
-            className={`ticketsActive__content-container ${
-              theme === "light" ? "light" : "dark"
-            }`}
-            key={item.startingPoint + item.fare + index}
-          >
-            <Stack
-              direction="row"
-              alignItems="center"
-              justifyContent="space-between"
+      <Typography sx={{ fontSize: "1rem", textAlign: "center", mt: 2 }}>
+        {" "}
+        {activeTickets.length === 0 &&
+          "Looks like you don't have any active tickets.."}
+      </Typography>
+      {activeTickets.length !== 0 &&
+        activeTickets.map((item, index) => {
+          return (
+            <Box
+              className={`ticketsActive__content-container ${
+                theme === "light" ? "light" : "dark"
+              }`}
+              key={item.p_id + item.t_id + index}
             >
-              <Stack direction="column">
-                <Typography>
-                  {item.startingPoint} - {item.destination}
-                </Typography>
-                <Typography>
-                  Fare:{" "}
-                  <Typography variant="span">{item.fare}&#8377;</Typography>
-                </Typography>
-                <Typography>
-                  validity from:{" "}
-                  <Typography variant="span">{item.validityFrom}</Typography>
-                </Typography>
-                <Typography>
-                  validity to:{" "}
-                  <Typography variant="span">{item.validityTo}</Typography>
-                </Typography>
-                <Typography>
-                  date: <Typography variant="span">{item.date}</Typography>
-                </Typography>
-              </Stack>
-              <Tooltip
-                title="view QR code"
-                placement="left"
-                arrow
-                TransitionComponent={Grow}
+              <Stack
+                direction="row"
+                alignItems="center"
+                justifyContent="space-between"
               >
-                <Button
-                  variant="text"
-                  onClick={() => {
-                    setQModel(true);
-                    setQrProps(item);
-                  }}
-                  sx={{ margin: "1rem 0" }}
+                <Stack direction="column">
+                  <Typography>
+                    {item.start_loc} - {item.dest_loc}
+                  </Typography>
+                  <Typography>
+                    Fare:{" "}
+                    <Typography variant="span">{item.t_fare}&#8377;</Typography>
+                  </Typography>
+                  <Typography>
+                    Purchased at:{" "}
+                    <Typography variant="span">{item.t_time}</Typography>
+                  </Typography>
+                  <Typography>
+                    Expires at:{" "}
+                    <Typography variant="span">{item.t_expires}</Typography>
+                  </Typography>
+                </Stack>
+                <Tooltip
+                  title="view QR code"
+                  placement="left"
+                  arrow
+                  TransitionComponent={Grow}
                 >
-                  QR Code
-                </Button>
-              </Tooltip>
-              <Modal
-                open={qModel}
-                onClose={() => setQModel(false)}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-              >
-                <Box sx={style}>
-                  <Stack
-                    direction="column"
-                    alignItems="center"
-                    justifyContent="center"
+                  <Button
+                    variant="text"
+                    onClick={() => {
+                      setQModel(true);
+                      setQrProps(item);
+                    }}
+                    sx={{ margin: "1rem 0" }}
                   >
-                    <QrCodeSVG values={qrProps} />
-                  </Stack>
-                </Box>
-              </Modal>
-            </Stack>
-          </Box>
-        );
-      })}
+                    QR Code
+                  </Button>
+                </Tooltip>
+                <Modal
+                  open={qModel}
+                  onClose={() => setQModel(false)}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                >
+                  <Box sx={style}>
+                    <Stack
+                      direction="column"
+                      alignItems="center"
+                      justifyContent="center"
+                    >
+                      <QrCodeSVG values={qrProps} />
+                    </Stack>
+                  </Box>
+                </Modal>
+              </Stack>
+            </Box>
+          );
+        })}
     </Container>
   );
 };

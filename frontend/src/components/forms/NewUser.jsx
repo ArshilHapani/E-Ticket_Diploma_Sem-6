@@ -10,13 +10,14 @@ import {
   Input,
   InputAdornment,
   IconButton,
-  Avatar,
+  // Avatar,
 } from "@mui/material";
 import { useNavigate, Link } from "react-router-dom";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useStateContext } from "../../context/stateContext";
 import isUserNameValid from "../../functions/userNameValidate";
-import logo from "../../assets/logo-no-background.png";
+import validateEmail from "../../functions/validateEmail";
+// import logo from "../../assets/logo-no-background.png";
 
 const NewUser = () => {
   const navigate = useNavigate();
@@ -39,6 +40,10 @@ const NewUser = () => {
       user.name === ""
     ) {
       showSnackBar("Please enter all required fields", "error");
+      return;
+    }
+    if (validateEmail(user.email) === null) {
+      showSnackBar("please enter valid email format", "error");
       return;
     }
     if (user.pwd.length < 8) {
@@ -65,7 +70,7 @@ const NewUser = () => {
     }
     // Fetch...
     setLoader(true);
-    const data = await fetch("http://localhost:6565/signup", {
+    const data = await fetch("http://localhost:6565/authentication/signUp", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -187,7 +192,7 @@ const NewUser = () => {
             <TextField
               label="email*"
               variant="standard"
-              type="email"
+              type="text"
               onChange={(e) => {
                 setUser({
                   ...user,
@@ -235,18 +240,18 @@ const NewUser = () => {
                 paddingTop: "15px",
                 paddingBottom: "15px",
               }}
-              justifyContent="space-between"
+              justifyContent="flex-end"
               alignItems="center"
               direction="row"
             >
               <Link to="/signIn" className="link-styles-anchor-tags">
                 Already have an account?
               </Link>
-              <Avatar
+              {/* <Avatar
                 alt="logo"
                 src={logo}
                 sx={{ height: 60, width: 60, margin: "0.5rem 0" }}
-              />
+              /> */}
             </Stack>
           </Stack>
         </form>

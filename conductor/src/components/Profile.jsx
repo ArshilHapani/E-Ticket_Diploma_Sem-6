@@ -45,15 +45,11 @@ const Profile = () => {
   ) {
     navigate("/");
   }
-  console.log("Local OBJ");
-  console.log(localObj);
 
   const uploadImage = (e) => {
     e.preventDefault();
     setLoading(true);
     const selectedFile = e.target.files[0];
-    console.log(selectedFile);
-    console.log(selectedFile.size);
     if (
       selectedFile.type !== "image/jpeg" &&
       selectedFile.type !== "image/png" &&
@@ -77,8 +73,6 @@ const Profile = () => {
     }
     b64Convertor(selectedFile, snackbarSetterFunction);
     fetchUser();
-    console.log("upload image");
-    console.log(user);
     setLocalObj({
       name: user?.c_name,
       username: user?.c_uname,
@@ -145,7 +139,7 @@ const Profile = () => {
           width="40%"
         >
           <Avatar
-            src={`data:image/png;base64,${localObj.image}`}
+            src={localObj.image}
             sx={{ width: 70, height: 70, bgcolor: "#3f51b5" }}
             alt={localObj.name}
           >

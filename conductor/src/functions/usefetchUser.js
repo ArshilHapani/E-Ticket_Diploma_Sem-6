@@ -1,6 +1,6 @@
 async function usefetchUser() {
   console.log("usefetchUser invoked");
-  const data = await fetch("http://localhost:6565/fetchConductor", {
+  const data = await fetch("http://localhost:6565/conductor/fetch", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

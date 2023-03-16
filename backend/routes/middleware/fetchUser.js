@@ -1,6 +1,6 @@
 /* fetchUser.js is used to create a middleware that is used to authenticate user and store id of user into req object to perform opertaions */
 
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 const SECRET_MSG = 'E-TICKET';      // Secret message that was used to create JWT
 
 const fetchuser = (req, res, next) => {
@@ -10,17 +10,17 @@ const fetchuser = (req, res, next) => {
     // console.log(token);
     
     if (!token) {
-        res.status(401).send({ error: "Authentication did not happen" })
+        res.status(401).send({ error: "Authentication did not happen" });
     }
     
     try {
 
         // Stored id from header "auth-token" into "data" variable
         const data = jwt.verify(token, SECRET_MSG);
-
+        
         // Stores "id" and "iat" into req object
         req.user = data;
-
+        
         // Calling next function
         next();
     } catch (error) {
@@ -28,4 +28,4 @@ const fetchuser = (req, res, next) => {
     }
 }
 
-module.exports = fetchuser;
+export default fetchuser;

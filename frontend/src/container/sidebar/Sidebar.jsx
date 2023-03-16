@@ -5,6 +5,7 @@ import "./Sidebar.scss";
 import { IoBusOutline } from "react-icons/io5";
 import { useStateContext } from "../../context/stateContext";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import image from "../../assets/logo-no-background.png";
 
 const Sidebar = () => {
   const { sidebarMenu, setSidebarMenu, theme } = useStateContext();
@@ -37,7 +38,7 @@ const Sidebar = () => {
           to="/"
           className={`logo-container ${theme === "light" ? "light" : "dark"}`}
         >
-          <IoBusOutline className="logo-icon" />
+          <img src={image} alt="e-ticket" className="logo-icon" />
           <span>E-Ticket</span>
         </Link>
         {useSidebarItems.map((item, index) => (

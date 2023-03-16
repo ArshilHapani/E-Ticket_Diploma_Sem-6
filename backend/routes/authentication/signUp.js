@@ -1,12 +1,12 @@
 /* signup.js is used to create an end point for user to sign up into system and 
 it will send JWT in response and store information about user into database if that user does not exist */
 
-const express = require("express");
-const router = express.Router();
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+import { Router } from "express";
+const router = Router();
+import bcryptjs from "bcryptjs";
+import jwt from "jsonwebtoken";
 
-const con = require("../database"); // Connection object to run query
+import con from "../database.js"; // Connection object to run query
 
 const SECRET_MSG = "E-TICKET"; // Secret message to send in JWT for authentication
 
@@ -14,7 +14,7 @@ router.post("/", async (req, res) => {
   const { uname, pwd, name, email, no, dob } = req.body;
   let success = true;
 
-  // Creating insetance of Date to generate unique id for user
+  // Creating instance of Date to generate unique id for user
   const d = new Date();
   const id =
     "P" +
@@ -29,7 +29,7 @@ router.post("/", async (req, res) => {
 
   try {
     
-    const findUser = `SELECT p_uname FROM passenger WHERE p_uname='${uname}'`;
+    const findUser = `SELECT uname FROM login WHERE uname='${uname}'`;
     // Checks user with this username exist or not
     con.query(findUser, async (err, qres) => {
       if (err) {
@@ -43,9 +43,9 @@ router.post("/", async (req, res) => {
       } else {
 
         // Creating salt to perform hash operation on password
-        const salt = await bcrypt.genSalt(10);
+        const salt = await bcryptjs.genSalt(10);
         // Generating hash value according to pwd and salt
-        const secPass = await bcrypt.hash(pwd, salt);
+        const secPass = await bcryptjs.hash(pwd, salt);
 
         con.beginTransaction();
 
@@ -98,4 +98,4 @@ router.post("/", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

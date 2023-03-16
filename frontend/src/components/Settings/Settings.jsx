@@ -100,14 +100,15 @@ const Settings = () => {
             <Typography sx={{ marginLeft: 1 }}>Light</Typography>
           </ToggleButton>
         </ToggleButtonGroup>
-        <Typography
+        {/* <Typography
           sx={{
             fontSize: 15,
             margin: "1rem 0",
           }}
         >
           Report a bug
-        </Typography>
+        </Typography> */}
+        {/* //TODO */}
       </Container>
     </Box>
   );

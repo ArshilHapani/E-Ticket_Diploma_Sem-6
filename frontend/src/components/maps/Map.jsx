@@ -4,7 +4,6 @@ import "./Map.scss";
 import { Map, Marker, ZoomControl } from "pigeon-maps";
 import { Box, Stack } from "@mui/system";
 import img1 from "../../assets/map1.jpg";
-import img2 from "../../assets/map2.jpg";
 import { Divider, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
@@ -80,18 +79,6 @@ const GuideMap = () => {
         </Typography>
         <a href={img1} target="_blank" rel="noreferrer">
           <img src={img1} alt="proto-map-1" className="proto-image" />
-        </a>
-        <Divider />
-        <Typography
-          align="center"
-          fontSize={20}
-          fontWeight={700}
-          sx={{ margin: "40px 0" }}
-        >
-          Bus stop map guide From Surat Airport to Sarthana Jakatnaka
-        </Typography>
-        <a href={img2} target="_blank" rel="noreferrer">
-          <img src={img2} alt="proto-map-2" className="proto-image" />
         </a>
       </Stack>
     </div>

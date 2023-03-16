@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useStateContext } from "../../context/stateContext";
 import "./RecentTickets.scss";
@@ -12,14 +12,14 @@ const RecentTickets = () => {
   ) {
     navigate("/signUp");
   }
-  const { theme } = useStateContext();
+  const { theme, toggleSync } = useStateContext();
   const [tickets, setTickets] = useState([]);
   useEffect(() => {
     fetchRecentTickets();
-  }, []);
+  }, [toggleSync]);
 
   async function fetchRecentTickets() {
-    const response = await fetch("http://localhost:6565/fetchTicket", {
+    const response = await fetch("http://localhost:6565/ticket/fetch", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -30,8 +30,9 @@ const RecentTickets = () => {
       }),
     });
     const tick = await response.json();
+    console.log(tick);
     if (tick.success) {
-      setTickets(tick.ticket);
+      setTickets(tick.tickets);
     }
   }
   return (
@@ -47,11 +48,14 @@ const RecentTickets = () => {
       >
         Recent Tickets
       </Typography>
-      <Typography>
-        {" "}
-        {tickets.length === 0 && "Looks like you don't have ticket records.."}
-      </Typography>
-      {tickets.length !== 0 &&
+      <Suspense fallback="loading">
+        <Typography>
+          {" "}
+          {tickets?.length === 0 &&
+            "Looks like you don't have ticket records.."}
+        </Typography>
+      </Suspense>
+      {tickets?.length !== 0 &&
         tickets.map((item, index) => (
           <div
             className={`recent-ticket-details ${

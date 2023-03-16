@@ -23,6 +23,7 @@ function toRadians(degrees) {
 }
 
 const findDistance = (req, res, next) => {
+
   // Fetching latitude and longitude of start and end station
   const startcoords = {
     latitude: req?.start?.st_lat,
@@ -36,10 +37,10 @@ const findDistance = (req, res, next) => {
 
   const distance = haversineDistance(startcoords, endcoords);
 
-  req.dist = Math.round(distance); // Storing distance into req object
+  req.dist = Math.round(distance);  // Storing distance into req object
 
   // Calling next function
   next();
 };
 
-module.exports = findDistance;
+export default findDistance;

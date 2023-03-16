@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./generateTicketBtn.scss";
 import { Box, Button, Card, Modal, Typography } from "@mui/material";
 import { FaExchangeAlt } from "react-icons/fa";
@@ -21,9 +21,32 @@ const style = {
 };
 const GenerateTicketButton = () => {
   const navigate = useNavigate();
-  const { homeTicketDetails, theme, setBuyTicketModel, newUser } =
-    useStateContext();
+  const { theme, newUser, setBuyTicketModel, toggleSync } = useStateContext();
+  const [activeOneTicket, setActiveOneTicket] = useState([]);
   const [qrModel, setQrModel] = useState(false);
+
+  useEffect(() => {
+    fetchActiveTickets();
+  }, [toggleSync]);
+
+  async function fetchActiveTickets() {
+    const ticketsActive = await fetch(
+      "http://localhost:6565/ticket/fetchActive",
+      {
+        method: "GET",
+        headers: {
+          authToken: localStorage.getItem("user"),
+        },
+      }
+    );
+    const response = await ticketsActive.json();
+    console.log(response);
+    if (response.success) {
+      setActiveOneTicket(response.tickets[0]);
+    } else if (!response.success) {
+      return;
+    }
+  }
 
   return (
     <>
@@ -41,7 +64,7 @@ const GenerateTicketButton = () => {
         >
           <h3>
             Currently activated ticket
-            {homeTicketDetails ? (
+            {activeOneTicket.length !== 0 ? (
               <span className="green-dot"></span>
             ) : (
               <span className="red-dot"></span>
@@ -55,10 +78,10 @@ const GenerateTicketButton = () => {
             </span>
             <span>To</span>
           </div>
-          {homeTicketDetails ? (
+          {activeOneTicket.length !== 0 ? (
             <div className="ticket-details-cont">
-              <span>Kamrej surat</span>
-              <span>Railway station</span>
+              <span>{activeOneTicket?.start_loc}</span>
+              <span>{activeOneTicket?.dest_loc}</span>
             </div>
           ) : (
             <div className="empty-ticket-container">

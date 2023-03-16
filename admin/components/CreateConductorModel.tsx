@@ -12,7 +12,7 @@ const CreateConductorModel = ({ setOpen }: any) => {
     })
     const handleSubmit = async (e: SyntheticEvent) => {
         e.preventDefault();
-        const create = await fetch("http://localhost:6565/createconductor", {
+        const create = await fetch("http://localhost:6565/admin/createConductor", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

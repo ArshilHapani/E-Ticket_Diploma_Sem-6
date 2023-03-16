@@ -1,12 +1,14 @@
 /* deleteTicket.js is used to create an end point for passenger to delete purchashed ticket within specified time*/
 
-const express = require("express");
-const router = express.Router();
-const fetchuser = require("../middleware/fetchUser");
+import { Router } from "express";
+const router = Router();
+import con from "../database.js";
+import fetchuser from "../middleware/fetchUser.js";
+import checkPassenger from "../middleware/checkPassenger.js";
 
-const con = require("../database");
+router.use(fetchuser, checkPassenger);
 
-router.delete("/", fetchuser,async (req, res) => {
+router.delete("/",async (req, res) => {
   const { tid } = req.body;
   let success = false;
 
@@ -27,25 +29,25 @@ router.delete("/", fetchuser,async (req, res) => {
             console.log(err.message);
             con.rollback();
             res.json({ success });
-          }else if(qres){
+          }else if(qres.affectedRows > 0){
             // Deleting ticket from database
             con.query(delTicket, (err, qres) => {
               if (err) {
                 console.log(err.message);
                 con.rollback();
                 res.json({ success });
-              } else if (qres) {
+              } else if (qres.affectedRows > 0) {
                 con.commit();
                 success = true;
                 res.json({ success });
               } else {
                 con.rollback();
-                res.json({ success });
+                res.json({ success, msg:"Ticket does not exist" });
               }
             });
           }else{
             con.rollback();
-            res.json({ success });
+            res.json({ success, msg:"Passenger does not exist" });
           }
         })
       }else{
@@ -59,4 +61,4 @@ router.delete("/", fetchuser,async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

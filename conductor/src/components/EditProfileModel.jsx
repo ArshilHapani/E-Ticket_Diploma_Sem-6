@@ -65,7 +65,6 @@ const EditProfileModel = ({ closeModal, initialValues }) => {
     dob: initialValues.dob,
     username: initialValues.username,
   });
-  console.log(initialValues);
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (
@@ -83,7 +82,7 @@ const EditProfileModel = ({ closeModal, initialValues }) => {
       return;
     }
 
-    const data = await fetch("http://localhost:6565/changeConductor", {
+    const data = await fetch("http://localhost:6565/conductor/change", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -97,6 +96,7 @@ const EditProfileModel = ({ closeModal, initialValues }) => {
       }),
     });
     const response = await data.json();
+    console.log(response);
     if (response.success) {
       snackbarSetterFunction("Profile updated successfully", "success");
     } else {

@@ -1,35 +1,38 @@
 /* changeImage.js is used to create an end point for conductor
 to change profile picture of themself into system*/
 
-const express = require("express");
-const router = express.Router();
-const fetchuser = require("../middleware/fetchUser");
+import { Router } from "express";
+const router = Router();
+import con from "../database.js";
+import fetchuser from "../middleware/fetchUser.js";
+import checkConductor from '../middleware/checkConductor.js';
 
-const con = require("../database");
+router.use(fetchuser, checkConductor);
 
-router.post("/", fetchuser, async (req, res) => {
-  const { image } = req.body;
+router.post("/", async (req, res) => {
+  let { image } = req.body;
+  let success = false;
+
+  image = `data:image/png;base64,${image}`;
 
   try {
-    let success = false;
-
-    if (image) {
-      const setImg = `UPDATE conductor SET c_img='${image}' WHERE c_id='${req.user.id}';`;
-
-      // Changing Picture of Conductor
-      con.query(setImg, (err, qres) => {
-        if (err) {
-          console.log(err.message);
-          res.json({ success });
-        } else if (qres) {
-          success = true;
-          res.json({ success });
-        } else {
-          res.json({ success });
-        }
-      });
+    if(image){
+        const setImg = `UPDATE conductor SET c_img='${image}' WHERE c_id='${req.user.id}';`;
+    
+        // Changing Picture of Conductor
+        con.query(setImg, (err, qres) => {
+          if (err) {
+            console.log(err.message);
+            res.json({ success });
+          } else if (qres.affectedRows > 0) {
+            success = true;
+            res.json({ success })
+          } else {
+            res.json({ success, msg:"Conductor does not exist" });
+          }
+        });
     } else {
-      res.json({ success });
+        res.json({ success })
     }
   } catch (error) {
     console.error(error.message);
@@ -37,4 +40,4 @@ router.post("/", fetchuser, async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

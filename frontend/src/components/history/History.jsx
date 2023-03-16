@@ -15,14 +15,14 @@ const History = () => {
     navigate("/signUp");
   }
   document.title = "E-Ticket | Ticket History";
-  const { theme } = useStateContext();
+  const { theme, toggleSync } = useStateContext();
   useEffect(() => {
     fetchAllTickets();
-  }, []);
+  }, [toggleSync]);
 
   async function fetchAllTickets() {
-    const data = await fetch("http://localhost:6565/fetchAllTickets", {
-      method: "GET",
+    const data = await fetch("http://localhost:6565/ticket/fetch", {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         authToken: localStorage.getItem("user"),

@@ -79,7 +79,7 @@ const AddRechargeQrModel = ({ style }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = await fetch("http://localhost:6565/recharge", {
+    const data = await fetch("http://localhost:6565/conductor/recharge", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -6,7 +6,7 @@ export default async function b64Convertor(file) {
   reader.onload = async function () {
     base64String = reader.result.replace("data:", "").replace(/^.+,/, "");
 
-    const data = await fetch("http://localhost:6565/changeImage/c", {
+    const data = await fetch("http://localhost:6565/conductor/changeImage/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

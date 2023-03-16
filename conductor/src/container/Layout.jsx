@@ -9,6 +9,7 @@ import Profile from "../components/Profile";
 
 const Layout = () => {
   const navigate = useNavigate();
+
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
       <BottomNavigationMenu />

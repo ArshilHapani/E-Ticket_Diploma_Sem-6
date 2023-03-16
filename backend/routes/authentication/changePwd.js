@@ -1,25 +1,51 @@
-/* changePwd.js is used to create an end point for user to change their password by authentication and verification using email */
+/* changPwd.js is used to create an end point for user to change their password by verification of pin send by an email */
 
-const express = require("express");
-const router = express.Router();
-const bcrypt = require("bcryptjs");
+import { Router } from "express";
+const router = Router();
+import bcryptjs from "bcryptjs";
+import con from "../database.js"; // Connection object to run query
 
-const con = require("../database");   // Connection object to run query
-
-const SECRET_MSG = "E-TICKET";    // Secret message to send in JWT for authentication
+const { genSalt, hash } = bcryptjs;
 
 router.post("/", async (req, res) => {
-  const { uname, password } = req.body; // fetching data from request body
+  const { uname, pwd } = req.body;
+  let success = false;
+  
+  const findUser = `SELECT * FROM login WHERE uname='${uname}';`;
+  
+  // Creating salt to perform hash operation on password
+  const salt = await genSalt(10);
+  // Generating hash value according to pwd and salt
+  const secPass = await hash(pwd, salt);
+  
+  try {    
+        con.query(findUser,(err,qres)=>{
+          if(err){
+            console.log(err.message);
+            res.json({ success })
+          } else if(qres.length > 0){
 
-  let success = false; // parameter
-  let user; // variable to store user's data
-
-  try {
-    const changePwd = `UPDATE login SET pwd = '${secPass}' WHERE uname='${uname}'`
+            // Updating password
+            const setPwd = `UPDATE login SET pwd='${secPass}' WHERE uname='${uname}'`;
+            con.query(setPwd, (err, qres) => {
+              if (err) {
+                console.log(err.message);
+                res.json({ success });
+              } else if (qres) {
+                success = true;
+                res.json({ success, msg:"Password has been changed" });
+              } else {
+                res.json({ success });
+              }
+            });
+          } else {
+            res.json({ success, msg:'User does not exist' });
+          }
+        });
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Some error occured");
   }
 });
 
-module.exports = router;
+export default router;

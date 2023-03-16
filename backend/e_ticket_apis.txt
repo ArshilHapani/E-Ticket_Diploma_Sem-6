@@ -1,0 +1,40 @@
+For Authentication
+/authentication/login
+/authentication/signup
+/authentication/sendPin
+/authentication/changePwd
+
+For Passenger
+/passenger/changeImage
+/passenger/change
+/passenger/fetch
+/passenger/fetchPayment
+/passenger/fetchStations
+/passenger/fetchFare
+
+For Conductor
+/conductor/changeImage
+/conductor/change
+/conductor/fetch
+/conductor/fetchPayment
+/conductor/recharge
+
+For ticket
+/ticket/fetch
+/ticket/create
+/ticket/fetchActive
+/ticket/cancel
+
+For Admin
+/admin/createConductor
+/admin/deleteConductor
+/admin/fetchAllPassenger
+/admin/fetchAllConductor
+/admin/fetchAllPayment
+/admin/fetchAllTicket
+/admin/fetchAllStations
+/admin/passenger/fetch
+/admin/passenger/fetchPayment
+/admin/conductor/fetch
+/admin/conductor/fetchPayment
+/admin/ticket/fetch

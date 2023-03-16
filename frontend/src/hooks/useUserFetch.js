@@ -5,7 +5,7 @@ const useUserFetch = () => {
 
   async function fetchUser() {
     setLoader(true);
-    const data = await fetch("http://localhost:6565/fetchPassenger", {
+    const data = await fetch("http://localhost:6565/passenger/fetch", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

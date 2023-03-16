@@ -1,12 +1,12 @@
 import { Box, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./P_History.scss";
 import { useStateContext } from "../../context/stateContext";
 import { useNavigate } from "react-router-dom";
 const PHistory = () => {
   document.title = "E-Ticket | Purchase History";
   const [history, setHistory] = useState([]);
-  const { theme } = useStateContext();
+  const { theme, toggleSync } = useStateContext();
   const navigate = useNavigate();
   if (
     localStorage.getItem("user") === null ||
@@ -14,6 +14,25 @@ const PHistory = () => {
     localStorage.getItem("user") === ""
   ) {
     navigate("/signUp");
+  }
+  useEffect(() => {
+    fetchTransaction();
+  }, [toggleSync]);
+
+  async function fetchTransaction() {
+    const transaction = await fetch(
+      "http://localhost:6565/passenger/fetchPayment",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          authToken: localStorage.getItem("user"),
+        },
+      }
+    );
+    const response = await transaction.json();
+    console.log(response);
+    setHistory(response.payments);
   }
   return (
     <Box
@@ -28,31 +47,28 @@ const PHistory = () => {
         Recent Transactions
       </Typography>
       <Typography>
-        {history.length === 0 &&
+        {history?.length === 0 &&
           "Looks like you don't have transaction records.."}
       </Typography>
-      {history.length !== 0 &&
+      {history?.length !== 0 &&
         history.map((item, index) => (
           <div
-            key={item.id + index}
+            key={item.pay_id + item.c_id + index}
             className={`recent-transaction-details ${
               theme === "light" ? "light" : "dark"
             }`}
           >
             <h4>
-              Transactions Amount : <span>{item.amount} &#8377;</span>
+              Transactions Amount : <span>{item.pay_amount} &#8377;</span>
             </h4>
             <h4>
-              Transaction Time : <span>{item.time}</span>
+              Transaction Time : <span>{item.pay_time}</span>
             </h4>
             <h4>
-              Transaction Date :<span> {item.date}</span>
+              Transaction ID : <span> {item.pay_id}</span>
             </h4>
             <h4>
-              Transaction ID : <span> {item.id}</span>
-            </h4>
-            <h4>
-              Transaction By : <span> {item.transactionBy}</span>
+              Transaction By : <span> {item.c_uname}</span>
             </h4>
           </div>
         ))}

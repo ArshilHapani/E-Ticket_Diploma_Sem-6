@@ -40,6 +40,7 @@ const Profile = () => {
     newUser,
     setLoader,
     setNewUser,
+    toggleSync,
   } = useStateContext();
   const { detail_ref_style, profile_divider_styles } = useMuiStyles();
   const [open, setOpen] = useState(false);
@@ -66,8 +67,8 @@ const Profile = () => {
       setLoader(false);
       return;
     }
-    if (selectedFile.size >= 1000000) {
-      showSnackBar("Size of the image must be less than 1 mb", "error");
+    if (selectedFile.size >= 800000) {
+      showSnackBar("Size of the image must be less than 800kb", "error");
       setLoader(false);
       return;
     }
@@ -106,7 +107,7 @@ const Profile = () => {
   };
 
   async function updateProfile(updateData) {
-    const data = await fetch("http://localhost:6565/changePassenger", {
+    const data = await fetch("http://localhost:6565/passenger/change", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -118,13 +119,14 @@ const Profile = () => {
     const response = await data.json();
     const { success } = response;
     fetchUser();
+    console.log(response);
     return success;
   }
 
   // Fetching data after being updated
   async function fetchUser() {
     setLoader(true);
-    const data = await fetch("http://localhost:6565/fetchPassenger", {
+    const data = await fetch("http://localhost:6565/passenger/fetch", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -140,7 +142,7 @@ const Profile = () => {
   useEffect(() => {
     fetchUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setNewUser]);
+  }, [setNewUser, toggleSync]);
 
   return (
     <Box
@@ -241,7 +243,9 @@ const Profile = () => {
           <Typography sx={detail_ref_style}>
             Total number of ticket generated
           </Typography>
-          <Typography sx={detail_ref_style.userDetailStyle}>78</Typography>
+          <Typography sx={detail_ref_style.userDetailStyle}>
+            {newUser?.no_ticket}
+          </Typography>
           <Divider sx={profile_divider_styles} />
           <Stack direction="column" gap={1}>
             <Button variant="outlined" onClick={() => navigate("/tickets")}>

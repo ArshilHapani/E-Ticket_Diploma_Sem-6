@@ -3,9 +3,9 @@ import {
   AiOutlineHome,
   AiOutlineSetting,
 } from "react-icons/ai";
-import { MdHistoryEdu } from "react-icons/md";
 import { BsMap } from "react-icons/bs";
 import { TbFileInvoice } from "react-icons/tb";
+import { RiFilePaper2Line } from "react-icons/ri";
 export const useSidebarItems = [
   {
     title: "Home",
@@ -24,9 +24,9 @@ export const useSidebarItems = [
   },
 
   {
-    title: "P-History",
+    title: "Payments",
     path: "p_history",
-    icon: <MdHistoryEdu />,
+    icon: <RiFilePaper2Line />,
   },
   {
     title: "Guide map",

@@ -19,19 +19,12 @@ import { AiOutlineSync } from "react-icons/ai";
 import useUserFetch from "../../hooks/useUserFetch";
 const Home = () => {
   const navigate = useNavigate();
-  if (
-    localStorage.getItem("user") === null ||
-    localStorage.getItem("user") === undefined ||
-    localStorage.getItem("user") === ""
-  ) {
-    navigate("/signUp");
-  }
   document.title = "E-Ticket | Home";
-  const { setNewUser, theme, setLoader, showSnackBar } = useStateContext();
+  const { setNewUser, theme, setLoader, setToggleSync } = useStateContext();
   const { fetchUser } = useUserFetch();
   // Fetch user data....
   async function fetchUsers() {
-    const data = await fetch("http://localhost:6565/fetchPassenger", {
+    const data = await fetch("http://localhost:6565/passenger/fetch", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -39,16 +32,17 @@ const Home = () => {
       },
     });
     const response = await data.json();
-    const { passenger, success } = response;
-    if (!success) {
-      showSnackBar(
-        "Something went wrong while fetching user information",
-        "warning"
-      );
-    }
+    const { passenger } = response;
     return passenger;
   }
   useEffect(() => {
+    if (
+      localStorage.getItem("user") === null ||
+      localStorage.getItem("user") === undefined ||
+      localStorage.getItem("user") === ""
+    ) {
+      navigate("/signUp");
+    }
     setLoader(true);
 
     async function fetchPassenger() {
@@ -92,7 +86,10 @@ const Home = () => {
                 width: "25px",
                 padding: 0,
               }}
-              onClick={fetchUser}
+              onClick={() => {
+                fetchUser();
+                setToggleSync(false);
+              }}
             >
               <AiOutlineSync />
             </IconButton>

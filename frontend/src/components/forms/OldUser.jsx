@@ -38,7 +38,7 @@ const OldUser = () => {
       return;
     }
     setLoader(true);
-    const data = await fetch("http://localhost:6565/login", {
+    const data = await fetch("http://localhost:6565/authentication/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

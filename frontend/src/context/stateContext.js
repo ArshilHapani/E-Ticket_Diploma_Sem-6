@@ -4,8 +4,8 @@ const stateContext = createContext();
 
 export const ContextProvider = ({ children }) => {
   const [sidebarMenu, setSidebarMenu] = useState(false);
-  const [homeTicketDetails, setHomeTicketDetails] = useState(false);
   const [buyTicketModel, setBuyTicketModel] = useState(false);
+  const [toggleSync, setToggleSync] = useState(true);
   const [loader, setLoader] = useState(false);
   const [newUser, setNewUser] = useState({
     p_uname: "",
@@ -44,8 +44,6 @@ export const ContextProvider = ({ children }) => {
       value={{
         sidebarMenu,
         setSidebarMenu,
-        homeTicketDetails,
-        setHomeTicketDetails,
         theme,
         setTheme,
         setSnackbar,
@@ -57,6 +55,8 @@ export const ContextProvider = ({ children }) => {
         buyTicketModel,
         newUser,
         setNewUser,
+        toggleSync,
+        setToggleSync,
       }}
     >
       {children}

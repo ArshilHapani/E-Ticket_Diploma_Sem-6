@@ -156,25 +156,20 @@ const Home = () => {
           {data && (
             <Box sx={style}>
               <Typography>
-                <span style={spanStyle}>Source :</span> {data.startingPoint}
+                <span style={spanStyle}>Source :</span> {data.start_loc}
               </Typography>
               <Typography>
-                <span style={spanStyle}>Destination :</span> {data.destination}
+                <span style={spanStyle}>Destination :</span> {data.dest_loc}
               </Typography>
               <Typography>
-                <span style={spanStyle}>Fare :</span> {data.fare}
+                <span style={spanStyle}>Fare :</span> {data.t_fare}
               </Typography>
               <Typography>
-                <span style={spanStyle}>validity from :</span>{" "}
-                {data.validityFrom}
+                <span style={spanStyle}>Purchased at :</span> {data.t_time}
               </Typography>
               <Typography>
-                <span style={spanStyle}>validity to : </span>
-                {data.validityTo}
-              </Typography>
-              <Typography>
-                <span style={spanStyle}>date to : </span>
-                {data.date}
+                <span style={spanStyle}>Expires at :</span>
+                {data.t_expires}
               </Typography>
               <Button
                 variant="outlined"
