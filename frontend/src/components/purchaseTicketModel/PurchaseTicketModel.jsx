@@ -82,7 +82,6 @@ const PurchaseTicketModel = () => {
             </Typography>
             {/* For source */}
             <Autocomplete
-              // TODO to make asynchronous request on api call (Prefer mui documentation)
               disablePortal
               id="auto-highlight"
               autoHighlight

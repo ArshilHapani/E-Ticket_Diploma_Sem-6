@@ -1,13 +1,12 @@
 import {
   Box,
-  Button,
   Container,
   ToggleButton,
   ToggleButtonGroup,
   Typography,
 } from "@mui/material";
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { CiDark } from "react-icons/ci";
 import { WiMoonAltFirstQuarter } from "react-icons/wi";
 import { BsSun } from "react-icons/bs";
@@ -26,7 +25,7 @@ const Settings = () => {
     navigate("/signUp");
   }
   document.title = "E-Ticket | Settings";
-  const { theme, setTheme, newUser } = useStateContext();
+  const { theme, setTheme } = useStateContext();
   const [alignment, setAlignment] = React.useState(
     localStorage.getItem("theme") !== null || undefined
       ? localStorage.getItem("theme")
@@ -54,22 +53,6 @@ const Settings = () => {
       className={`settings__container ${theme === "light" ? "light" : "dark"}`}
     >
       <Container>
-        <Box sx={{ marginBottom: "1rem" }}>
-          <Typography
-            sx={{
-              fontSize: 30,
-              marginBottom: "1rem",
-            }}
-          >
-            Profile
-          </Typography>
-          <Link
-            className="link-styles-anchor-tags"
-            to={`/profile/${newUser?.p_uname}`}
-          >
-            <Button>Manage Profile</Button>
-          </Link>
-        </Box>
         <Typography
           sx={{
             fontSize: 30,
@@ -108,7 +91,7 @@ const Settings = () => {
         >
           Report a bug
         </Typography> */}
-        {/* //TODO */}
+        {/* //TODO make report a bug page */}
       </Container>
     </Box>
   );

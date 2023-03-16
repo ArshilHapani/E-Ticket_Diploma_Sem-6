@@ -9,6 +9,7 @@ import {
 import QrReader from "react-qr-reader";
 import { useStateContext } from "../context/stateContext";
 import AddRechargeQrModel from "./AddRechargeQrModel";
+import { Link } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -106,14 +107,16 @@ const Home = () => {
       >
         Add Recharge{" "}
       </Button>
-      <Button
-        sx={{ width: "20rem" }}
-        variant="contained"
-        color="primary"
-        endIcon={<MdOutlineHistory />}
-      >
-        Transaction History{" "}
-      </Button>
+      <Link to="/transactions">
+        <Button
+          sx={{ width: "20rem" }}
+          variant="contained"
+          color="primary"
+          endIcon={<MdOutlineHistory />}
+        >
+          Transaction History{" "}
+        </Button>
+      </Link>
       {startScan && (
         <Modal open={qrModel}>
           <>

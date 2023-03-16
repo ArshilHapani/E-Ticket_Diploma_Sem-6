@@ -17,7 +17,6 @@ export const ContextProvider = ({ children }) => {
     p_balance: "",
     p_img: "",
   });
-  localStorage.setItem("user_path", newUser?.p_uname);
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") !== null || undefined
       ? localStorage.getItem("theme")

@@ -8,7 +8,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import image from "../../assets/logo-no-background.png";
 
 const Sidebar = () => {
-  const { sidebarMenu, setSidebarMenu, theme } = useStateContext();
+  const { sidebarMenu, setSidebarMenu, theme, newUser } = useStateContext();
   const location = useLocation();
   const sideNavRef = useRef(null);
 
@@ -43,7 +43,11 @@ const Sidebar = () => {
         </Link>
         {useSidebarItems.map((item, index) => (
           <NavLink
-            to={item.path}
+            to={
+              item.path === "profile"
+                ? `${item.path}/${newUser.p_uname}`
+                : item.path
+            }
             key={item.title + index}
             className={`sidebar-items ${
               location.pathname === item.path && "active"

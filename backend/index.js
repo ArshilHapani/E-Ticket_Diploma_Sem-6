@@ -21,7 +21,9 @@ con.connect((error) => {
 
 app.use(cors());
 app.use(json({ limit: "20mb" })); // Setting limit of data upto 20 mb
-
+app.get("/", async (req, res) => {
+  res.send("Welcome from backend");
+});
 app.use("/authentication", authentication);
 app.use("/ticket", ticket);
 app.use("/passenger", passenger);

@@ -140,7 +140,7 @@ const Profile = () => {
         >
           <Avatar
             src={localObj.image}
-            sx={{ width: 70, height: 70, bgcolor: "#3f51b5" }}
+            sx={{ width: 70, height: 70 }}
             alt={localObj.name}
           >
             {localObj?.username?.charAt(0)}

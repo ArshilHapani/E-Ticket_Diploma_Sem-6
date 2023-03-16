@@ -51,11 +51,10 @@ const OldUser = () => {
       showSnackBar("Login Success", "success");
       localStorage.setItem("user", response.authToken);
       navigate("/");
-      setLoader(false);
     } else {
       showSnackBar(response.msg, "error");
-      setLoader(false);
     }
+    setLoader(false);
   };
   const [showPassword, setShowPassword] = React.useState(false);
 

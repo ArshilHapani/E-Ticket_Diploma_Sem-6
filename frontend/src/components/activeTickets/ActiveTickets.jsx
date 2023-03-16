@@ -36,7 +36,7 @@ const ActiveTickets = () => {
   ) {
     navigate("/signUp");
   }
-  const { theme, toggleSync } = useStateContext();
+  const { theme, toggleSync, setLoader } = useStateContext();
   const [qModel, setQModel] = useState(false);
   const [qrProps, setQrProps] = useState(null);
   const [activeTickets, setActiveTickets] = useState([]);
@@ -45,6 +45,7 @@ const ActiveTickets = () => {
   }, [toggleSync]);
 
   async function fetchActiveTickets() {
+    setLoader(true);
     const ticketsActive = await fetch(
       "http://localhost:6565/ticket/fetchActive",
       {
@@ -58,7 +59,9 @@ const ActiveTickets = () => {
     console.log(response);
     if (response.success) {
       setActiveTickets(response.tickets);
+      setLoader(false);
     } else if (!response.success) {
+      setLoader(false);
       return;
     }
   }

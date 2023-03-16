@@ -44,7 +44,7 @@ const AddRechargeQrModel = ({ style }) => {
   const [qrData, setQrData] = useState("");
   const [dataModel, setDataModel] = useState(false);
   const [rechargeAmount, setRechargeAmount] = useState(10);
-  const { snackbarSetterFunction } = useStateContext();
+  const { snackbarSetterFunction, setLoading } = useStateContext();
 
   const handleScan = async (scanData) => {
     if (scanData && scanData !== "") {
@@ -79,6 +79,7 @@ const AddRechargeQrModel = ({ style }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const data = await fetch("http://localhost:6565/conductor/recharge", {
       method: "POST",
       headers: {
@@ -101,6 +102,7 @@ const AddRechargeQrModel = ({ style }) => {
     } else if (!response.success) {
       snackbarSetterFunction(response.msg, "warning");
     }
+    setLoading(false);
   };
 
   return (

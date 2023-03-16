@@ -6,7 +6,6 @@ import { BiPurchaseTag } from "react-icons/bi";
 import { useStateContext } from "../../context/stateContext";
 import {
   Avatar,
-  colors,
   Menu,
   MenuItem,
   Zoom,
@@ -74,7 +73,6 @@ const Navbar = () => {
             <Avatar
               src={newUser?.p_img}
               sx={{
-                bgcolor: colors.red[600],
                 width: 60,
                 height: 60,
               }}
@@ -126,7 +124,6 @@ const Navbar = () => {
                     <Avatar
                       src={newUser?.p_img}
                       sx={{
-                        bgcolor: colors.red[600],
                         width: 80,
                         height: 80,
                       }}
@@ -165,7 +162,6 @@ const Navbar = () => {
                 >
                   {newUser?.p_email}
                 </Typography>
-                {/* //TODO */}
               </Stack>
               <MenuItem
                 onClick={() => {

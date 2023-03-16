@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Avatar,
-  Box,
-  Button,
-  colors,
-  Divider,
-  Modal,
-  Typography,
-} from "@mui/material";
+import { Avatar, Box, Button, Divider, Modal, Typography } from "@mui/material";
 import { MdPhotoCamera } from "react-icons/md";
 import { AiFillEdit } from "react-icons/ai";
 import { Stack } from "@mui/system";
@@ -107,6 +99,7 @@ const Profile = () => {
   };
 
   async function updateProfile(updateData) {
+    setLoader(true);
     const data = await fetch("http://localhost:6565/passenger/change", {
       method: "POST",
       headers: {
@@ -120,6 +113,7 @@ const Profile = () => {
     const { success } = response;
     fetchUser();
     console.log(response);
+    setLoader(false);
     return success;
   }
 
@@ -159,7 +153,6 @@ const Profile = () => {
           <Avatar
             src={newUser?.p_img}
             sx={{
-              bgcolor: colors.red[600],
               width: 90,
               height: 90,
               fontSize: 50,

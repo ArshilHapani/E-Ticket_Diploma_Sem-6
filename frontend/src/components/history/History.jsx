@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import "./History.scss";
 import { useStateContext } from "../../context/stateContext";
@@ -15,12 +16,13 @@ const History = () => {
     navigate("/signUp");
   }
   document.title = "E-Ticket | Ticket History";
-  const { theme, toggleSync } = useStateContext();
+  const { theme, toggleSync, setLoader } = useStateContext();
   useEffect(() => {
     fetchAllTickets();
   }, [toggleSync]);
 
   async function fetchAllTickets() {
+    setLoader(true);
     const data = await fetch("http://localhost:6565/ticket/fetch", {
       method: "POST",
       headers: {
@@ -32,6 +34,7 @@ const History = () => {
     if (response.success) {
       setAllTickets(response.tickets);
     }
+    setLoader(false);
   }
 
   return (

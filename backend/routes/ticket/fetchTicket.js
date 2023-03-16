@@ -15,11 +15,14 @@ router.post("/", async (req, res) => {
   let fetchTicket;
 
   if (limit) {
-    fetchTicket = `SELECT * FROM ticket WHERE p_id='${req.user.id}' LIMIT ${limit} ORDER BY t_time DESC;`;
+    // fetchTicket = `SELECT * FROM ticket WHERE p_id='${req.user.id}' LIMIT ${limit} ORDER BY t_time DESC;`;
+    fetchTicket = `SELECT * FROM ticket WHERE p_id='${req.user.id}' LIMIT ${limit};`;
   } else if (tid) {
-    fetchTicket = `SELECT * FROM ticket WHERE p_id='${req.user.id}' && t_id='${tid} ORDER BY t_time DESC';`;
+    // fetchTicket = `SELECT * FROM ticket WHERE p_id='${req.user.id}' && t_id='${tid} ORDER BY t_time DESC';`;
+    fetchTicket = `SELECT * FROM ticket WHERE p_id='${req.user.id}' && t_id='${tid}';`;
   } else {
-    fetchTicket = `SELECT * FROM ticket WHERE p_id='${req.user.id}' ORDER BY t_time DESC;`;
+    // fetchTicket = `SELECT * FROM ticket WHERE p_id='${req.user.id}' ORDER BY t_time DESC;`;
+    fetchTicket = `SELECT * FROM ticket WHERE p_id='${req.user.id}';`;
   }
 
   runQuery(req, res, fetchTicket);
@@ -61,6 +64,7 @@ const runQuery = (req, res, fetchTicket) => {
         res.json({ success, tickets: qres });
       } else {
         success = true;
+        console.log(qres);
         res.json({ success, tickets: qres });
       }
     });

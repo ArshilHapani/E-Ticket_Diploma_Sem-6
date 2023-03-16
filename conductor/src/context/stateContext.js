@@ -20,7 +20,9 @@ export const ContextProvider = ({ children }) => {
   };
 
   async function fetchUser() {
+    setLoading(true);
     const data = await usefetchUser();
+    setLoading(false);
     setUser(data);
   }
   useEffect(() => {

@@ -6,6 +6,7 @@ import {
 import { BsMap } from "react-icons/bs";
 import { TbFileInvoice } from "react-icons/tb";
 import { RiFilePaper2Line } from "react-icons/ri";
+import { CgProfile } from "react-icons/cg";
 export const useSidebarItems = [
   {
     title: "Home",
@@ -27,6 +28,11 @@ export const useSidebarItems = [
     title: "Payments",
     path: "p_history",
     icon: <RiFilePaper2Line />,
+  },
+  {
+    title: "Profile",
+    path: "profile",
+    icon: <CgProfile />,
   },
   {
     title: "Guide map",

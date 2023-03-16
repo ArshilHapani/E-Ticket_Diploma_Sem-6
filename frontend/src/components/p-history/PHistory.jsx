@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const PHistory = () => {
   document.title = "E-Ticket | Purchase History";
   const [history, setHistory] = useState([]);
-  const { theme, toggleSync } = useStateContext();
+  const { theme, toggleSync, setLoader } = useStateContext();
   const navigate = useNavigate();
   if (
     localStorage.getItem("user") === null ||
@@ -17,9 +17,11 @@ const PHistory = () => {
   }
   useEffect(() => {
     fetchTransaction();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [toggleSync]);
 
   async function fetchTransaction() {
+    setLoader(true);
     const transaction = await fetch(
       "http://localhost:6565/passenger/fetchPayment",
       {
@@ -33,6 +35,7 @@ const PHistory = () => {
     const response = await transaction.json();
     console.log(response);
     setHistory(response.payments);
+    setLoader(false);
   }
   return (
     <Box

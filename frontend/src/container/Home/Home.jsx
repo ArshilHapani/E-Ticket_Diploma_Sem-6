@@ -24,6 +24,7 @@ const Home = () => {
   const { fetchUser } = useUserFetch();
   // Fetch user data....
   async function fetchUsers() {
+    setLoader(true);
     const data = await fetch("http://localhost:6565/passenger/fetch", {
       method: "GET",
       headers: {
@@ -33,6 +34,7 @@ const Home = () => {
     });
     const response = await data.json();
     const { passenger } = response;
+    setLoader(false);
     return passenger;
   }
   useEffect(() => {

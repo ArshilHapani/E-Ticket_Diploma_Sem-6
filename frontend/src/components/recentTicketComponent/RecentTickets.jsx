@@ -12,13 +12,15 @@ const RecentTickets = () => {
   ) {
     navigate("/signUp");
   }
-  const { theme, toggleSync } = useStateContext();
+  const { theme, toggleSync, setLoader } = useStateContext();
   const [tickets, setTickets] = useState([]);
   useEffect(() => {
     fetchRecentTickets();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [toggleSync]);
 
   async function fetchRecentTickets() {
+    setLoader(true);
     const response = await fetch("http://localhost:6565/ticket/fetch", {
       method: "POST",
       headers: {
@@ -34,6 +36,7 @@ const RecentTickets = () => {
     if (tick.success) {
       setTickets(tick.tickets);
     }
+    setLoader(false);
   }
   return (
     <Box

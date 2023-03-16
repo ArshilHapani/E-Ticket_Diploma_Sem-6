@@ -21,15 +21,18 @@ const style = {
 };
 const GenerateTicketButton = () => {
   const navigate = useNavigate();
-  const { theme, newUser, setBuyTicketModel, toggleSync } = useStateContext();
+  const { theme, newUser, setBuyTicketModel, toggleSync, setLoader } =
+    useStateContext();
   const [activeOneTicket, setActiveOneTicket] = useState([]);
   const [qrModel, setQrModel] = useState(false);
 
   useEffect(() => {
     fetchActiveTickets();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [toggleSync]);
 
   async function fetchActiveTickets() {
+    setLoader(true);
     const ticketsActive = await fetch(
       "http://localhost:6565/ticket/fetchActive",
       {
@@ -43,7 +46,9 @@ const GenerateTicketButton = () => {
     console.log(response);
     if (response.success) {
       setActiveOneTicket(response.tickets[0]);
+      setLoader(false);
     } else if (!response.success) {
+      setLoader(false);
       return;
     }
   }

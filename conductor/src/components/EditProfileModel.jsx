@@ -57,7 +57,7 @@ const modelTextField = {
 
 const EditProfileModel = ({ closeModal, initialValues }) => {
   document.title = "E-Ticket | Conductor - Edit Profile";
-  const { snackbarSetterFunction } = useStateContext();
+  const { snackbarSetterFunction,setLoading } = useStateContext();
   const [updateData, setUpdateData] = useState({
     name: initialValues.name,
     email: initialValues.email,
@@ -81,7 +81,7 @@ const EditProfileModel = ({ closeModal, initialValues }) => {
       snackbarSetterFunction("Length of mobile number must be of 10", "error");
       return;
     }
-
+    setLoading(true);
     const data = await fetch("http://localhost:6565/conductor/change", {
       method: "POST",
       headers: {
@@ -99,8 +99,10 @@ const EditProfileModel = ({ closeModal, initialValues }) => {
     console.log(response);
     if (response.success) {
       snackbarSetterFunction("Profile updated successfully", "success");
+      setLoading(false);
     } else {
       snackbarSetterFunction("Failed to update profile", "error");
+      setLoading(false);
       return;
     }
 

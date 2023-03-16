@@ -1,4 +1,5 @@
 export async function fetchStation(setDropdownStations, showSnackBar) {
+  //TODO setting loader
   const res = await fetch("http://localhost:6565/passenger/fetchStations", {
     method: "GET",
     headers: {
