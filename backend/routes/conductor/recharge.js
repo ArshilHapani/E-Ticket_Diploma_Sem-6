@@ -33,7 +33,7 @@ router.post("/", async (req, res) => {
           } else {
             con.beginTransaction();
   
-            const inTransaction = `INSERT INTO payment VALUES ('${payid}',${amount},'${qres[0].p_id}','${req.user.id}','${d.getFullYear() + "-" + ("0" + d.getMonth()).slice(-2) + "-" + ("0" + d.getDate()).slice(-2)} ${("0" + d.getHours()).slice(-2) + "-" + ("0" + d.getMinutes()).slice(-2) + "-" + ("0" + d.getSeconds()).slice(-2)}')`;
+            const inTransaction = `INSERT INTO payment VALUES ('${payid}',${amount},'${qres[0].p_id}','${req.user.id}',CURRENT_TIMESTAMP())`;
             const addBal = `UPDATE passenger SET p_balance=p_balance+${amount} WHERE p_id='${qres[0].p_id}'`;
   
             // Inserting recharge related information into transaction table

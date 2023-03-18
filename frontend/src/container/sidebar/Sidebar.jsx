@@ -96,7 +96,11 @@ const Sidebar = () => {
               </Link>
               {useSidebarItems.map((item, index) => (
                 <NavLink
-                  to={item.path}
+                  to={
+                    item.path === "profile"
+                      ? `${item.path}/${newUser.p_uname}`
+                      : item.path
+                  }
                   key={item.title + index}
                   className={`sidebar-items ${
                     location.pathname === item.path && "active"

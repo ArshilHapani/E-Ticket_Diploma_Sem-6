@@ -8,7 +8,7 @@ import authentication from "./routes/authenticationRoutes.js";
 import ticket from "./routes/ticketRoutes.js";
 import passenger from "./routes/passengerRoutes.js";
 import conductor from "./routes/conductorRoutes.js";
-// import admin from "./routes/adminRoutes.js";
+import admin from "./routes/adminRoutes.js";
 
 con.connect((error) => {
   // Connecting to database
@@ -21,14 +21,12 @@ con.connect((error) => {
 
 app.use(cors());
 app.use(json({ limit: "20mb" })); // Setting limit of data upto 20 mb
-app.get("/", async (req, res) => {
-  res.send("Welcome from backend");
-});
+
 app.use("/authentication", authentication);
 app.use("/ticket", ticket);
 app.use("/passenger", passenger);
 app.use("/conductor", conductor);
-// app.use("/admin", admin);
+app.use("/admin", admin);
 
 app.listen(port, () => {
   console.log("App listining at http://localhost:" + port);

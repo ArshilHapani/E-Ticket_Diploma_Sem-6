@@ -1,7 +1,10 @@
 /* fetchUser.js is used to create a middleware that is used to authenticate user and store id of user into req object to perform opertaions */
 
 import jwt from 'jsonwebtoken';
-const SECRET_MSG = 'E-TICKET';      // Secret message that was used to create JWT
+import  dotenv from 'dotenv';
+dotenv.config();
+
+const SECRET_MSG = process.env.SECRET_KEY_JWT;    // Secret message that was used to create JWT
 
 const fetchuser = (req, res, next) => {
     // Fetches JWT stored in "auth-token" header and store it into "token" variable

@@ -38,3 +38,5 @@ For Admin
 /admin/conductor/fetch
 /admin/conductor/fetchPayment
 /admin/ticket/fetch
+
+ADMIN authToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IkEyMzAyMTExNzQzMTAxNSIsImlhdCI6MTY3OTEyMzQwOH0.FWl8S5-_EdzbcXoK-Xo53Ps-unclbNUcvxqMcw2_oZQ ;

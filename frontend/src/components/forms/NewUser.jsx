@@ -10,6 +10,7 @@ import {
   Input,
   InputAdornment,
   IconButton,
+  Avatar,
   // Avatar,
 } from "@mui/material";
 import { useNavigate, Link } from "react-router-dom";
@@ -17,7 +18,8 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useStateContext } from "../../context/stateContext";
 import isUserNameValid from "../../functions/userNameValidate";
 import validateEmail from "../../functions/validateEmail";
-// import logo from "../../assets/logo-no-background.png";
+import logo from "../../assets/favicon.png";
+import calculateAge from "../../functions/agrCalculate";
 
 const NewUser = () => {
   const navigate = useNavigate();
@@ -32,6 +34,10 @@ const NewUser = () => {
   });
   async function handleSubmit(e) {
     e.preventDefault();
+    if (calculateAge(user.dob) < 14 || calculateAge(user.dob) > 100) {
+      showSnackBar("Your age must be between 14 to 100", "error");
+      return;
+    }
     if (
       user.uname === "" ||
       user.dob === "" ||
@@ -121,6 +127,9 @@ const NewUser = () => {
               padding: "30px",
             }}
           >
+            <Stack justifyContent="center" alignItems="center">
+              <Avatar src={logo} alt="logo" sx={{ height: 70, width: 70 }} />
+            </Stack>
             <Typography
               fontSize={25}
               fontWeight="600"
@@ -203,7 +212,7 @@ const NewUser = () => {
             <TextField
               label="mobile number"
               variant="standard"
-              type="text"
+              type="number"
               onChange={(e) => {
                 setUser({
                   ...user,

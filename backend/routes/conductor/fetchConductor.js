@@ -37,9 +37,9 @@ const runQuery = (req,res,fetchConductor) =>{
         const dob = date.toLocaleString();
         qres[0].c_dob = dob.substring(0, dob.indexOf(","));
         success = true;
-        res.json({ success, "conductor": qres[0] })
+        res.json({ success, conductor: qres[0] })
       } else {
-        res.json({ success, msg:"Conductor does not exist" });
+        res.json({ success, conductor: qres });
       }
     });
   } catch (error) {

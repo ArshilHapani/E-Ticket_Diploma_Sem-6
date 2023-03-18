@@ -37,9 +37,9 @@ const runQuery = (req,res,fetchPassenger) =>{
         const dob = date.toLocaleString();
         qres[0].p_dob = dob.substring(0, dob.indexOf(","));
         success = true;
-        res.json({ success, "passenger": qres[0] });
+        res.json({ success, passenger: qres[0] });
       } else {
-        res.json({ success, msg:"Passenger does not exist"  });
+        res.json({ success, passenger: qres  });
       }
     });
   } catch (error) {

@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
   let success = false;
 
   try {
-    const fetchTickets = `SELECT ticket.start_loc, ticket.dest_loc, ticket.t_expires, ticket.t_time, ticket.t_fare, passenger.p_uname FROM ticket, passenger WHERE ticket.p_id = passenger.p_id;`;
+    const fetchTickets = `SELECT ticket.start_loc, ticket.dest_loc, ticket.t_expires, ticket.t_time, ticket.t_fare, passenger.p_uname FROM ticket, passenger WHERE ticket.p_id = passenger.p_id ORDER BY t_time DESC;`;
 
     // Fetching tickets
     con.query(fetchTickets, (err, qres) => {
@@ -32,7 +32,7 @@ router.get("/", async (req, res) => {
         success = true;
         res.json({ success, tickets: qres });
       } else {
-        res.json({ success, msg:"Tickets do not exist" });
+        res.json({ success, tickets: qres });
       }
     });
   } catch (error) {

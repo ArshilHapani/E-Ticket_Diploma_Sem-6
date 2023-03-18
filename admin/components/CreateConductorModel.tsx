@@ -12,10 +12,15 @@ const CreateConductorModel = ({ setOpen }: any) => {
     })
     const handleSubmit = async (e: SyntheticEvent) => {
         e.preventDefault();
+        if (conductor.uname === "" || conductor.pwd === "" || conductor.name === "" || conductor.email === "" || conductor.dob === "") {
+            alert("Please enter all fields");
+            return;
+        }
         const create = await fetch("http://localhost:6565/admin/createConductor", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                authToken: sessionStorage.getItem('admin')?.toString(),
             },
             body: JSON.stringify({
                 uname: conductor.uname,
@@ -30,8 +35,8 @@ const CreateConductorModel = ({ setOpen }: any) => {
         if (response.success) {
             alert("Successfully created a new conductor");
             setOpen(false);
-        } else {
-            alert("Failed to create a new conductor");
+        } else if (!response.success) {
+            alert(response.msg);
         }
     }
     return (

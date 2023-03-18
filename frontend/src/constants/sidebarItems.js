@@ -14,6 +14,11 @@ export const useSidebarItems = [
     icon: <AiOutlineHome />,
   },
   {
+    title: "Profile",
+    path: "profile",
+    icon: <CgProfile />,
+  },
+  {
     title: "Active Tickets",
     path: "tickets",
     icon: <TbFileInvoice />,
@@ -28,11 +33,6 @@ export const useSidebarItems = [
     title: "Payments",
     path: "p_history",
     icon: <RiFilePaper2Line />,
-  },
-  {
-    title: "Profile",
-    path: "profile",
-    icon: <CgProfile />,
   },
   {
     title: "Guide map",

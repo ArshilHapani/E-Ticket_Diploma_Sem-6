@@ -1,7 +1,7 @@
 import con from '../database.js';
 
 const checkPassenger = (req,res,next) =>{
-    const check = `SELECT * FROM passenger WHERE p_id='${req.user.id}'`;
+    const check = `SELECT p_uname FROM passenger WHERE p_id='${req.user.id}'`;
 
     try {
         con.query(check,(err,qres)=>{

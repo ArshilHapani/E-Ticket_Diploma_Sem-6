@@ -20,7 +20,6 @@ const EditConductor = ({ setOpen, initialValues }: any) => {
                 <TextField
                     label="name"
                     sx={profile_edit_textfield}
-                    placeholder="create name"
                     variant="standard"
                     color="info"
                     type="text"
@@ -33,24 +32,8 @@ const EditConductor = ({ setOpen, initialValues }: any) => {
                     }}
                 />
                 <TextField
-                    label="password"
-                    sx={profile_edit_textfield}
-                    placeholder="create password"
-                    variant="standard"
-                    color="info"
-                    type="text"
-                    value={conductor.password}
-                    onChange={(e) => {
-                        setConductor({
-                            ...conductor,
-                            password: e.target.value
-                        })
-                    }}
-                />
-                <TextField
                     label="username"
                     sx={profile_edit_textfield}
-                    placeholder="create username"
                     variant="standard"
                     color="info"
                     type="text"
@@ -66,7 +49,6 @@ const EditConductor = ({ setOpen, initialValues }: any) => {
                 <TextField
                     label="email"
                     sx={profile_edit_textfield}
-                    placeholder="create email"
                     variant="standard"
                     color="info"
                     type="email"
@@ -75,21 +57,6 @@ const EditConductor = ({ setOpen, initialValues }: any) => {
                         setConductor({
                             ...conductor,
                             email: e.target.value
-                        })
-                    }}
-                />
-                <TextField
-                    label="date of birth"
-                    sx={profile_edit_textfield}
-                    variant="standard"
-                    color="info"
-                    type="date"
-                    InputLabelProps={{ shrink: true }}
-                    value={conductor.dob}
-                    onChange={(e) => {
-                        setConductor({
-                            ...conductor,
-                            dob: e.target.value
                         })
                     }}
                 />

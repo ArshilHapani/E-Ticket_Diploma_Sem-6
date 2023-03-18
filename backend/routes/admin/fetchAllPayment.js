@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
   let success = false;
 
   try {
-    const fetchPayment = `SELECT payment.pay_time, payment.pay_amount, payment.pay_id, passenger.p_uname, conductor.c_uname FROM payment, passenger, conductor WHERE payment.p_id = passenger.p_id && payment.c_id = conductor.c_id;`;
+    const fetchPayment = `SELECT payment.pay_time, payment.pay_amount, payment.pay_id, passenger.p_uname, conductor.c_uname FROM payment, passenger, conductor WHERE payment.p_id = passenger.p_id && payment.c_id = conductor.c_id ORDER BY pay_time DESC;`;
 
     // Fetching tickets
     con.query(fetchPayment, (err, qres) => {
@@ -28,7 +28,7 @@ router.get("/", async (req, res) => {
         success = true;
         res.json({ success, payments: qres });
       } else {
-        res.json({ success, msg:"No payments have been done" });
+        res.json({ success, payments: qres });
       }
     });
   } catch (error) {

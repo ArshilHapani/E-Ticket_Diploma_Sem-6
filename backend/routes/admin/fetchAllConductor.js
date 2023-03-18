@@ -28,7 +28,7 @@ router.get("/", async (req, res) => {
         success = true;
         res.json({ success, conductors: qres });
       } else {
-        res.json({ success, msg:"Conductors do not exist" });
+        res.json({ success, conductors: qres });
       }
     });
   } catch (error) {

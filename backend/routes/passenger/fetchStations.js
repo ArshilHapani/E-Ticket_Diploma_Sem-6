@@ -22,7 +22,7 @@ router.get("/", async (req, res) => {
         success = true;
         res.json({ success, stations: qres });
       } else {
-        res.json({ success, msg:"Stations are not availabel" });
+        res.json({ success, stations: qres });
       }
     });
   } catch (error) {

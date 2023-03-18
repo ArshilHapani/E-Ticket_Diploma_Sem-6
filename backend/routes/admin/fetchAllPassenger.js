@@ -28,7 +28,7 @@ router.get("/", async (req, res) => {
         success = true;
         res.json({ success, passengers: qres });
       } else {
-        res.json({ success, msg:"Passengers do no exist" });
+        res.json({ success, passengers: qres });
       }
     });
   } catch (error) {

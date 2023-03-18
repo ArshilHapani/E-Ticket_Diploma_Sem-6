@@ -22,7 +22,29 @@ const SignIn = () => {
   });
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
-    router.push("/HomePage")
+    if (user.uname === "" || user.password === "") {
+      alert("Please enter all required field");
+      return;
+    }
+    const login = await fetch('http://localhost:6565/authentication/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        uname: user.uname,
+        password: user.password
+      })
+    })
+    const response = await login.json();
+    if (response.success) {
+      sessionStorage.setItem('admin', response.authToken);
+
+      router.push('/HomePage');
+    }
+    else if (!response.success) {
+      alert(response.msg);
+    }
 
   };
   const [showPassword, setShowPassword] = React.useState(false);

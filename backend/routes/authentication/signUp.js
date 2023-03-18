@@ -49,27 +49,35 @@ router.post("/", async (req, res) => {
 
         con.beginTransaction();
 
-        // Inserting login related information
         const inLogin = `INSERT INTO login VALUES ('${id}','${uname}','${secPass}')`;
-        con.query(inLogin, (err, qres) => {
+        const inPassenger = `INSERT INTO passenger VALUES ('${id}','${uname}','${name}','${email}',${no?no:null},'${dob}',NULL,${0.0});`;
+
+        // Inserting login related information
+        con.query(inPassenger, (err, qres) => {
           if (err) {
             console.log(err.message);
             success = false;
             res.json({ success });
-          } else if (qres) {
+          } else if (qres.affectedRows > 0) {
 
             // Inserting Data of Passanger
-            const inpassenger = `INSERT INTO passenger (p_uname, p_id, p_name, p_email, p_no, p_dob, p_balance) VALUES ('${uname}','${id}','${name}','${email}',${
-              no ? no : null
-            },'${dob}',${0.0})`;
-            con.query(inpassenger, (err, qres) => {
+            con.query(inLogin, (err, qres) => {
               if (err) {
                 console.log(err.message);
                 con.rollback(); // Undo changes into database
                 success = false;
                 res.json({ success });
-              }else if (qres) {
+              }else if (qres.affectedRows > 0) {
                 con.commit(); // Saving changes into database
+
+                // Storing id of user in object to create JWT
+                const data = {
+                  id: id,
+                };
+
+                // sending JWT to user
+                const authToken = jwt.sign(data, SECRET_MSG);
+                res.json({ success, authToken });
               }else{
                 con.rollback(); // Undo changes into database
                 success = false;
@@ -81,15 +89,6 @@ router.post("/", async (req, res) => {
             res.json({ success });
           }
         });
-
-        // Storing id of user in object to create JWT
-        const data = {
-          id: id,
-        };
-
-        // sending JWT to user
-        const authToken = jwt.sign(data, SECRET_MSG);
-        res.json({ success, authToken });
       }
     });
   } catch (error) {

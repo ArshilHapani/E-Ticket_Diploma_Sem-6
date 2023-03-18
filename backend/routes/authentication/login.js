@@ -3,12 +3,13 @@ it will send JWT in response if password and usename is correct */
 
 import { Router } from "express";
 const router = Router();
+import con from "../database.js";   // Connection object to run query
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
+import  dotenv from 'dotenv';
+dotenv.config();
 
-import con from "../database.js";   // Connection object to run query
-
-const SECRET_MSG = "E-TICKET";    // Secret message to send in JWT for authentication
+const SECRET_MSG = process.env.SECRET_KEY_JWT;     // Secret message to send in JWT for authentication
 
 router.post("/", async (req, res) => {
   const { uname, password } = req.body; // fetching data from request body

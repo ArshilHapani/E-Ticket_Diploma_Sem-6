@@ -1,8 +1,8 @@
 import con from '../database.js';
 
 const checkAdmin = (req,res,next) =>{
-    const check = `SELECT * FROM admin WHERE a_id='${req.user.id}'`;
-
+    const check = `SELECT a_uname FROM admin, login WHERE a_id='${req.user.id}' && a_id = id;`;
+    
     try {
         con.query(check,(err,qres)=>{
             if(err){

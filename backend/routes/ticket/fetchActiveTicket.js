@@ -9,7 +9,7 @@ router.get("/", fetchuser, async (req, res) => {
   let success = false;
 
   try {
-    const fetchTicket = `SELECT * FROM ticket WHERE p_id='${req.user.id}' && CURRENT_TIMESTAMP() <= t_expires ORDER BY 4 DESC ;`;
+    const fetchTicket = `SELECT * FROM ticket WHERE p_id='${req.user.id}' && CURRENT_TIMESTAMP() <= t_expires ORDER BY t_time DESC;`;
 
     // Fetching tickets
     con.query(fetchTicket, (err, qres) => {
@@ -17,7 +17,7 @@ router.get("/", fetchuser, async (req, res) => {
         console.log(err.message);
         res.json({ success });
       } else if (qres.length > 0) {
-        qres.map((i) => {
+        qres.map((i)=>{
           let date = new Date(i.t_expires);
           const expires = date.toLocaleString();
           i.t_expires = expires;
@@ -25,7 +25,7 @@ router.get("/", fetchuser, async (req, res) => {
           date = new Date(i.t_time);
           const time = date.toLocaleString();
           i.t_time = time;
-        });
+        })
         success = true;
         res.json({ success, tickets: qres });
       } else {

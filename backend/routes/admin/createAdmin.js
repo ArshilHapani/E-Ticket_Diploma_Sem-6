@@ -1,13 +1,11 @@
 import { Router } from "express";
 const router = Router();
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import con from "../database.js";
-// const checkAdmin = require("../middleware/checkAdmin");
+import fetchuser from "../middleware/fetchUser.js";
+import checkAdmin from "../middleware/checkAdmin.js";
 
-const SECRET_MSG = "E-TICKET";
-
-// router.use(checkAdmin);
+router.use(fetchuser, checkAdmin);
 
 router.post("/",async (req, res) => {
   const { uname, pwd, name, email, no, dob } = req.body;
@@ -20,9 +18,9 @@ router.post("/",async (req, res) => {
   const secPass = await bcrypt.hash(pwd, salt);
 
   // Checks user with this username exist or not
-  const findUser = `SELECT uname FROM login WHERE uname='${uname}'`;
+  const findUser = `SELECT a_uname FROM admin WHERE a_uname='${uname}'`;
   const inLogin = `INSERT INTO login VALUES ('${id}','${uname}','${secPass}')`;
-  const inConductor = `INSERT INTO admin VALUES ('${uname}','${id}','${id}','${name}','${email}',${no?no:null},'${dob}',NULL)`;
+  const inConductor = `INSERT INTO admin VALUES ('${id}','${uname}','${req.user.id}','${name}','${email}',${no?no:null},'${dob}',NULL)`;
   
   try {
       con.query(findUser, (err, qres) => {
@@ -45,12 +43,8 @@ router.post("/",async (req, res) => {
                   res.json({ success });
                 }else if(qres.affectedRows > 0){
                   con.commit();
-                  const data = {
-                    id: id,
-                  };
-                  const authToken = jwt.sign(data, SECRET_MSG);
                   success = true;
-                  res.json({ success, authToken });
+                  res.json({ success });
                 } else {
                   con.rollback();
                   res.json({ success });

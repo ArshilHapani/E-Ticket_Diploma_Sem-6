@@ -46,6 +46,6 @@ router.get('/', (req,res)=>{
           res.json({ success, msg:"User does not exist"})
         }
       });
-})
+});
 
 export default router;
