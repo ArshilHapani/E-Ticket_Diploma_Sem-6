@@ -14,6 +14,7 @@ import QrCodeSVG from "./svg_qr/QrCodeSVG";
 import NewUser from "./forms/NewUser";
 import OldUser from "./forms/OldUser";
 import ForgotPassword from "./forms/ForgetPassword";
+import EnterEmail from "./forms/EnterEmail";
 
 export {
   RecentTickets,
@@ -32,4 +33,5 @@ export {
   NewUser,
   OldUser,
   ForgotPassword,
+  EnterEmail,
 };

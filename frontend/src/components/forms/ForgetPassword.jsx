@@ -9,29 +9,56 @@ import {
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useStateContext } from "../../context/stateContext";
-import validateEmail from "../../functions/validateEmail";
 import logo from "../../assets/logo-no-background.png";
+import isUserNameValid from "../../functions/userNameValidate";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
-  const { showSnackBar } = useStateContext();
+  const { showSnackBar, setLoader } = useStateContext();
   const [textDisable, setTextDisable] = useState(true);
-  const [email, setEmail] = useState("");
-  const handleClick = (e) => {
-    e.preventDefault();
-
-    if (email === "") {
-      showSnackBar("please enter your email", "error");
+  const [userName, setUserName] = useState("");
+  const [otp, setOtp] = useState(0);
+  const [initialOtp, setInitialOtp] = useState(0);
+  const handleClick = async () => {
+    setLoader(true);
+    if (userName === "") {
+      showSnackBar("please enter your username", "error");
       return;
     }
-    if (validateEmail(email) === null) {
-      showSnackBar("please enter valid email format", "error");
+    if (!isUserNameValid(userName)) {
+      showSnackBar("Enter a valid username", "error");
       return;
     }
 
     showSnackBar("OTP is sent on your email", "success");
-    setTextDisable(false);
-    navigate("/");
+    const otps = await fetch("http://localhost:6565/authentication/sendPin", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        uname: userName,
+      }),
+    });
+    const response = await otps.json();
+    if (response.success) {
+      showSnackBar(response.msg, "success");
+      setTextDisable(false);
+      setOtp(response.pin);
+      setLoader(false);
+    } else {
+      showSnackBar(response.msg, "warning");
+      setTextDisable(false);
+    }
+  };
+
+  const handleOTPClick = () => {
+    if (initialOtp === 0) {
+      showSnackBar("Please enter OTP", "error");
+      return;
+    } else {
+      //TODO
+    }
   };
   return (
     <>
@@ -80,17 +107,16 @@ const ForgotPassword = () => {
               fontWeight="500"
               textAlign="center"
             >
-              Enter your email address below and we'll send you password reset
-              OTP.
+              Enter your username address below and we'll send you password
+              reset OTP on your email.
             </Typography>
           </Stack>
           <Stack>
             <TextField
               className="textfield"
-              label="Email Address"
-              type="email"
+              label="Enter username"
               variant="standard"
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setUserName(e.target.value)}
             />
           </Stack>
           <Stack
@@ -109,9 +135,15 @@ const ForgotPassword = () => {
               label="Enter OTP"
               type="number"
               variant="standard"
+              onChange={(e) => setInitialOtp(e.target.value)}
             />
-            <Button variant="contained" disabled={textDisable} type="submit">
-              Send Mail
+            <Button
+              variant="contained"
+              onClick={handleOTPClick}
+              disabled={textDisable}
+              type="submit"
+            >
+              Verify OTP
             </Button>
             <Divider />
             <Stack

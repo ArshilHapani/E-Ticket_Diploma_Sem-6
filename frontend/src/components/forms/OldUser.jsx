@@ -177,7 +177,7 @@ const OldUser = () => {
               alignItems="center"
               direction="row"
             >
-              <Link to="/signUp" className="link-styles-anchor-tags">
+              <Link to="/getStarted" className="link-styles-anchor-tags">
                 <Typography>Don't have an account?</Typography>
               </Link>
             </Stack>

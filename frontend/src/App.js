@@ -2,6 +2,7 @@ import { Home } from "./container";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import SnackbarAlert from "./components/snackbar/Snackbar";
 import {
+  EnterEmail,
   ForgotPassword,
   Loader,
   NewUser,
@@ -13,16 +14,20 @@ import { useEffect } from "react";
 function App() {
   const navigate = useNavigate();
   const location = useLocation();
+
   useEffect(() => {
     if (
       localStorage.getItem("user") === null ||
       localStorage.getItem("user") === undefined ||
       localStorage.getItem("user") === ""
     ) {
+      navigate("/signIn");
+    }
+    if (location.pathname === "/signUp") {
       navigate("/signUp");
     }
-    if (location.pathname === "/signIn") {
-      navigate("/signIn");
+    if (location.pathname === "/getStarted") {
+      navigate("/getStarted");
     }
     if (location.pathname === "/forgetPassword") {
       navigate("/forgetPassword");
@@ -52,6 +57,16 @@ function App() {
               <div style={{ overFlowX: "hidden" }}>
                 {" "}
                 <OldUser />
+              </div>
+            }
+          />
+          <Route
+            exact
+            path="/getStarted"
+            element={
+              <div style={{ overFlowX: "hidden" }}>
+                {" "}
+                <EnterEmail />
               </div>
             }
           />

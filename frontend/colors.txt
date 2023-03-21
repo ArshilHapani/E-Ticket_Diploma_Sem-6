@@ -4,3 +4,12 @@ dark_secondary_bg : #33373e
 
 light_primary_bg: #f8fafc
 light_secondary_bg: #f1f5f9
+
+
+To generate the random 128 bits hex key
+
+PS D:\Arshil's workplace\Future Span\Practice Span\JWT_Token_Practice_span\authentication> node
+Welcome to Node.js v16.16.0.
+Type ".help" for more information.
+> require('crypto').randomBytes(128).toString('hex') 
+
