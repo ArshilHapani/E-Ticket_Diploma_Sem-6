@@ -11,6 +11,5 @@ export async function generateFare(dist) {
     }),
   });
   const response = await fare.json();
-  console.log(response);
   return response.amount;
 }

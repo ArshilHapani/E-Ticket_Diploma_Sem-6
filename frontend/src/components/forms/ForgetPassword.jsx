@@ -6,16 +6,19 @@ import {
   Button,
   Divider,
   Avatar,
+  Modal,
+  Box,
 } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useStateContext } from "../../context/stateContext";
 import logo from "../../assets/logo-no-background.png";
 import isUserNameValid from "../../functions/userNameValidate";
+import UpdatePassword from "../modals/UpdatePassword";
 
 const ForgotPassword = () => {
-  const navigate = useNavigate();
   const { showSnackBar, setLoader } = useStateContext();
   const [textDisable, setTextDisable] = useState(true);
+  const [resetPasswordModal, setResetPasswordModal] = useState(false);
   const [userName, setUserName] = useState("");
   const [otp, setOtp] = useState(0);
   const [initialOtp, setInitialOtp] = useState(0);
@@ -30,7 +33,6 @@ const ForgotPassword = () => {
       return;
     }
 
-    showSnackBar("OTP is sent on your email", "success");
     const otps = await fetch("http://localhost:6565/authentication/sendPin", {
       method: "POST",
       headers: {
@@ -56,8 +58,12 @@ const ForgotPassword = () => {
     if (initialOtp === 0) {
       showSnackBar("Please enter OTP", "error");
       return;
+    }
+    if (parseInt(initialOtp) === otp) {
+      setResetPasswordModal(true);
     } else {
-      //TODO
+      showSnackBar("Invalid OTP", "error");
+      return;
     }
   };
   return (
@@ -171,6 +177,16 @@ const ForgotPassword = () => {
           </Stack>
         </Stack>
       </div>
+
+      {/* Change pwd model */}
+      <Modal open={resetPasswordModal}>
+        <Box>
+          <UpdatePassword
+            uname={userName}
+            closingModal={setResetPasswordModal}
+          />
+        </Box>
+      </Modal>
     </>
   );
 };

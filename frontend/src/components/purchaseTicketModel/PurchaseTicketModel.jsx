@@ -40,10 +40,10 @@ const PurchaseTicketModel = () => {
   });
   useEffect(() => {
     setLoader(true);
-    fetchStation(setDropdownStations, showSnackBar);
     callGenerateFare();
+    fetchStation(setDropdownStations, showSnackBar);
     setLoader(false);
-  }, [showSnackBar, dist]);
+  }, [dist]);
   async function callGenerateFare() {
     const fare = await generateFare(dist);
     setFareText(fare);

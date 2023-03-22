@@ -32,6 +32,18 @@ const NewUser = () => {
     no: "",
     email: "",
   });
+  if (
+    sessionStorage.getItem("sessionId") === undefined ||
+    sessionStorage.getItem("sessionId") === null ||
+    sessionStorage.getItem("sessionId") === ""
+  ) {
+    showSnackBar(
+      "Please enter your credentials to continue or verify your email",
+      "info"
+    );
+    navigate("/getStarted");
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
     if (calculateAge(user.dob) < 14 || calculateAge(user.dob) > 100) {
@@ -84,8 +96,6 @@ const NewUser = () => {
       body: JSON.stringify(user),
     });
     const response = await data.json();
-
-    console.log(response);
     if (response.success) {
       showSnackBar("Successfully created a new account", "success");
       localStorage.setItem("user", response.authToken);

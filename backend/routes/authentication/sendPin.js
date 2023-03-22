@@ -2,14 +2,18 @@
 
 import { Router } from "express";
 const router = Router();
-import { createTransport } from "nodemailer";
 import con from "../database.js";
+import { createTransport } from "nodemailer";
+import dotenv from "dotenv";
+dotenv.config();
+
+const pass = process.env.EMAIL_PASS;
 
 const transporter = createTransport({
   service: "gmail",
   auth: {
     user: "learner164@gmail.com",
-    pass: "pmdbxfrbmwsfpmmt",
+    pass: pass,
   },
 });
 
@@ -76,6 +80,18 @@ router.post("/", (req, res) => {
                 res.json({ success });
               } else if (info) {
                 success = true;
+
+                let i,
+                  str = "";
+                for (
+                  i = 0;
+                  val.slice(2, val.indexOf("@") - 4).length > i;
+                  i++
+                ) {
+                  str += "*";
+                }
+
+                val = val.replace(val.slice(2, val.indexOf("@") - 4), str);
                 res.json({ success, pin: pin, msg: `OTP sent to ${val}` });
               }
             });
@@ -90,9 +106,9 @@ router.post("/", (req, res) => {
   } else if (email) {
     const mailOptions = {
       from: "learner164@gmail.com",
-      to: val,
+      to: email,
       subject: "Your Code",
-      text: email,
+      text: pin.toString(),
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
@@ -100,8 +116,25 @@ router.post("/", (req, res) => {
         console.log(error);
         res.json({ success });
       } else if (info) {
+        let emailadd = email;
         success = true;
-        res.json({ success, pin: pin, msg: `OTP sent to ${email}` });
+
+        let i,
+          str = "";
+        for (
+          i = 0;
+          emailadd.slice(2, emailadd.indexOf("@") - 4).length > i;
+          i++
+        ) {
+          str += "*";
+        }
+
+        emailadd = emailadd.replace(
+          emailadd.slice(2, emailadd.indexOf("@") - 4),
+          str
+        );
+
+        res.json({ success, pin: pin, msg: `OTP sent to ${emailadd}` });
       }
     });
   } else {

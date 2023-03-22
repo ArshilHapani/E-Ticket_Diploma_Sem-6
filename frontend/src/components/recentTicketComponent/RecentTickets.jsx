@@ -32,7 +32,6 @@ const RecentTickets = () => {
       }),
     });
     const tick = await response.json();
-    console.log(tick);
     if (tick.success) {
       setTickets(tick.tickets);
     }

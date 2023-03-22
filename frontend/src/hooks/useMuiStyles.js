@@ -154,6 +154,22 @@ export default function useMuiStyles() {
     alignItems: "center",
     justifyContent: "center",
   };
+  const defaultModelStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: {
+      xs: 300,
+      sm: 350,
+      md: 300,
+      lg: 360,
+    },
+    bgcolor: "#f2f2f2",
+    boxShadow: 24,
+    p: 4,
+    borderRadius: "8px",
+  };
   return {
     modelStyle,
     modelTextField,
@@ -162,5 +178,6 @@ export default function useMuiStyles() {
     detail_ref_style,
     profile_divider_styles,
     textTheme,
+    defaultModelStyle,
   };
 }

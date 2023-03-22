@@ -43,7 +43,6 @@ const GenerateTicketButton = () => {
       }
     );
     const response = await ticketsActive.json();
-    console.log(response);
     if (response.success) {
       setActiveOneTicket(response.tickets[0]);
       setLoader(false);

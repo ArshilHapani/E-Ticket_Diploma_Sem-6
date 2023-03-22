@@ -186,6 +186,7 @@ const Navbar = () => {
                 onClick={() => {
                   handleClose();
                   localStorage.clear();
+                  sessionStorage.clear();
                   navigate("/signIn");
                 }}
               >

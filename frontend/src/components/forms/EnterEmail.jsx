@@ -3,12 +3,17 @@ import { Stack, Typography, TextField, Button, Divider } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useStateContext } from "../../context/stateContext";
 import validateEmail from "../../functions/validateEmail";
+import { generateSess } from "../../functions/generateSessionId";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
   const { showSnackBar } = useStateContext();
-  const [textDisable, setTextDisable] = useState(true);
+  const [textDisable, setTextDisable] = useState({
+    textField: true,
+    button: true,
+  });
   const [email, setEmail] = useState("");
+  const [localOtp, setLocalOtp] = useState(0);
   const handleClick = (e) => {
     e.preventDefault();
 
@@ -22,8 +27,21 @@ const ForgotPassword = () => {
     }
 
     showSnackBar("OTP is sent on your email", "success");
-    setTextDisable(false);
-    navigate("/signUp");
+    setTextDisable({ textField: false });
+  };
+  const verifyOTP = () => {
+    if (localOtp !== 0) {
+      setTextDisable({ button: false });
+      showSnackBar(
+        "Welcome to E-Ticket Enter your credentials to continue",
+        "success"
+      );
+      sessionStorage.setItem("sessionId", generateSess());
+      navigate("/signUp");
+    } else {
+      showSnackBar("Please enter OTP", "error");
+      return;
+    }
   };
   return (
     <>
@@ -96,12 +114,18 @@ const ForgotPassword = () => {
               Send Mail
             </Button>
             <TextField
-              disabled={textDisable}
+              disabled={textDisable.textField}
               label="Enter OTP"
               type="number"
               variant="standard"
+              onChange={(e) => setLocalOtp(e.target.value)}
             />
-            <Button variant="contained" disabled={textDisable} type="submit">
+            <Button
+              variant="contained"
+              onClick={verifyOTP}
+              disabled={textDisable.button}
+              type="submit"
+            >
               Verify OTP
             </Button>
             <Divider />
@@ -113,7 +137,7 @@ const ForgotPassword = () => {
             >
               <Link
                 to="/signIn"
-                style={{ textAlign: "center" }}
+                style={{ textAlign: "right" }}
                 className="link-styles-anchor-tags"
               >
                 Already have an account?
