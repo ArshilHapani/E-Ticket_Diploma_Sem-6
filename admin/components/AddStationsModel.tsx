@@ -19,6 +19,7 @@ const AddStationsModel = ({ setOpen }: any) => {
         else {
             const store = await fetch("http://localhost:6565/admin/addStation", {
                 method: 'PUT',
+                //@ts-ignore
                 headers: {
                     'Content-Type': 'application/json',
                     authToken: sessionStorage.getItem('admin'),

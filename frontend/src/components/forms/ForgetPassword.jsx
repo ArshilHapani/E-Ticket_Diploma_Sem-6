@@ -26,10 +26,12 @@ const ForgotPassword = () => {
     setLoader(true);
     if (userName === "") {
       showSnackBar("please enter your username", "error");
+      setLoader(false);
       return;
     }
     if (!isUserNameValid(userName)) {
       showSnackBar("Enter a valid username", "error");
+      setLoader(false);
       return;
     }
 
@@ -51,7 +53,9 @@ const ForgotPassword = () => {
     } else {
       showSnackBar(response.msg, "warning");
       setTextDisable(false);
+      setLoader(false);
     }
+    setLoader(false);
   };
 
   const handleOTPClick = () => {

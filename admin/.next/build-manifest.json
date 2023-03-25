@@ -15,11 +15,6 @@
   ],
   "rootMainFiles": [],
   "pages": {
-    "/BusStopsTable": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/BusStopsTable.js"
-    ],
     "/HomePage": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",

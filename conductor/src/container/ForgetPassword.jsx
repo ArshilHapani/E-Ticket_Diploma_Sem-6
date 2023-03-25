@@ -1,29 +1,73 @@
 import React, { useState } from "react";
-import { Stack, Typography, TextField, Button, Divider } from "@mui/material";
+import {
+  Stack,
+  Typography,
+  TextField,
+  Button,
+  Divider,
+  Avatar,
+  Modal,
+  Box,
+} from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import validateEmail from "../functions/validateEmail";
+import isUserNameValid from "../functions/userNameValidate";
 import { useStateContext } from "../context/stateContext";
+import logo from "../assets/logo-no-background.png";
+import UpdatePassword from "../components/UpdatePasswordModal";
 
 const ForgotPassword = () => {
-  const navigate = useNavigate();
-  const { snackbarSetterFunction } = useStateContext();
+  const { snackbarSetterFunction, setLoading } = useStateContext();
   const [textDisable, setTextDisable] = useState(true);
-  const [email, setEmail] = useState("");
-  const handleClick = (e) => {
-    e.preventDefault();
-
-    if (email === "") {
-      snackbarSetterFunction("please enter your email", "error");
+  const [resetPasswordModal, setResetPasswordModal] = useState(false);
+  const [userName, setUserName] = useState("");
+  const [otp, setOtp] = useState(0);
+  const [initialOtp, setInitialOtp] = useState(0);
+  const handleClick = async () => {
+    setLoading(true);
+    if (userName === "") {
+      snackbarSetterFunction("please enter your username", "error");
+      setLoading(false);
       return;
     }
-    if (validateEmail(email) === null) {
-      snackbarSetterFunction("please enter valid email format", "error");
+    if (!isUserNameValid(userName)) {
+      snackbarSetterFunction("Enter a valid username", "error");
+      setLoading(false);
       return;
     }
 
-    snackbarSetterFunction("OTP is sent on your email", "success");
-    setTextDisable(false);
-    navigate("/");
+    const otps = await fetch("http://localhost:6565/authentication/sendPin", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        uname: userName,
+      }),
+    });
+    const response = await otps.json();
+    if (response.success) {
+      snackbarSetterFunction(response.msg, "success");
+      setTextDisable(false);
+      setOtp(response.pin);
+      setLoading(false);
+    } else {
+      snackbarSetterFunction(response.msg, "warning");
+      setTextDisable(false);
+      setLoading(false);
+    }
+  };
+
+  const handleOTPClick = () => {
+    if (initialOtp === 0) {
+      snackbarSetterFunction("Please enter OTP", "error");
+      return;
+    }
+    if (parseInt(initialOtp) === otp) {
+      setResetPasswordModal(true);
+    } else {
+      snackbarSetterFunction("Invalid OTP", "error");
+      return;
+    }
   };
   return (
     <>
@@ -72,17 +116,16 @@ const ForgotPassword = () => {
               fontWeight="500"
               textAlign="center"
             >
-              Enter your email address below and we'll send you password reset
-              OTP.
+              Enter your username address below and we'll send you password
+              reset OTP on your email.
             </Typography>
           </Stack>
           <Stack>
             <TextField
               className="textfield"
-              label="Email Address"
-              type="email"
+              label="Enter username"
               variant="standard"
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setUserName(e.target.value)}
             />
           </Stack>
           <Stack
@@ -101,9 +144,15 @@ const ForgotPassword = () => {
               label="Enter OTP"
               type="number"
               variant="standard"
+              onChange={(e) => setInitialOtp(e.target.value)}
             />
-            <Button variant="contained" disabled={textDisable} type="submit">
-              Send Mail
+            <Button
+              variant="contained"
+              onClick={handleOTPClick}
+              disabled={textDisable}
+              type="submit"
+            >
+              Verify OTP
             </Button>
             <Divider />
             <Stack
@@ -111,6 +160,9 @@ const ForgotPassword = () => {
                 paddingTop: "15px",
                 paddingBottom: "15px",
               }}
+              justifyContent="space-between"
+              alignItems="center"
+              direction="row"
             >
               <Link
                 to="/signIn"
@@ -119,10 +171,25 @@ const ForgotPassword = () => {
               >
                 Already have an account?
               </Link>
+              <Avatar
+                alt="logo"
+                src={logo}
+                sx={{ height: 60, width: 60, margin: "0.5rem 0" }}
+              />
             </Stack>
           </Stack>
         </Stack>
       </div>
+
+      {/* Change pwd model */}
+      <Modal open={resetPasswordModal}>
+        <Box>
+          <UpdatePassword
+            uname={userName}
+            closingModal={setResetPasswordModal}
+          />
+        </Box>
+      </Modal>
     </>
   );
 };
