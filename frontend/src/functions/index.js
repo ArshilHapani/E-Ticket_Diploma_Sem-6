@@ -4,6 +4,7 @@ import { generateFare } from "./fetchFare.js";
 import { fetchStation } from "./fetchStations.js";
 import isUserNameValid from "./userNameValidate";
 import validateEmail from "./validateEmail";
+import compressImage from "./compressImage";
 
 export {
   calculateAge,
@@ -12,4 +13,5 @@ export {
   fetchStation,
   isUserNameValid,
   validateEmail,
+  compressImage,
 };

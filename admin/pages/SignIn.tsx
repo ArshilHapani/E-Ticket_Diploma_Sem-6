@@ -12,7 +12,8 @@ import {
   IconButton,
 } from "@mui/material";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
+import { toast } from "react-hot-toast";
 
 const SignIn = () => {
   const router = useRouter();
@@ -23,7 +24,7 @@ const SignIn = () => {
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     if (user.uname === "" || user.password === "") {
-      alert("Please enter all required field");
+      toast.error("Please enter your username and password")
       return;
     }
     const login = await fetch('http://localhost:6565/authentication/login', {
@@ -39,11 +40,11 @@ const SignIn = () => {
     const response = await login.json();
     if (response.success) {
       sessionStorage.setItem('admin', response.authToken);
-
+      toast.success("Welcome to admin panel!");
       router.push('/HomePage');
     }
     else if (!response.success) {
-      alert(response.msg);
+      toast.error(response.msg)
     }
 
   };

@@ -1,9 +1,10 @@
 import { useState, useContext, createContext, useEffect } from "react";
 import usefetchUser from "../functions/usefetchUser";
+import { useNavigate } from "react-router-dom";
 
 const stateContext = createContext();
-
 export const ContextProvider = ({ children }) => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState();
   const [snackbar, setSnackbar] = useState({
@@ -18,7 +19,6 @@ export const ContextProvider = ({ children }) => {
       type: type,
     });
   };
-
   async function fetchUser() {
     setLoading(true);
     const data = await usefetchUser();
@@ -27,7 +27,13 @@ export const ContextProvider = ({ children }) => {
   }
   useEffect(() => {
     fetchUser();
-  }, [setUser, setSnackbar]);
+    if (
+      localStorage.getItem("user") === null ||
+      localStorage.getItem("user") === undefined
+    ) {
+      navigate("/signIn");
+    }
+  }, [navigate]);
 
   console.log(user);
   return (

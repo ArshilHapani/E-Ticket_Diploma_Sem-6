@@ -14,6 +14,7 @@ import EditProfileModel from "./EditProfileModel";
 import { useStateContext } from "../context/stateContext";
 import b64Convertor from "../functions/b64Convertor";
 import { useNavigate } from "react-router-dom";
+import compressImage from "../functions/compressImage";
 const labelStyle = {
   color: "#8d99ae",
   fontSize: 15,
@@ -46,7 +47,7 @@ const Profile = () => {
     navigate("/");
   }
 
-  const uploadImage = (e) => {
+  const uploadImage = async (e) => {
     e.preventDefault();
     setLoading(true);
     const selectedFile = e.target.files[0];
@@ -63,15 +64,15 @@ const Profile = () => {
       setLoading(false);
       return;
     }
-    if (selectedFile.size >= 1000000) {
-      snackbarSetterFunction(
-        "Size of the image must be less than 1 mb",
-        "error"
-      );
+    if (selectedFile.size >= 800000) {
+      const imageRes = await compressImage(selectedFile);
+      await b64Convertor(imageRes, snackbarSetterFunction);
+      snackbarSetterFunction("Image updated successfully", "success");
       setLoading(false);
       return;
     }
-    b64Convertor(selectedFile, snackbarSetterFunction);
+    await b64Convertor(selectedFile, snackbarSetterFunction);
+    snackbarSetterFunction("Image updated successfully", "success");
     fetchUser();
     setLocalObj({
       name: user?.c_name,

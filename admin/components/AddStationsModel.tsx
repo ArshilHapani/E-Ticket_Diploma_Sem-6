@@ -1,6 +1,7 @@
 import React, { SyntheticEvent, useState } from 'react'
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { profile_edit_textfield, modelAutocomplete } from '../styles'
+import { toast } from 'react-hot-toast';
 
 
 const AddStationsModel = ({ setOpen }: any) => {
@@ -13,7 +14,7 @@ const AddStationsModel = ({ setOpen }: any) => {
     const handleSubmit = async (e: SyntheticEvent) => {
         e.preventDefault();
         if (stations.id === null || stations.stName === "" || stations.lat === null || stations.long === null) {
-            alert("Please enter all required fields");
+            toast.error("Please enter all required fields");
             return;
         }
         else {
@@ -28,7 +29,7 @@ const AddStationsModel = ({ setOpen }: any) => {
             })
             const response = await store.json();
             if (response.success) {
-                alert("Station added.");
+                toast.success("Successfully added new stations")
                 setStations({
                     id: 0,
                     stName: "",
@@ -37,7 +38,7 @@ const AddStationsModel = ({ setOpen }: any) => {
                 })
             }
             else {
-                alert("Failed to add station\n" + response.msg)
+                toast.error("Failed to add station\n" + response.msg)
             }
         }
     }

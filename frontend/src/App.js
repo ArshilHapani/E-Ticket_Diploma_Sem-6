@@ -1,6 +1,5 @@
 import { Home } from "./container";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import SnackbarAlert from "./components/snackbar/Snackbar";
 import {
   EnterEmail,
   ForgotPassword,
@@ -8,6 +7,7 @@ import {
   NewUser,
   OldUser,
   PurchaseTicketModel,
+  SnackbarAlert,
 } from "./components";
 import { useEffect } from "react";
 

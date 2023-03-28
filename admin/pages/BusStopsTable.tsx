@@ -35,6 +35,7 @@ const BusStopsTable = () => {
     async function fetchConductors() {
         const passenger = await fetch("http://localhost:6565/admin/fetchAllStations", {
             method: "GET",
+            //@ts-ignore
             headers: {
                 'Content-type': 'application/json',
                 authToken: sessionStorage.getItem('admin'),

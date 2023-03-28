@@ -1,6 +1,7 @@
 import React, { SyntheticEvent, useState } from 'react'
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { profile_edit_textfield, modelAutocomplete } from '../styles'
+import { toast } from 'react-hot-toast';
 
 const CreateConductorModel = ({ setOpen }: any) => {
     const [conductor, setConductor] = useState({
@@ -13,11 +14,12 @@ const CreateConductorModel = ({ setOpen }: any) => {
     const handleSubmit = async (e: SyntheticEvent) => {
         e.preventDefault();
         if (conductor.uname === "" || conductor.pwd === "" || conductor.name === "" || conductor.email === "" || conductor.dob === "") {
-            alert("Please enter all fields");
+            toast.error("Please enter all required fields")
             return;
         }
         const create = await fetch("http://localhost:6565/admin/createConductor", {
             method: "POST",
+            //@ts-ignore
             headers: {
                 "Content-Type": "application/json",
                 authToken: sessionStorage.getItem('admin')?.toString(),
@@ -33,10 +35,10 @@ const CreateConductorModel = ({ setOpen }: any) => {
         const response = await create.json();
         console.log(response);
         if (response.success) {
-            alert("Successfully created a new conductor");
+            toast.success("Successfully created a new conductor");
             setOpen(false);
         } else if (!response.success) {
-            alert(response.msg);
+            toast.error(response.msg);
         }
     }
     return (

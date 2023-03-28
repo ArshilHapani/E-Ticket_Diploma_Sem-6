@@ -12,6 +12,7 @@ import UpdateProfileModel from "./UpdateProfileModel";
 import calculateAge from "../../functions/agrCalculate";
 import isUserNameValid from "../../functions/userNameValidate";
 import b64Convertor from "../../functions/b64Convertor";
+import { compressImage } from "../../functions";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ const Profile = () => {
     email: newUser.p_email,
     no: newUser.p_no,
   });
-  const uploadImage = (e) => {
+  const uploadImage = async (e) => {
     e.preventDefault();
     setLoader(true);
     const selectedFile = e.target.files[0];
@@ -60,11 +61,15 @@ const Profile = () => {
       return;
     }
     if (selectedFile.size >= 800000) {
-      showSnackBar("Size of the image must be less than 800kb", "error");
+      const imageRes = await compressImage(selectedFile);
+      await b64Convertor(imageRes, showSnackBar);
+      showSnackBar("Image updated successfully", "success");
       setLoader(false);
       return;
     }
-    b64Convertor(selectedFile, showSnackBar);
+    await b64Convertor(selectedFile, showSnackBar);
+    showSnackBar("Image updated successfully", "success");
+
     fetchUser();
     setLoader(false);
   };
