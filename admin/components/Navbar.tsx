@@ -5,8 +5,9 @@ import Image from "next/image";
 import { useState } from "react";
 import { AiOutlineUser } from "react-icons/ai";
 import { RiAdminLine } from "react-icons/ri";
-import { TfiPlus } from "react-icons/tfi";
-import { GoGraph, GoLocation } from "react-icons/go";
+import { GoGraph } from "react-icons/go";
+import { MdOutlineAddLocationAlt } from "react-icons/md";
+import { BsPersonAdd } from "react-icons/bs";
 import CreateConductorModel from "./CreateConductorModel";
 import AddStationsModel from "./AddStationsModel";
 import Link from "next/link";
@@ -43,7 +44,7 @@ const Navbar = () => {
             className="shadow-md z-10 h-[70px]"
         >
             <Stack direction="row" gap={4} alignItems="center" className="px-4">
-                <Link href="/HomePage">
+                <Link href="/HomePage" className="focus:outline-none" >
                     {" "}
                     <Image
                         src="/svg/logo-no-background.svg"
@@ -69,7 +70,7 @@ const Navbar = () => {
             <Box className="px-4 flex gap-4 ">
                 <Tooltip title="Add stations" placement="bottom" arrow>
                     <IconButton color="primary" onClick={() => setAddTicketModel(true)}>
-                        <GoLocation />
+                        <MdOutlineAddLocationAlt />
                     </IconButton>
                 </Tooltip>
                 {/* station model.... */}
@@ -90,7 +91,7 @@ const Navbar = () => {
                 {/* Add admin model... */}
                 <Tooltip title="Add Conductor" placement="bottom" arrow>
                     <IconButton color="primary" onClick={() => setOpen(true)}>
-                        <TfiPlus />
+                        <BsPersonAdd />
                     </IconButton>
                 </Tooltip>
                 <Modal

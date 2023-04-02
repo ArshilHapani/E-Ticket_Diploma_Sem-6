@@ -57,7 +57,7 @@ const modelTextField = {
 
 const EditProfileModel = ({ closeModal, initialValues }) => {
   document.title = "E-Ticket | Conductor - Edit Profile";
-  const { snackbarSetterFunction,setLoading } = useStateContext();
+  const { snackbarSetterFunction, setLoading } = useStateContext();
   const [updateData, setUpdateData] = useState({
     name: initialValues.name,
     email: initialValues.email,
@@ -70,14 +70,13 @@ const EditProfileModel = ({ closeModal, initialValues }) => {
     if (
       updateData.name === "" ||
       updateData.email === "" ||
-      updateData.mobile === null ||
       updateData.dob === null ||
       updateData.username === ""
     ) {
       snackbarSetterFunction("please fill all the required fields", "error");
       return;
     }
-    if (updateData.mobile.length !== 10) {
+    if (updateData.mobile !== "" && updateData?.mobile?.length !== 10) {
       snackbarSetterFunction("Length of mobile number must be of 10", "error");
       return;
     }

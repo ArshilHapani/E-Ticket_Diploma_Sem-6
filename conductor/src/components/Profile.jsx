@@ -155,13 +155,7 @@ const Profile = () => {
             }}
           >
             Upload
-            <input
-              hidden
-              accept="image/*"
-              multiple
-              type="file"
-              onChange={uploadImage}
-            />
+            <input hidden accept="image/*" type="file" onChange={uploadImage} />
           </Button>
           <Button
             variant="outlined"

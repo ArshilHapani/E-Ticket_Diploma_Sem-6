@@ -18,28 +18,21 @@ import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
 import Navbar from '@/components/Navbar';
 import { style } from '../styles'
 import EditUser from '@/components/EditUserModel';
+import { userTableButtonAnnotationTypes, userTableFuncData } from '@/interfaces';
 
 
-interface funcData {
-    img: string,
-    id: string,
-    name: string,
-    uname: string,
-    email: string,
-    mobile: string,
-    dob: string,
-    balance: number,
-}
 
 const UserTable = () => {
-    const [open, setOpen]: any = useState(false);
-    const [dataSet, setDataSet]: any = useState([])
+    const [open, setOpen] = useState<boolean>(false);
+    const [dataSet, setDataSet] = useState<Array<object>>([])
+    const [indexMeasure, setIndexMeasure] = useState<number>(0);
     useEffect(() => {
         fetchConductors();
     }, [])
     async function fetchConductors() {
         const passenger = await fetch("http://localhost:6565/admin/fetchAllPassenger", {
             method: "GET",
+            //@ts-ignore
             headers: {
                 'Content-type': 'application/json',
                 authToken: sessionStorage.getItem('admin'),
@@ -64,7 +57,7 @@ const UserTable = () => {
         )
     ))
 
-    function createData(img: string, id: string, name: string, uname: string, email: string, mobile: string, dob: string, balance: number): funcData {
+    function createData(img: string, id: string, name: string, uname: string, email: string, mobile: string, dob: string, balance: number): userTableFuncData {
         return {
             img, id, name, uname, email, mobile, dob, balance
         };
@@ -76,7 +69,7 @@ const UserTable = () => {
         <>
             <Navbar />
             <div className='mt-[16vh] px-5 p-4' >
-                <Typography variant='h4' className="my-5" >All users</Typography>
+                <Typography variant='h4' className="my-5 text-slate-500" >All users</Typography>
                 <TableContainer component={Paper} sx={{ marginBottom: "100px" }}>
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead>
@@ -89,12 +82,12 @@ const UserTable = () => {
                                 <TableCell>Mobile number</TableCell>
                                 <TableCell>Date of Birth</TableCell>
                                 <TableCell>Balance</TableCell>
-                                <TableCell>Delete</TableCell>
                                 <TableCell>Edit</TableCell>
+                                <TableCell>Delete</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {student_rows?.map((row: any) => (
+                            {student_rows?.map((row: any, index: number) => (
                                 <TableRow
                                     key={row.mobile + row.email + row.uname + row.name}
                                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -115,19 +108,11 @@ const UserTable = () => {
                                     <TableCell>{row.balance}</TableCell>
                                     <TableCell>
                                         <Tooltip title={`Edit ${row.name}`} arrow placement='right' >
-                                            <IconButton color="primary" onClick={() => setOpen(true)}>
+                                            <IconButton color="primary" onClick={() => { setOpen(true); setIndexMeasure(index) }}>
                                                 <AiOutlineEdit />
                                             </IconButton>
                                         </Tooltip>
-                                        <Modal
-                                            open={open}
-                                            aria-labelledby="modal-modal-title"
-                                            aria-describedby="modal-modal-description"
-                                        >
-                                            <Box sx={style}>
-                                                <EditUser setOpen={setOpen} initialValues={row} />
-                                            </Box>
-                                        </Modal>
+                                        <ButtonAnnotation open={open} indexMeasure={indexMeasure} row={row} index={index} setOpen={setOpen} />
                                     </TableCell>
                                     <TableCell>
                                         <Tooltip title={`Delete ${row.name}`} arrow placement='right' >
@@ -143,8 +128,24 @@ const UserTable = () => {
                 </TableContainer>
             </div>
         </>
-
     )
 }
 
-export default UserTable
+export default UserTable;
+
+function ButtonAnnotation({ row, index, setOpen, open, indexMeasure }: userTableButtonAnnotationTypes) {
+    return (
+        <Modal
+            open={indexMeasure === index ? open : false}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+            // @ts-ignore
+            key={row.img + index}
+        >
+            <Box sx={style}>
+                {/*@ts-ignore */}
+                <EditUser setOpen={setOpen} initialValues={row} />
+            </Box>
+        </Modal>
+    )
+}

@@ -91,6 +91,7 @@ const Sidebar = () => {
                 <IoBusOutline className="logo-icon" />
                 <span>E-Ticket</span>
                 <span className="close-icon">
+                  {" "}
                   <AiOutlineCloseCircle onClick={() => setSidebarMenu(false)} />
                 </span>
               </Link>

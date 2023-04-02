@@ -1,5 +1,4 @@
 export async function generateFare(dist) {
-  console.log(dist);
   const fare = await fetch("http://localhost:6565/passenger/fetchFare", {
     method: "POST",
     headers: {

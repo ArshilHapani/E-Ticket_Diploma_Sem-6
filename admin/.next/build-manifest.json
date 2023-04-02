@@ -15,10 +15,15 @@
   ],
   "rootMainFiles": [],
   "pages": {
-    "/": [
+    "/BusStopsTable": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/index.js"
+      "static/chunks/pages/BusStopsTable.js"
+    ],
+    "/ConductorTable": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/ConductorTable.js"
     ],
     "/HomePage": [
       "static/chunks/webpack.js",
