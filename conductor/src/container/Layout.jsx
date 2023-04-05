@@ -17,17 +17,7 @@ const Layout = () => {
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/profile" element={<Profile />} />
-        <Route
-          exact
-          path="/transactions"
-          element={
-            <div
-              style={{ height: "100vh", width: "100vw", background: "#f2f2f2" }}
-            >
-              <TransactionsPage />
-            </div>
-          }
-        />
+        <Route exact path="/transactions" element={<TransactionsPage />} />
       </Routes>
       <Tooltip title="sync" placement="left">
         <IconButton

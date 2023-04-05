@@ -29,8 +29,9 @@ interface funcData {
 }
 
 const ConductorTable = () => {
-    const [open, setOpen]: any = useState(false);
-    const [dataSet, setDataSet]: any = useState([])
+    const [open, setOpen] = useState<boolean>(false);
+    const [dataSet, setDataSet] = useState<Array<object>>([])
+    const [indexMeasure, setIndexMeasure] = useState<number>(0);
     useEffect(() => {
         fetchConductors();
     }, [])
@@ -38,6 +39,7 @@ const ConductorTable = () => {
 
         const conductors = await fetch("http://localhost:6565/admin/fetchAllConductor", {
             method: "GET",
+            //@ts-ignore
             headers: {
                 'Content-type': 'application/json',
                 authToken: sessionStorage.getItem('admin'),
@@ -73,7 +75,7 @@ const ConductorTable = () => {
         <>
             <Navbar />
             <div className='mt-[16vh] px-5 p-4' >
-                <Typography variant='h4' className="my-5" >Manage Conductors</Typography>
+                <Typography variant='h4' className="my-5 text-slate-500" >Manage Conductors</Typography>
                 <TableContainer component={Paper} sx={{ marginBottom: "100px" }}>
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead>
@@ -90,7 +92,7 @@ const ConductorTable = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {student_rows?.map((row: any) => (
+                            {student_rows?.map((row: any, index: number) => (
                                 <TableRow
                                     key={row.mobile + row.email + row.uname + row.name}
                                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -114,15 +116,7 @@ const ConductorTable = () => {
                                                 <AiOutlineEdit />
                                             </IconButton>
                                         </Tooltip>
-                                        <Modal
-                                            open={open}
-                                            aria-labelledby="modal-modal-title"
-                                            aria-describedby="modal-modal-description"
-                                        >
-                                            <Box sx={style}>
-                                                <EditConductor setOpen={setOpen} initialValues={row} />
-                                            </Box>
-                                        </Modal>
+                                        <ButtonAnnotation open={open} indexMeasure={indexMeasure} row={row} index={index} setOpen={setOpen} />
                                     </TableCell>
                                     <TableCell>
                                         <Tooltip title={`Delete ${row.name}`} arrow placement='right' >
@@ -143,3 +137,22 @@ const ConductorTable = () => {
 }
 
 export default ConductorTable
+
+
+
+function ButtonAnnotation({ row, index, setOpen, open, indexMeasure }: any) {
+    return (
+        <Modal
+            open={indexMeasure === index ? open : false}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+            // @ts-ignore
+            key={row.img + index}
+        >
+            <Box sx={style}>
+                {/*@ts-ignore */}
+                <EditConductor setOpen={setOpen} initialValues={row} />
+            </Box>
+        </Modal>
+    )
+}

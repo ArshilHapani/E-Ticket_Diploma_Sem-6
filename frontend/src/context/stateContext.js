@@ -36,19 +36,21 @@ export const ContextProvider = ({ children }) => {
     ) {
       navigate("/signIn");
     }
-    if (
-      newUser.p_name === undefined ||
-      newUser.p_name === "" ||
-      newUser.p_name === null ||
-      newUser.p_uname === undefined ||
-      newUser.p_uname === "" ||
-      newUser.p_uname === null ||
-      newUser.p_email === undefined ||
-      newUser.p_email === "" ||
-      newUser.p_email === null
-    ) {
-      navigate("/signIn");
-    }
+    setTimeout(() => {
+      if (
+        newUser?.p_name === undefined ||
+        // newUser?.p_name === "" ||
+        newUser?.p_name === null ||
+        newUser?.p_uname === undefined ||
+        // newUser?.p_uname === "" ||
+        newUser?.p_uname === null ||
+        newUser?.p_email === undefined ||
+        // newUser?.p_email === "" ||
+        newUser?.p_email === null
+      ) {
+        navigate("/signIn");
+      }
+    }, 1000);
     if (location.pathname === "/signUp") {
       navigate("/signUp");
     }
@@ -61,9 +63,9 @@ export const ContextProvider = ({ children }) => {
   }, [
     location.pathname,
     navigate,
-    newUser.p_email,
-    newUser.p_name,
-    newUser.p_uname,
+    newUser?.p_email,
+    newUser?.p_name,
+    newUser?.p_uname,
   ]);
   function showSnackBar(message, type) {
     setSnackbar({

@@ -107,9 +107,9 @@ const Home = () => {
       >
         Add Recharge{" "}
       </Button>
-      <Link to="/transactions">
+      <Link to="/transactions" className="link-styles-anchor-tags">
         <Button
-          sx={{ width: "20rem" }}
+          sx={{ width: "20rem", textDecoration: "none" }}
           variant="contained"
           color="primary"
           endIcon={<MdOutlineHistory />}
