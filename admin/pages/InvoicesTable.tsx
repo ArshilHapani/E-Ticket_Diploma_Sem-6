@@ -20,6 +20,7 @@ interface funcData {
 }
 
 const InvoicesTable = () => {
+    const [open, setOpen]: any = useState(false);
     const [dataSet, setDataSet]: any = useState([])
     useEffect(() => {
         fetchConductors();
@@ -27,7 +28,6 @@ const InvoicesTable = () => {
     async function fetchConductors() {
         const passenger = await fetch("http://localhost:6565/admin/fetchAllPayment", {
             method: "GET",
-            //@ts-ignore
             headers: {
                 'Content-type': 'application/json',
                 authToken: sessionStorage.getItem('admin'),
@@ -62,7 +62,7 @@ const InvoicesTable = () => {
         <>
             <Navbar />
             <div className='mt-[16vh] px-5 p-4' >
-                <Typography variant='h4' className="my-5 text-slate-500" >Payments</Typography>
+                <Typography variant='h4' className="my-5" >Payments</Typography>
                 <TableContainer component={Paper} sx={{ marginBottom: "100px" }}>
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead>

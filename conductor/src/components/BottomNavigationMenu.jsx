@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import * as React from "react";
 import Box from "@mui/material/Box";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
@@ -6,10 +6,10 @@ import { AiOutlineHome } from "react-icons/ai";
 import { BsPerson } from "react-icons/bs";
 import { useNavigate, useLocation } from "react-router-dom";
 const BottomNavigationMenu = () => {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = React.useState(0);
   const navigate = useNavigate();
   const location = useLocation();
-  useEffect(() => {
+  React.useEffect(() => {
     if (location.pathname === "/profile") {
       setValue(1);
     } else if (location.pathname === "/") {

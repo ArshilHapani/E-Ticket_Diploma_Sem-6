@@ -48,6 +48,8 @@ const Profile = () => {
     e.preventDefault();
     setLoader(true);
     const selectedFile = e.target.files[0];
+    console.log(selectedFile);
+    console.log(selectedFile.size);
     if (
       selectedFile.type !== "image/jpeg" &&
       selectedFile.type !== "image/png" &&
@@ -60,16 +62,15 @@ const Profile = () => {
     }
     if (selectedFile.size >= 800000) {
       const imageRes = await compressImage(selectedFile);
-      await b64Convertor(imageRes, showSnackBar, fetchUser);
+      await b64Convertor(imageRes, showSnackBar);
       showSnackBar("Image updated successfully", "success");
       setLoader(false);
       return;
     }
-    await b64Convertor(selectedFile, showSnackBar, fetchUser);
+    await b64Convertor(selectedFile, showSnackBar);
     showSnackBar("Image updated successfully", "success");
-    setTimeout(() => {
-      fetchUser();
-    }, 1000);
+
+    fetchUser();
     setLoader(false);
   };
   const handleForm = (e) => {
@@ -90,6 +91,7 @@ const Profile = () => {
       showSnackBar("Please enter valid username", "error");
       return;
     }
+    console.log(updatedUserInfo);
     setLoader(true);
     if (updateProfile(updatedUserInfo)) {
       setOpen(false);
@@ -172,7 +174,7 @@ const Profile = () => {
             color="info"
           >
             Upload image
-            <input hidden type="file" accept="image/*" onChange={uploadImage} />
+            <input hidden type="file" onChange={uploadImage} />
           </Button>
         </Box>
         <div className="profile-credentials-container">

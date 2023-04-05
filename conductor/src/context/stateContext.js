@@ -1,11 +1,10 @@
 import { useState, useContext, createContext, useEffect } from "react";
 import usefetchUser from "../functions/usefetchUser";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const stateContext = createContext();
 export const ContextProvider = ({ children }) => {
   const navigate = useNavigate();
-  const location = useLocation();
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState();
   const [snackbar, setSnackbar] = useState({
@@ -34,19 +33,9 @@ export const ContextProvider = ({ children }) => {
     ) {
       navigate("/signIn");
     }
-    // setTimeout(() => {
-    //   if (
-    //     // user?.c_name === "" ||
-    //     user?.c_name === undefined ||
-    //     user?.c_name === null
-    //   ) {
-    //     navigate("/signIn");
-    //   }
-    // }, 1000);
-    if (location.pathname === "/forgetPassword") {
-      navigate("/forgetPassword");
-    }
-  }, [location.pathname, navigate, user?.c_name]);
+  }, [navigate]);
+
+  console.log(user);
   return (
     <stateContext.Provider
       value={{

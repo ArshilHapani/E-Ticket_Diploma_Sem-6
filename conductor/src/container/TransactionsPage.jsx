@@ -52,7 +52,7 @@ const TransactionsPage = () => {
               direction="column"
               sx={{
                 width: "100%",
-                background: "#f2f2f2",
+                background: "#fff",
                 borderRadius: "8px",
                 padding: "1rem",
               }}

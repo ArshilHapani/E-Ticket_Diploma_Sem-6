@@ -7,14 +7,13 @@ export async function fetchStation(setDropdownStations, showSnackBar) {
     },
   });
   const { stations, success } = await res.json();
-  await stations?.map((st) => {
+  stations.map((st) => {
     st["label"] = st["st_name"];
     delete st["st_name"];
     return st;
   });
   setDropdownStations(stations);
   if (!success) {
-    // showSnackBar("Something went wrong while fetching stations", "error");
-    return;
+    showSnackBar("Something went wrong while fetching stations", "error");
   }
 }

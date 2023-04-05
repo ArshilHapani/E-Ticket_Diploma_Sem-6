@@ -1,4 +1,4 @@
-export default async function b64Convertor(file, showSnackBar, fetchUser) {
+export default async function b64Convertor(file, showSnackBar) {
   let base64String;
   var reader = new FileReader();
   console.log("base 64 invoked");
@@ -16,7 +16,6 @@ export default async function b64Convertor(file, showSnackBar, fetchUser) {
       }),
     });
     const response = await data.json();
-    if (response.success) fetchUser();
     if (!response.success) showSnackBar("Something went wrong", "error");
   };
   reader.readAsDataURL(file);

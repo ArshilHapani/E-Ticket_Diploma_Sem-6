@@ -9,7 +9,7 @@ import {
   Modal,
   Box,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import isUserNameValid from "../functions/userNameValidate";
 import { useStateContext } from "../context/stateContext";
 import logo from "../assets/logo-no-background.png";
@@ -45,7 +45,6 @@ const ForgotPassword = () => {
       }),
     });
     const response = await otps.json();
-    console.log(response);
     if (response.success) {
       snackbarSetterFunction(response.msg, "success");
       setTextDisable(false);
@@ -63,7 +62,7 @@ const ForgotPassword = () => {
       snackbarSetterFunction("Please enter OTP", "error");
       return;
     }
-    if (parseInt(initialOtp) === parseInt(otp)) {
+    if (parseInt(initialOtp) === otp) {
       setResetPasswordModal(true);
     } else {
       snackbarSetterFunction("Invalid OTP", "error");
